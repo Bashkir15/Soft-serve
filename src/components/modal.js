@@ -66,6 +66,12 @@ class modal {
 		}
 	}
 
+	_clickOutsideHandler(e) {
+		if (!this._findAncestor(e.target, 'modal') && event.clientX < this.modal.clientWidth) {
+			this.close();
+		}
+	}
+
 	/* Build */
 
 	_buildOut() {
@@ -77,6 +83,7 @@ class modal {
 		this._checkClose();
 
 		contentHolder.appendChild(this.defaults.content);
+		this.modal.classList.add('modal');
 		this.modal.appendChild(contentHolder);
 		this.modal.appendChild(this.closeButton);
 		this.overlay.appendChild(this.modal);
