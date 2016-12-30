@@ -40,8 +40,9 @@ class modal {
 
 		contentHolder.appendChild(this.defaults.content);
 		this.modal.appendChild(contentHolder);
-
-
+		this.modal.appendChild(this.closeButton);
+		this.overlay.appendChild(this.modal);
+		document.body.insertBefore(this.overlay, document.body.firstChild);
 	}
 
 	_checkContent() {
