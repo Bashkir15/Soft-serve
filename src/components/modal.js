@@ -3,6 +3,7 @@ class modal {
 	constructor(options) {
 		this.overlay = null;
 		this.modal = null;
+		this.closeButton = null;
 
 		/* Customizable options */
 
@@ -40,6 +41,16 @@ class modal {
 			this.defaults.content = this.defaults.content; 
 		} else {
 			this.defaults.content = this.defaults.content.innerHTML
+		}
+	}
+
+	_checkClose() {
+		if (this.defaults.closeButton === true) {
+			this.closeButton = document.createElement('button');
+			this.closeButton.innerHTML = `<span>X</span>`;
+			this.closeButton.classList.add('modal-close-button');
+		} else {
+			return;
 		}
 	}
 
