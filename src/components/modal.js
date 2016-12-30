@@ -169,6 +169,13 @@ class modal {
 		}
 	}
 
+	_isOverflow() {
+		let viewportHeight = window.innerHeight;
+		let modalHeight = this.modal.clientHeight;
+		var isOverflow = modalHeight < viewportHeight ? false : true;
+		return isOverflow;
+	}
+
 	_findAncestor(el, cls) {
 		while ((el = el.parentElement) && !el.classList.contains(cls));
 		return el;
