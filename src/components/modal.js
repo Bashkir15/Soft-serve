@@ -72,6 +72,18 @@ class modal {
 		}
 	}
 
+	_attachEvents() {
+		let closeKeyHandler = this._closeKeyHandler.bind(this);
+		let clickOutsideHandler = this._clickOutsideHandler.bind(this);
+
+		if (typeof this.closeButton !== 'null') {
+			this.closeButton.addEventListener('click', this.close, false);
+		}
+
+		this.modal.addEventListener('mousedown', clickOutsideHandler);
+		document.addEventListener('keydown', closeKeyHandler);
+	}
+
 	/* Build */
 
 	_buildOut() {
