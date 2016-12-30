@@ -57,6 +57,35 @@ class modal {
 		this._checkOverflow.call(this);
 	}
 
+	_close() {
+		var self = this;
+
+		if (typeof this.defaults.onBeforeClose === 'function') {
+			this.defaults.onBeforeClose.call(this);
+		}
+
+		this.overlay.classList.remove('dialog-open');
+		this.modal.classList.remove('dialog-open');
+		this.defaults.classes.forEach((item) => {
+			this.modal.classList.remove(item);
+		});
+		document.body.classList.remove('dialog-open');
+
+		this._destroyEvents();
+
+		if (this.transitionEvent) {
+			this.modal.addEventListener(this.transitionEvent, function handleClose() {
+				this.overlay.parentNode.removeChild(this.overlay);
+
+				this.modal.removeEventListener(this.transitionEvent, handleClose, false);
+			}, false);
+		}
+
+		if (typeof this.defaults.onClose === 'function') {
+			this.defaults.onClose.call(this);
+		}
+	}
+
 	/* Events */
 
 	_closeKeyHandler(e) {
