@@ -96,6 +96,12 @@ class modal {
 
 		contentHolder.appendChild(this.defaults.content);
 		this.modal.classList.add('modal');
+		this.defaults.classes.forEach((item) => {
+			if (typeof item === 'string') {
+				this.modal.classList.add(item);
+			}
+		});
+
 		this.modal.appendChild(contentHolder);
 		this.modal.appendChild(this.closeButton);
 		this.overlay.appendChild(this.modal);
