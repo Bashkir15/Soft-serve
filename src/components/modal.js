@@ -159,6 +159,16 @@ class modal {
 		}
 	}
 
+	_checkOverflow() {
+		if (this.modal.classList.contains('modal-open')) {
+			if (this._isOverflow()) {
+				this.modal.classList.add('modal-overflow');
+			} else {
+				this.modal.classList.remove('modal-overflow');
+			}
+		}
+	}
+
 	_findAncestor(el, cls) {
 		while ((el = el.parentElement) && !el.classList.contains(cls));
 		return el;
