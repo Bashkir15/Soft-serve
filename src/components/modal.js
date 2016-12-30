@@ -27,6 +27,22 @@ class modal {
 		this.transitionEvent = this._transitionSniff();
 	}
 
+	/* Build */
+
+	_buildOut() {
+		this._checkContent();
+		this._checkOverlay();
+		this._checkClose();
+	}
+
+	_checkContent() {
+		if (typeof this.defaults.content === 'string') {
+			this.defaults.content = this.defaults.content; 
+		} else {
+			this.defaults.content = this.defaults.content.innerHTML
+		}
+	}
+
 
 	/* Utils */
 
