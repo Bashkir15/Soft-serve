@@ -28,6 +28,35 @@ class modal {
 		this.transitionEvent = this._transitionSniff();
 	}
 
+	/* Public Methods */
+
+	_open() {
+		var self = this;
+
+		if (typeof this.defaults.onBeforeOpen === "function") {
+			this.defaults.onBeforeOpen.call(this);
+		}
+
+		document.body.classList.add('modal-open');
+		this._buildOut.call(this);
+		this.modal.classList.add('modal-open');
+		this.overlay.classList.add('modal-open');
+		this._attachEvents();
+
+
+		if (this.transitionEvent) {
+			this.modal.addEventListener(this.transitionEvent, function handleTransition() {
+				if (typeof this.defaults.onOpen === 'function') {
+					this.defaults.onOpen.call(this);
+				}
+
+				this.modal.removeEventListener(transitionEvent, handleTransition, false);
+			}, false);
+		}
+
+		this._checkOverflow.call(this);
+	}
+
 	/* Build */
 
 	_buildOut() {
