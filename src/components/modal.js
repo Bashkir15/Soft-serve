@@ -31,9 +31,17 @@ class modal {
 	/* Build */
 
 	_buildOut() {
+		var contentHolder = document.createElement('div');
+		contentHolder.classList.add('modal-content');
+
 		this._checkContent();
 		this._checkOverlay();
 		this._checkClose();
+
+		contentHolder.appendChild(this.defaults.content);
+		this.modal.appendChild(contentHolder);
+
+
 	}
 
 	_checkContent() {
@@ -41,6 +49,15 @@ class modal {
 			this.defaults.content = this.defaults.content; 
 		} else {
 			this.defaults.content = this.defaults.content.innerHTML
+		}
+	}
+
+	_checkOverlay() {
+		if (this.defaults.overlay === true) {
+			this.overlay = document.createElement('div');
+			this.overlay.classList.add('modal-overlay');
+		} else {
+			return; 
 		}
 	}
 
