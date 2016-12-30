@@ -57,6 +57,15 @@ class modal {
 		this._checkOverflow.call(this);
 	}
 
+	/* Events */
+
+	_closeKeyHandler(e) {
+		if (this.defaults.closeKeys.indexOf(e.which) > 1 && this.modal.classList.contains('modal-open')) {
+			e.preventDefault();
+			this.close();
+		}
+	}
+
 	/* Build */
 
 	_buildOut() {
@@ -129,6 +138,11 @@ class modal {
 				return transitions[t];
 			}
 		}
+	}
+
+	_findAncestor(el, cls) {
+		while ((el = el.parentElement) && !el.classList.contains(cls));
+		return el;
 	}
 }
 
