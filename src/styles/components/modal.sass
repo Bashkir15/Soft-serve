@@ -1,0 +1,53 @@
+.modal-overlay
+	display: flex
+	flex-direction: column
+	align-items: center
+	position: fixed
+	top: 0
+	right: 0
+	bottom: 0
+	left: 0
+	overflow-y: auto
+	background: rgba(0,0,0,0.8)
+	opacity: 0
+	pointer-events: none
+	z-index: 9998
+	transition: all .4s ease-out
+
+	&.modal-open
+		opacity: 1
+		pointer-events: auto
+
+	&.modal-overlow
+		padding-top: 8vh
+		padding-bottom: 30px
+
+.modal
+	flex-shrink: 0
+	position: relative
+	max-width: 94vw
+	width: 80%
+	margin-top: auto
+	margin-bottom: auto
+	background: #fff
+	opacity: 0
+	border-radius: 4px
+	cursor: auto
+	z-index: 9999
+	transition: transform .35s cubic-bezier(.175, .885, .32, 1.275), opacity .4s ease-out
+	transform: scale(.8)
+
+	&.modal-open
+		opacity: 1
+		transition: opacity .4s ease-out
+
+		.modal-content
+			opacity: 1
+			transition: all .4s ease
+			transform: translateY(0)
+
+.modal-content
+	opacity: 0
+	transition: all .4s ease-out
+	transform: translateY(-5%)
+

@@ -113,23 +113,47 @@ class modal {
 		document.addEventListener('keydown', closeKeyHandler);
 	}
 
+	_destroyEvents() {
+		let closeKeyHandler = this._closeKeyHandler.bind(this);
+		let clickOutsideHandler = this._clickOutsideHandler.bind(this);
+
+		if (typeof this.closeButton !== 'null') {
+			this.closeButton.removeEventListener('click', this.close());
+		}
+
+		this.modal.removeEventListener('mousedown', clickOutsideHandler);
+		document.removeEventListener('keydown', closeKeyHandler);
+	}
+
 	/* Build */
 
 	_buildOut() {
+		var content;
 		var contentHolder = document.createElement('div');
 		contentHolder.classList.add('modal-content');
 
-		this._checkContent();
+		if (typeof this.defaults.content === 'string') {
+			content = this.defaults.content;
+		} else {
+			content = this.defaults.content.innerHTML;
+		}
+
+		contentHolder.innerHTML = content;
+
+		
 		this._checkOverlay();
 		this._checkClose();
 
-		contentHolder.appendChild(this.defaults.content);
+		this.modal = document.createElement('div');
 		this.modal.classList.add('modal');
-		this.defaults.classes.forEach((item) => {
-			if (typeof item === 'string') {
-				this.modal.classList.add(item);
-			}
-		});
+
+		if (this.defaults.classes.length) {
+			this.defaults.classes.forEach((item) => {
+				if (typeof item === 'string') {
+					this.modal.classList.add(item);
+				}
+			});
+		}
 
 		this.modal.appendChild(contentHolder);
 		this.modal.appendChild(this.closeButton);
@@ -138,11 +162,15 @@ class modal {
 	}
 
 	_checkContent() {
+		var content;
+
 		if (typeof this.defaults.content === 'string') {
-			this.defaults.content = this.defaults.content; 
+			content = this.defaults.content; 
 		} else {
-			this.defaults.content = this.defaults.content.innerHTML
+			content = this.defaults.content.innerHTML
 		}
+
+		return content;
 	}
 
 	_checkOverlay() {
@@ -179,8 +207,8 @@ class modal {
 
 	_transitionSniff() {
 		var t;
-		var el = document.createElement('test-transition');
-		var transition = {
+		var el = document.createElement('div');
+		var transitions = {
 			'transition': 'transitionend',
 			'OTransition': 'oTransitionEnd',
 			'MozTransition': 'transitionend',
@@ -217,4 +245,4 @@ class modal {
 	}
 }
 
-export modal
+export default modal

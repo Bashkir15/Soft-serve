@@ -2,6 +2,7 @@ import express from 'express'
 import ejs from 'ejs'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
+import path from 'path'
 
 import indexRoutes from './routes'
 
