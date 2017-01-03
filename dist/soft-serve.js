@@ -158,14 +158,18 @@ return /******/ (function(modules) { // webpackBootstrap
 					this.defaults.onBeforeClose.call(this);
 				}
 
-				this.overlay.classList.remove('dialog-open');
-				this.modal.classList.remove('dialog-open');
-				this.defaults.classes.forEach(function (item) {
-					_this.modal.classList.remove(item);
-				});
-				document.body.classList.remove('dialog-open');
+				this.overlay.classList.remove('modal-open');
+				this.modal.classList.remove('modal-open');
 
-				this._destroyEvents();
+				if (this.defaults.classes.length) {
+					this.defaults.classes.forEach(function (item) {
+						_this.modal.classList.remove(item);s;
+					});
+				}
+
+				document.body.classList.remove('modal-open');
+
+				//this._destroyEvents();
 
 				if (this.transitionEvent) {
 					this.modal.addEventListener(this.transitionEvent, function handleClose() {
@@ -185,7 +189,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: '_closeKeyHandler',
 			value: function _closeKeyHandler(e) {
-				if (this.defaults.closeKeys.indexOf(e.which) > 1 && this.modal.classList.contains('modal-open')) {
+				if (this.defaults.closeKeys.indexOf(e.which) > -1) {
 					e.preventDefault();
 					this.close();
 				}
@@ -252,7 +256,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (this.defaults.classes.length) {
 					this.defaults.classes.forEach(function (item) {
 						if (typeof item === 'string') {
-							_this2.modal.classList.add(item);
+							_this2.modDal.classList.add(item);
 						}
 					});
 				}
