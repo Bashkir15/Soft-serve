@@ -113,6 +113,8 @@
 		_createClass(modal, [{
 			key: '_open',
 			value: function _open() {
+				var _this = this;
+
 				var self = this;
 
 				if (typeof this.defaults.onBeforeOpen === "function") {
@@ -126,12 +128,12 @@
 				this._attachEvents();
 
 				if (this.transitionEvent) {
-					this.modal.addEventListener(this.transitionEvent, function handleTransition() {
-						if (typeof this.defaults.onOpen === 'function') {
-							this.defaults.onOpen.call(this);
+					this.modal.addEventListener(this.transitionEvent, function () {
+						if (typeof _this.defaults.onOpen === 'function') {
+							_this.defaults.onOpen();
 						}
 
-						this.modal.removeEventListener(transitionEvent, handleTransition, false);
+						//this.modal.removeEventListener(transitionEvent, handleTransition, false);
 					}, false);
 				}
 
@@ -140,7 +142,7 @@
 		}, {
 			key: '_close',
 			value: function _close() {
-				var _this = this;
+				var _this2 = this;
 
 				var self = this;
 
@@ -153,7 +155,7 @@
 
 				if (this.defaults.classes.length) {
 					this.defaults.classes.forEach(function (item) {
-						_this.modal.classList.remove(item);s;
+						_this2.modal.classList.remove(item);s;
 					});
 				}
 
@@ -223,7 +225,7 @@
 		}, {
 			key: '_buildOut',
 			value: function _buildOut() {
-				var _this2 = this;
+				var _this3 = this;
 
 				var content;
 				var contentHolder = document.createElement('div');
@@ -246,7 +248,7 @@
 				if (this.defaults.classes.length) {
 					this.defaults.classes.forEach(function (item) {
 						if (typeof item === 'string') {
-							_this2.modDal.classList.add(item);
+							_this3.modDal.classList.add(item);
 						}
 					});
 				}

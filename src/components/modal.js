@@ -45,12 +45,12 @@ class modal {
 
 
 		if (this.transitionEvent) {
-			this.modal.addEventListener(this.transitionEvent, function handleTransition() {
+			this.modal.addEventListener(this.transitionEvent, () => {
 				if (typeof this.defaults.onOpen === 'function') {
-					this.defaults.onOpen.call(this);
+					this.defaults.onOpen();
 				}
 
-				this.modal.removeEventListener(transitionEvent, handleTransition, false);
+				//this.modal.removeEventListener(transitionEvent, handleTransition, false);
 			}, false);
 		}
 
