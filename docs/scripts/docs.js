@@ -404,7 +404,9 @@
 			this.menuTrigger = null;
 
 			this.defaults = {
-				element: '.soft-menu'
+				element: '.soft-menu',
+				transitionDuration: 0.3,
+				closeTimeout: 150
 			};
 			this.keycodes = {};
 			this.classes = {
@@ -424,11 +426,22 @@
 			this.show = this._show.bind(this);
 			this.hide = this._hide.bind(this);
 
-			//this._applySettings(options);
+			this._applySettings(options);
 			this._init();
 		}
 
 		_createClass(menu, [{
+			key: '_applySettings',
+			value: function _applySettings(options) {
+				if (typeof options === 'function') {
+					for (var i in options) {
+						if (options.hasOwnProperty(i)) {
+							this.defaults[i] = options[i];
+						}
+					}
+				}
+			}
+		}, {
 			key: '_init',
 			value: function _init() {
 				this.element = document.querySelector(this.defaults.element);
@@ -439,6 +452,11 @@
 				this.element.parentNode.removeChild(this.element);
 				container.appendChild(this.element);
 				this.container = container;
+
+				var outline = document.createElement('div');
+				outline.classList.add(this.classes.outline);
+				this.outline = outline;
+				this.container.insertBefore(outline, this.element);
 
 				var menuId = this.element.getAttribute('for');
 				var menuTrigger = null;
