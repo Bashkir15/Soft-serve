@@ -74,6 +74,25 @@ class menu {
 			var parentRect = this.menuTrigger.parentElement.getBoundingClientRect();
 
 			// check to see if menu is alligned or not
+
+			if (this.element.classList.contains(this.classes.unaligned)) {
+				// left black for developer to manually style the element to
+				// to fit their needs
+			} else if (this.element.classList.contains(this.classes.bottomRight)) {
+				this.container.style.right = (parentRect.right - rect.right) + 'px';
+				this.container.style.top = this.menuTrigger.offsetTop + this.menuTrigger.offsetHeight + 'px';
+			} else if (this.element.classList.contains(this.classes.topRight)) {
+				this.container.style.right = (parentRect.right - rect.right) + 'px';
+				this.container.style.bottom = (parentRect.bottom - rect.top) + 'px';
+			} else if (this.element.classList.contains(this.classes.topLeft)) {
+				this.container.style.left = this.menuTrigger.offsetLeft + 'px';
+				this.container.style.bottom = (parentRect.bottom - rect.top) + 'px';
+			} else {
+				this.container.style.left = this.menuTrigger.offsetLeft + 'px';
+				this.container.style.top = this.menuTrigger.offsetTop + this.menuTrigger.offsetHeight + 'px';
+			}
 		}
+
+		// handlemenu toggle
 	} 
 }
