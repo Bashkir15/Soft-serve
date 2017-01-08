@@ -18,11 +18,92 @@ class menu {
 			bottomLeft: 'soft-menu-bottom-left',
 			topRight: 'soft-menu-top-right',
 			topLeft: 'soft-menu-top-left',
+			animating: 'soft-menu-animating',
 			visible: 'soft-menu-visible'
 		};
+
+		this.toggle = this._toggle.bind(this);
+		this.show = this._show.bind(this);
+		this.hide = this._hide.bind(this);
+
+		this._applySettings(options);
+		this._init();
 	}
 
 	_init() {
+		this.element = document.querySelectorAll(this.defaults.element);
+
+		var container = document.createElement('div');
+		container.classList.add(this.classes.container);
+		this.element.parentElement.insertBefore(container, this.element);
+		this.element.parentElement.removeChild(this.element);
+		container.appendChild(this.element);
+
+		var menuId = this.element.getAttribute('for');
+		var menuTrigger = null;
+
+		if (menuId) {
+			menuTrigger = document.getElementById(menuId);
+
+			if (menuTrigger) {
+				this.menuTrigger = menuTrigger;
+				this._attachTriggerEvents();
+			}
+		}
+
+	}
+
+	_attachTriggerEvents() {
+		var triggerClickHandler = this._triggerClickHandler.bind(this);
+
+		this.menuTrigger.addEventListener('click', triggerClickHandler);
+	}
+
+	_triggerClickHandler() {
+		if (this.element && this.menuTrigger) {
+			var rect = this.menuTrigger.getBoundingClientRect();
+			var parentRect = this.menuTrigger.parentElement.getBoundingClientRect();
+		}
+
+		this.toggle();
+	}
+
+	_show(e) {
+		if (this.element && this.container) {
+			var height = this.element.getBoundingClientRect().height;
+			var width = this.element.getBoundingClientRect().width;
+
+			this.container.style.width = width + 'px';
+			this.container.style.height = height + 'px';
+
+
+			//var transitionDuration = this.defaults.transitionDuration;
+
+			//var items = this.element.querySelectorAll('.' + this.classes.item);
+
+			// start clip
+
+			window.requestAnimationFrame(() => {
+				this.element.classList.add(this.classes.animating);
+				this.element.style.clip = 'rect(0 ' + width + 'px ' + height + 'px 0)';
+				this.container.classList.add(this.classes.visible);  
+			});
+
+			// add clean up for animation end
+
+			// add a function to close menu on document click
+		}
+	}
+
+	_toggle(e) {
+		if (this.container.classList.contains(this.classes.visible)) {
+			this.hide();
+		} else {
+			this.show(e)
+		}
+	}
+
+	/* _init() {
 
 		// create the container for the menu
 		this.element = document.querySelector(this.defaults.element);
@@ -133,4 +214,17 @@ class menu {
 			this.closing = false;
 		}, 200); //set a changeable timeout later
 	}
+
+	_handleClip(height, width) {
+		if (this.element.classLlist.contains(this.classes.unaligned)) {
+			// no need to clip
+			this.element.style.clip = '';
+		} else if (this.element.classList.contains(this.classes.bottomRight)) {
+			this.element.style.clip = `rect(0 ${width}px 0 ${width}px`;
+		} else if (this.element.classList.contains(this.classes.topLeft)) {
+			this.element.style.clip = `rect(${height}px 0 ${height}px 0)`;
+		} else if 
+	} */
 }
+
+export default menu

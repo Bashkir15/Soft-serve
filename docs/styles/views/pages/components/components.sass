@@ -1,1 +1,49 @@
+
+
+.component-page-header
+	width: 100%
+	padding-top: 80px
+	padding-bottom: 60px
+	background: #5dc560
+
+	h1
+		@include quick()
+		font-weight: 400
+		letter-spacing: 2px
+		font-size: 24px
+		margin-left: 7%
+		margin-bottom: 40px
+		color: #fff
+
+	p
+		@include rale()
+		font-weight: 300
+		letter-spacing: 2px
+		font-size: 18px
+		margin-left: 7%
+		color: #eee
+
+.component-page-tab-bar
+	display: flex
+	align-items: center
+	width: 100%
+	padding: 12px 0
+	background: darken(#5dc560, 15%)
+
+.component-page-tab-link
+	display: flex
+	align-items: center
+	justify-content: center
+	padding: 10px
+
+	button
+		border: none
+
+	span
+		@include quick()
+		font-weight: 400
+		letter-spacing: 2px
+		font-size: 16px
+		color: #fff
+
 @import "modals"
