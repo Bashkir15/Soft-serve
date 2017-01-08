@@ -1,10 +1,14 @@
 import  modal from '../../src/components/modal'
 
-let modalTrigger1 = document.getElementById('modal-trigger');
-let modalContent1 = document.getElementById('modal-component');
+import { menuComponent } from './components/menu'
 
-let modal1 = new modal({
-	content: modalContent1
-});
+menuComponent();
 
-modalTrigger1.addEventListener('click', modal1.open, false);
+//let modalTrigger1 = document.getElementById('modal-trigger');
+//let modalContent1 = document.getElementById('modal-component');
+
+//let modal1 = new modal({
+//	content: modalContent1
+//});
+
+//modalTrigger1.addEventListener('click', modal1.open, false);

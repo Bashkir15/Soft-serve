@@ -24,20 +24,21 @@ class menu {
 
 		this.toggle = this._toggle.bind(this);
 		this.show = this._show.bind(this);
-		this.hide = this._hide.bind(this);
+		//this.hide = this._hide.bind(this);
 
-		this._applySettings(options);
+		//this._applySettings(options);
 		this._init();
 	}
 
 	_init() {
-		this.element = document.querySelectorAll(this.defaults.element);
+		this.element = document.querySelector(this.defaults.element);
 
 		var container = document.createElement('div');
 		container.classList.add(this.classes.container);
-		this.element.parentElement.insertBefore(container, this.element);
-		this.element.parentElement.removeChild(this.element);
+		this.element.parentNode.insertBefore(container, this.element);
+		this.element.parentNode.removeChild(this.element);
 		container.appendChild(this.element);
+		this.container = container;
 
 		var menuId = this.element.getAttribute('for');
 		var menuTrigger = null;

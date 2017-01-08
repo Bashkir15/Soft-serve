@@ -1,0 +1,60 @@
+.soft-menu-container
+	display: block
+	position: absolute
+	height: 0
+	width: 0
+	padding: 0
+	margin: 0
+	border: none
+	visibility: hidden
+	z-index: -1
+
+	&.soft-menu-visible,
+	&.soft-menu-animating
+		z-index: 999
+		visibility: visible
+
+	&.soft-menu-visible
+		opacity: 1
+		transform: scale(1)
+
+		.soft-menu
+			opacity: 1
+			z-index: 999
+
+		.soft-menu-item
+			opacity: 1
+
+.soft-menu
+	position: absolute
+	top: 0
+	left: 0
+	height: auto
+	width: auto
+	min-width: 124px
+	margin: 0
+	opacity: 0
+	list-style: none
+	clip: rect(0 0 0 0);
+	z-index: -1
+
+	&.is-animating
+		transition: opacity .4s ease-out, clip .4s ease-out
+
+.soft-menu-item
+	position: relative
+	display: block
+	height: 48px
+	padding: 0 16px
+	margin: 0
+	line-height: 48px
+	white-space: nowrap
+	text-align: left
+	text-decoration: none
+	opacity: 0
+	cursor: pointer
+	user-select: none
+	transition: opacity .4s ease-out
+
+	&::-moz-focus-inner
+		border: 0
