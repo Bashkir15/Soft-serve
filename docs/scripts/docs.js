@@ -377,7 +377,21 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function menuComponent() {
-		var dropdown1 = new _menu2.default();
+		var dropdown1 = new _menu2.default({
+			element: '.menu-1'
+		});
+
+		var dropdown2 = new _menu2.default({
+			element: '.menu-2'
+		});
+
+		var dropdown3 = new _menu2.default({
+			element: '.menu-3'
+		});
+
+		var dropdown4 = new _menu2.default({
+			element: '.menu-4'
+		});
 	}
 
 /***/ },
@@ -389,6 +403,8 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -434,7 +450,7 @@
 		_createClass(menu, [{
 			key: '_applySettings',
 			value: function _applySettings(options) {
-				if (typeof options === 'function') {
+				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
 					for (var i in options) {
 						if (options.hasOwnProperty(i)) {
 							this.defaults[i] = options[i];
@@ -483,7 +499,22 @@
 			value: function _triggerClickHandler() {
 				if (this.element && this.menuTrigger) {
 					var rect = this.menuTrigger.getBoundingClientRect();
-					var parentRect = this.menuTrigger.parentElement.getBoundingClientRect();
+					var parentRect = this.menuTrigger.parentNode.getBoundingClientRect();
+
+					if (this.element.classList.contains(this.classes.unaligned)) {} else if (this.element.classList.contains(this.classes.bottomRight)) {
+						this.container.style.right = parentRect.right - rect.right + 'px';
+						this.container.style.top = this.menuTrigger.offsetTop + this.menuTrigger.offsetHeight + 'px';
+					} else if (this.element.classList.contains(this.classes.topRight)) {
+						this.container.style.right = parentRect.right - rect.right + 'px';
+						this.container.style.bottom = parentRect.bottom - rect.top + 'px';
+					} else if (this.element.classList.contains(this.classes.topLeft)) {
+						this.container.style.left = this.menuTrigger.offsetLeft + 'px';
+						this.container.style.bottom = parentRect.bottom - rect.top + 'px';
+					} else {
+						// default position
+						this.container.style.left = this.menuTrigger.offsetLeft + 'px';
+						this.container.style.top = this.menuTrigger.offsetTop + this.menuTrigger.offsetHeight + 'px';
+					}
 				}
 
 				this.toggle();

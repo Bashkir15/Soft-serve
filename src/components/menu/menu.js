@@ -34,7 +34,7 @@ class menu {
 	}
 
 	_applySettings(options) {
-		if (typeof options === 'function') {
+		if (typeof options === 'object') {
 			for (var i in options) {
 				if (options.hasOwnProperty(i)) {
 					this.defaults[i] = options[i];
@@ -81,8 +81,8 @@ class menu {
 	_triggerClickHandler() {
 		if (this.element && this.menuTrigger) {
 			var rect = this.menuTrigger.getBoundingClientRect();
-			var parentRect = this.menuTrigger.parentElement.getBoundingClientRect();
-a
+			var parentRect = this.menuTrigger.parentNode.getBoundingClientRect();
+
 			if (this.element.classList.contains(this.classes.unaligned)) {
 
 			} else if (this.element.classList.contains(this.classes.bottomRight)) {
@@ -92,12 +92,12 @@ a
 				this.container.style.right = (parentRect.right - rect.right) + 'px';
 				this.container.style.bottom = (parentRect.bottom - rect.top) + 'px';
 			} else if (this.element.classList.contains(this.classes.topLeft)) {
-				this.container.style.left = this.parentElement.offsetLeft + 'px';
+				this.container.style.left = this.menuTrigger.offsetLeft + 'px';
 				this.container.style.bottom = (parentRect.bottom - rect.top) + 'px';
 			} else {
 				// default position
-				this.container.style.left = this.parentElement.offsetLeft + 'px';
-				this.container.style.top = this.parentElement.offsetTop + this.parentElement.offsetHeight + 'px';
+				this.container.style.left = this.menuTrigger.offsetLeft + 'px';
+				this.container.style.top = this.menuTrigger.offsetTop + this.menuTrigger.offsetHeight + 'px';
 			}
 		}
 
