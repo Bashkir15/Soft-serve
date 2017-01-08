@@ -4,6 +4,7 @@
 	height: 70px
 	width: 100%
 	background: #cae6df
+	background: #fff
 
 .nav-content-wrapper
 	display: flex
@@ -36,3 +37,16 @@
 	button
 		border: none
 		background: none
+
+		span
+			@include quick()
+			font-weight: 400
+			font-size: 18px
+			letter-spacing: 2px
+
+.nav-logo
+	p
+		@include rale()
+		font-weight: 400
+		font-size: 20px
+		letter-spacing: 2px
