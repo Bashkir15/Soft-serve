@@ -52,6 +52,11 @@ class menu {
 		container.appendChild(this.element);
 		this.container = container;
 
+		var outline = document.createElement('div');
+		outline.classList.add(this.classes.outline);
+		this.outline = outline;
+		this.container.insertBefore(outline, this.element);
+
 		var menuId = this.element.getAttribute('for');
 		var menuTrigger = null;
 
