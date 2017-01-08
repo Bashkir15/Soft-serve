@@ -422,7 +422,7 @@
 
 			this.toggle = this._toggle.bind(this);
 			this.show = this._show.bind(this);
-			//this.hide = this._hide.bind(this);
+			this.hide = this._hide.bind(this);
 
 			//this._applySettings(options);
 			this._init();
@@ -496,6 +496,25 @@
 					// add clean up for animation end
 
 					// add a function to close menu on document click
+				}
+			}
+		}, {
+			key: '_hide',
+			value: function _hide() {
+				if (this.element && this.container) {
+					var items = this.element.querySelectorAll('.' + this.classes.item);
+
+					// remove transition delays and such
+
+					// measure the inner element
+
+					var rect = this.element.getBoundingClientRect();
+					var height = rect.height;
+					var width = rect.width;
+
+					this.element.classList.add(this.classes.animating);
+					// work with clip here
+					this.container.classList.remove(this.classes.visible);
 				}
 			}
 		}, {
