@@ -17,7 +17,8 @@ class menu {
 			bottomRight: 'soft-menu-bottom-right',
 			bottomLeft: 'soft-menu-bottom-left',
 			topRight: 'soft-menu-top-right',
-			topLeft: 'soft-menu-top-left'
+			topLeft: 'soft-menu-top-left',
+			visible: 'soft-menu-visible'
 		};
 	}
 
@@ -95,6 +96,17 @@ class menu {
 
 		// handlemenu toggle
 	} 
+
+	_handleTriggerKeyboard(e) {
+		if (this.element && this.container && this.menuTrigger) {
+			var items = this.element.querySelectorAll(',' + this.classes.item);
+
+			if (items && items.length > 0 && this.container.classList.contains(this.classes.visible)) {
+				// check up arrow, apply focus,
+				// check down error, apply focus
+			}
+		}
+	}
 
 	_handleItemKeyboard(e) {
 		if (this.element && this.container && this.menuTrigger) {
