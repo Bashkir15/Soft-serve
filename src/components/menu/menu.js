@@ -6,7 +6,9 @@ class menu {
 		this.menuTrigger = null;
 
 		this.defaults = {
-			element: '.soft-menu'
+			element: '.soft-menu',
+			transitionDuration: 0.3,
+			closeTimeout: 150
 		};
 		this.keycodes = {};
 		this.classes = {
