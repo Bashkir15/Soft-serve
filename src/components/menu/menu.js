@@ -82,6 +82,23 @@ class menu {
 		if (this.element && this.menuTrigger) {
 			var rect = this.menuTrigger.getBoundingClientRect();
 			var parentRect = this.menuTrigger.parentElement.getBoundingClientRect();
+a
+			if (this.element.classList.contains(this.classes.unaligned)) {
+
+			} else if (this.element.classList.contains(this.classes.bottomRight)) {
+				this.container.style.right = (parentRect.right - rect.right) + 'px';
+				this.container.style.top = this.menuTrigger.offsetTop + this.menuTrigger.offsetHeight + 'px';
+			} else if (this.element.classList.contains(this.classes.topRight)) {
+				this.container.style.right = (parentRect.right - rect.right) + 'px';
+				this.container.style.bottom = (parentRect.bottom - rect.top) + 'px';
+			} else if (this.element.classList.contains(this.classes.topLeft)) {
+				this.container.style.left = this.parentElement.offsetLeft + 'px';
+				this.container.style.bottom = (parentRect.bottom - rect.top) + 'px';
+			} else {
+				// default position
+				this.container.style.left = this.parentElement.offsetLeft + 'px';
+				this.container.style.top = this.parentElement.offsetTop + this.parentElement.offsetHeight + 'px';
+			}
 		}
 
 		this.toggle();
