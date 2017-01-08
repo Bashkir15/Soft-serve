@@ -28,8 +28,18 @@ class menu {
 		this.show = this._show.bind(this);
 		this.hide = this._hide.bind(this);
 
-		//this._applySettings(options);
+		this._applySettings(options);
 		this._init();
+	}
+
+	_applySettings(options) {
+		if (typeof options === 'function') {
+			for (var i in options) {
+				if (options.hasOwnProperty(i)) {
+					this.defaults[i] = options[i];
+				}
+			}
+		}
 	}
 
 	_init() {
