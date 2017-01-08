@@ -502,6 +502,15 @@
 					this.outline.style.width = width + 'px';
 					this.outline.style.height = height + 'px';
 
+					var transitionDuration = this.defaults.transitionDuration * this.defaults.transitionFraction;
+
+					// Calculate transition delays for each menu item so they fade in order
+					var items = this.element.querySelectorAll('.' + this.classes.item);
+					for (var i = 0; i < items.length; i++) {
+						var itemDelay = items[i].offsetTop / height * transitionDuration + 's';
+						items[i].style.transitionDelay = itemDelay;
+					}
+
 					//var transitionDuration = this.defaults.transitionDuration;
 
 					//var items = this.element.querySelectorAll('.' + this.classes.item);
