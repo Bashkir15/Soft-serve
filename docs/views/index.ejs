@@ -3,9 +3,22 @@
 	<head>
 		<meta charset='utf-8'>
 		<title>SoftServe</title>
+
+		<link rel='stylesheet' href='./prod/styles/main.min.css'>
 	</head>
 
 	<body>
-		<p>Home</p>
+		<% include ./shared/nav %>
+		<div class='home-header'>
+			<div class='home-logo'>
+				<button>
+					<span>Soft Serve Logo</span>
+				</button>
+			</div>
+
+			<div class='home-text'>
+				<p>Soft Serve is a Javascript plugin library that uses exclusively the most modern features of vanilla Javascript, and then bundles them into a useable package. This library has no outside dependencies, is completely open source, and allows you to pick and chose the features you want</p>
+			</div>
+		</div>
 	</body>
 </html>

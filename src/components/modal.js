@@ -64,7 +64,6 @@ class modal {
 			this.defaults.onBeforeClose.call(this);
 		}
 
-		this.overlay.classList.remove('modal-open');
 		this.modal.classList.remove('modal-open');
 
 		if (this.defaults.classes.length) {
@@ -78,16 +77,17 @@ class modal {
 		//this._destroyEvents();
 
 		if (this.transitionEvent) {
-			this.modal.addEventListener(this.transitionEvent, function handleClose() {
-				this.overlay.parentNode.removeChild(this.overlay);
-
-				this.modal.removeEventListener(this.transitionEvent, handleClose, false);
+			this.overlay.addEventListener(this.transitionEvent, () => {
+				document.body.removeChild(this.overlay);
+				//this.overlay.parentNode.removeChild(this.overlay);
+				//this.modal.removeEventListener(this.transitionEvent, handleClose, false);
 			}, false);
 		}
 
 		if (typeof this.defaults.onClose === 'function') {
 			this.defaults.onClose.call(this);
 		}
+
 	}
 
 	/* Events */
@@ -113,8 +113,8 @@ class modal {
 			this.closeButton.addEventListener('click', this.close, false);
 		}
 
-		this.modal.addEventListener('mousedown', clickOutsideHandler);
-		document.addEventListener('keydown', closeKeyHandler);
+		this.modal.addEventListener('mousedown', clickOutsideHandler, false);
+		document.addEventListener('keydown', closeKeyHandler, false);
 	}
 
 	_destroyEvents() {

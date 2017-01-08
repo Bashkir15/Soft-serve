@@ -160,7 +160,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					this.defaults.onBeforeClose.call(this);
 				}
 
-				this.overlay.classList.remove('modal-open');
 				this.modal.classList.remove('modal-open');
 
 				if (this.defaults.classes.length) {
@@ -174,10 +173,10 @@ return /******/ (function(modules) { // webpackBootstrap
 				//this._destroyEvents();
 
 				if (this.transitionEvent) {
-					this.modal.addEventListener(this.transitionEvent, function handleClose() {
-						this.overlay.parentNode.removeChild(this.overlay);
-
-						this.modal.removeEventListener(this.transitionEvent, handleClose, false);
+					this.overlay.addEventListener(this.transitionEvent, function () {
+						document.body.removeChild(_this2.overlay);
+						//this.overlay.parentNode.removeChild(this.overlay);
+						//this.modal.removeEventListener(this.transitionEvent, handleClose, false);
 					}, false);
 				}
 
@@ -213,8 +212,8 @@ return /******/ (function(modules) { // webpackBootstrap
 					this.closeButton.addEventListener('click', this.close, false);
 				}
 
-				this.modal.addEventListener('mousedown', clickOutsideHandler);
-				document.addEventListener('keydown', closeKeyHandler);
+				this.modal.addEventListener('mousedown', clickOutsideHandler, false);
+				document.addEventListener('keydown', closeKeyHandler, false);
 			}
 		}, {
 			key: '_destroyEvents',
