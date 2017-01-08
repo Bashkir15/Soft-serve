@@ -96,7 +96,7 @@ class menu {
 		// handlemenu toggle
 	} 
 
-	_handleTriggerKeyboard(e) {
+	_handleItemKeyboard(e) {
 		if (this.element && this.container && this.menuTrigger) {
 			// consider allowing disabled non-disabled here
 			var items = this.element.querySelectorAll('.' + this.classes.item);
