@@ -124,4 +124,13 @@ class menu {
 			}
 		}
 	}
+
+	_handleItemClick(e) {
+		// consider checking for disabled here
+		this.closing = true;
+		window.setTimeout((e) => {
+			this.hide();
+			this.closing = false;
+		}, 200); //set a changeable timeout later
+	}
 }
