@@ -8,6 +8,7 @@ class menu {
 		this.defaults = {
 			element: '.soft-menu',
 			transitionDuration: 0.3,
+			transitionFraction: 0.8,
 			closeTimeout: 150
 		};
 		this.keycodes = {};
@@ -93,6 +94,8 @@ class menu {
 
 			this.container.style.width = width + 'px';
 			this.container.style.height = height + 'px';
+			this.outline.style.width = width + 'px';
+			this.outline.style.height = height + 'px';
 
 
 			//var transitionDuration = this.defaults.transitionDuration;
