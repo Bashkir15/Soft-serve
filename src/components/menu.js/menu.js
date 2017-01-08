@@ -95,4 +95,21 @@ class menu {
 
 		// handlemenu toggle
 	} 
+
+	_handleTriggerKeyboard(e) {
+		if (this.element && this.container && this.menuTrigger) {
+			// consider allowing disabled non-disabled here
+			var items = this.element.querySelectorAll('.' + this.classes.item);
+
+			if (items && items.length > 0 && this.container.classList.contains(this.classes.visible)) {
+				var currentIndex = Array.prototype.slice.call(items).indexOf(e.target);
+
+				// handle keycode events here
+				// up arrow 
+				// down arrow
+				// space || enter
+				// esc
+			}
+		}
+	}
 }
