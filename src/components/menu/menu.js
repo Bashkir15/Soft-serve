@@ -228,6 +228,24 @@ class menu {
 
 	}
 
+	_positionOutline() {
+		if (this.element.classList.contains(this.classes.bottomLeft)) {
+			this.outline.classList.add(this.classes.bottomLeft);
+		}
+
+		if (this.element.classList.contains(this.classes.topLeft)) {
+			this.outline.classList.add(this.classes.topLeft);
+		}
+
+		if (this.element.classList.contains(this.classes.bottomRight)) {
+			this.outline.classList.add(this.classes.bottomRight);
+		}
+
+		if (this.element.classList.contains(this.classes.topRight)) {
+			this.outline.classList.add(this.classes.topRight);
+		}
+	}
+
 
 	/**
 	 *
