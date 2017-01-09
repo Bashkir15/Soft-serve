@@ -542,9 +542,7 @@
 						this.container.style.top = this.menuTrigger.offsetTop + this.menuTrigger.offsetHeight + 'px';
 					} else if (this.element.classList.contains(this.classes.topRight)) {
 						this.container.style.right = parentRect.right - rect.right + 'px';
-						this.container.style.bottom = rect.top - parentRect.bottom + 'px';
-						console.log(parentRect.bottom);
-						console.log(rect.top);
+						this.container.style.bottom = parentRect.bottom - rect.top + 'px';
 					} else if (this.element.classList.contains(this.classes.topLeft)) {
 						this.container.style.left = this.menuTrigger.offsetLeft + 'px';
 						this.container.style.bottom = parentRect.bottom - rect.top + 'px';
