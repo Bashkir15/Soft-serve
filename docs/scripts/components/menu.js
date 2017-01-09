@@ -18,4 +18,8 @@ export function menuComponent() {
 	var dropdown4 = new softServe.menu({
 		element: '.menu-4'
 	});
+
+	var dropdown5 = new softServe.menu({
+		element: '.menu-5'
+	});
 }

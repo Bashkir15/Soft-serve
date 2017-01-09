@@ -377,19 +377,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function menuComponent() {
-		var htmlCode = document.querySelectorAll('.html-code');
-
-		Array.prototype.forEach.call(htmlCode, function (item) {
-			console.log(item);
-			var htmlString = item.innerText;
-
-			console.log(htmlString);
-
-			htmlString = htmlString.replace(/\</g, "&lt;");
-			htmlString = htmlString.replace(/\>/g, "&gt;");
-
-			item.innerText = htmlString;
-		});
 
 		var dropdown1 = new _softServe2.default.menu({
 			element: '.menu-1'
@@ -405,6 +392,10 @@
 
 		var dropdown4 = new _softServe2.default.menu({
 			element: '.menu-4'
+		});
+
+		var dropdown5 = new _softServe2.default.menu({
+			element: '.menu-5'
 		});
 	} //import menu from '../../../src/components/menu/menu'
 

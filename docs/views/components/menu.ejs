@@ -91,6 +91,17 @@
 			</div>
 		</div>
 
+		<div class='component-directory'>
+			<ul>
+				<li>Description</li>
+				<li>Default Usage</li>
+				<li>Positioning</li>
+				<li>Multiple Menus</li>
+				<li>Class Options</li>
+				<li>Configuration</li>
+			</ul>
+		</div>
+
 		<div class='component-description'>
 			<p>The Softserver menu is a simple, expandable, easily-customized, dropdown menu. By default, the menu is intended to attract a user's attention to certain choices or actions and as such will be dismissed once an action is selected. The menu comes with multiple configuration options to allow the menu to be fitted to multiple different use cases. All menu options come acessible with keyboard control functionality</p>
 
@@ -167,52 +178,80 @@
 			</div>
 		</div>
 
-		<div class='menu-test'>
+		<div class='component-usage' id='component-postioning'>
+			<p>The menu component comes with several different positioning options. The default positioning option is alligned to the Bottom-Left of the trigger. By applying classes to the unordered list element you can change this default behavior. In addition to the changes in position, the menu will animate open and fade differently for each position to ensure the elements appear in the correct order</p>
 
-			<div>
+			<p>To align the menu to the Top-Right, Top-Left, or Bottom-Right, just apply this class 'soft-menu-(your-positioning-here)'. To demonstrate this more explicitly through code</p>
+
+			<div class='component-html'>
+				<pre>
+					<code class='language-markup'>
+						&lt;!-- Top-Left aligned menu --&gt;
+						&lt;ul class='soft-menu soft-menu-top-left' for='dropdown-menu'&gt;
+						     &lt;li class='soft-menu-item'&gt;Top Left&lt;/li&gt;
+						&lt;/ul&gt;
+
+						&lt;!-- Top-Right aligned menu --&gt;
+						&lt;ul class='soft-menu soft-menu-top-right' for='dropdown-menu'&gt;
+						     &lt;li class='soft-menu-item'&gt;Top Right&lt;/li&gt;
+						&lt;/ul&gt;
+
+						&lt;!-- Bottom-Right alligned menu --&gt;
+						&lt;ul class='soft-menu soft-menu-bottom-right' for='dropdown-menu'&gt;
+						     &lt;li class='soft-menu-item&gt;Bottom Right&lt;/li&gt;
+						&lt;ul&gt;
+
+						&lt;!-- An unaligned menu that leaves the positioning up to the developer --&gt;
+						&lt;ul class='soft-menu soft-menu-unaligned' for='dropdown-menu'&gt;
+						     &lt;li class='soft-menu-item'&gt;Unaligned&lt;/li&gt;
+						&lt;/ul&gt;
+					</code>
+				</pre>
+			</div>
+
+			<div class='component-default'>
 				<div class='menu-bar'>
 					<button id='dropdown-menu-2'>
-						Bottom Right
+						Top Left
 					</button>
 
-					<ul class='soft-menu menu-2 soft-menu-bottom-right' for='dropdown-menu-2'>
-						<li class='soft-menu-item'>Item 1</li>
-						<li class='soft-menu-item'>Item 2</li>
+					<ul class='soft-menu menu-2 soft-menu-top-left' for='dropdown-menu-2'>
+						<li class='soft-menu-item'>Top Left</li>
 					</ul>
 				</div>
 
-				<p>Bottom Right alligned menu</p>
+				<div class='menu-bar'>
+					<button id='dropdown-menu-3'>
+						Top Right
+					</button>
+
+					<ul class='soft-menu menu-3 soft-menu-top-right' for='dropdown-menu-3'>
+						<li class='soft-menu-item'>Top Right</li>
+					</ul>
+				</div>
+
+				<div class='menu-bar'>
+					<button id='dropdown-menu-4'>
+						Bottom Right
+					</button>
+
+					<ul class='soft-menu menu-4 soft-menu-bottom-right' for='dropdown-menu-4'>
+						<li class='soft-menu-item'>Bottom Right</li>
+					</ul>
+				</div>
+
+				<div class='menu-bar'>
+					<button id='dropdown-menu-5'>
+						Unaligned
+					</button>
+
+					<ul class='soft-menu menu-5 soft-menu-unaligned' for='dropdown-menu-5'>
+						<li class='soft-menu-item'>Unaligned</li>
+					</ul>
+				</div>
 			</div>
 
-			<button id='dropdown-menu-3'>
-				<span>Top Left</span>
-			</button>
 
-			<ul class='soft-menu menu-3 soft-menu-top-left' for='dropdown-menu-3'>
-				<li class='soft-menu-item'>Stuff1</li>
-				<li class='soft-menu-item'>Stuff2</li>
-			</ul>
-
-			<button id='dropdown-menu-4'>
-				<span>Bottom Right</span>
-			</button>
-
-			<ul class='soft-menu menu-4 soft-menu-bottom-right' for='dropdown-menu-4'>
-				<li class='soft-menu-item'>Stuff1</li>
-				<li class='soft-menu-item'>Stuff2</li>
-			</ul>
-		</div>
-
-		<div>
-			<pre>
-				<code class='language-markup'>
-					&lt;div class='menu-container'&gt;
-     					&lt;p&gt;Stuff&lt;/p&gt;
-					&lt;/div&gt;
-
-					
-				</code>
-			</pre>
 		</div>
 
 		<script src='../../scripts/docs.js'></script>
