@@ -144,7 +144,7 @@ class menu {
 
 			//var items = this.element.querySelectorAll('.' + this.classes.item);
 
-			// start clip
+			this._applyClip(height, width);
 
 			window.requestAnimationFrame(() => {
 				this.element.classList.add(this.classes.animating);
@@ -181,6 +181,20 @@ class menu {
 			this.hide();
 		} else {
 			this.show(e)
+		}
+	}
+
+	_applyClip(height, width) {
+		if (this.element.classList.contains(this.classes.unaligned)) {
+
+		} else if (this.element.classList.contains(this.classes.bottomRight)) {
+			this.element.style.clip = 'rect(0 ' + width + 'px ' + '0 ' + width + 'px)';
+		} else if (this.element.classList.contains(this.classes.topLeft)) {
+			this.element.style.clip = 'rect(' + height + 'px 0 ' + height + 'px 0)';
+		} else if (this.element.classList.contains(this.classes.topRight)) {
+			this.element.style.clip = 'rect(' + height + 'px ' + width + 'px ' + height + 'px ' + width + 'px)';
+		} else {
+			this.element.style.clip = '';
 		}
 	}
 
