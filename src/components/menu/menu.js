@@ -140,10 +140,20 @@ class menu {
 		}
 	}
 
+
+	/**
+	 *
+	 	Build Methods
+	 *
+	**/
+
+
+
 	_init() {
 
 		// Declare the component variables for the menu -- Menu container,
 		// Menu outline, Menu trigger button, Menu trigger Id, menu items
+
 		var container = document.createElement('div');
 		var outline = document.createElement('div');
 		var menuTrigger = null;
@@ -218,12 +228,31 @@ class menu {
 
 	}
 
+
+	/**
+	 *
+	 	Event Handling
+	 *
+	**/
+
+
 	_attachTriggerEvents() {
 		var triggerClickHandler = this._triggerClickHandler.bind(this);
 		var triggerKeyHandler = this._triggerKeyHandler.bind(this);
 
 		this.menuTrigger.addEventListener('click', triggerClickHandler);
 		this.menuTrigger.addEventListener('keydown', triggerKeyHandler);
+	}
+
+	_attachItemEvents() {
+		var itemClickHandler = this._itemClickHandler.bind(this);
+		var itemKeyHandler = this._itemClickHandler.bind(this);
+
+		for(let i = 0; i < this.items.length; i++) {
+			this.items[i].addEventListener('click', itemClickHandler);
+			this.items[i].tabIndex = '-1';
+			this.items[i].addEventListener('keydown', itemKeyHandler);
+		}
 	}
 
 	_triggerClickHandler() {
