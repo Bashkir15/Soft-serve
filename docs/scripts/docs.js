@@ -424,7 +424,11 @@
 				element: '.soft-menu',
 				transitionDuration: 0.3,
 				transitionFraction: 0.8,
-				closeTimeout: 150
+				closeTimeout: 150,
+				onBeforeOpen: null,
+				onBeforeClose: null,
+				onOpen: null,
+				onClose: null
 			};
 
 			this.keycodes = {
@@ -468,13 +472,9 @@
 				var _this = this;
 
 				if (this.element && this.container) {
-					var height;
-					var width;
-
 					(function () {
-						height = _this.element.getBoundingClientRect().height;
-						width = _this.element.getBoundingClientRect().width;
-
+						var height = _this.element.getBoundingClientRect().height;
+						var width = _this.element.getBoundingClientRect().width;
 
 						_this.container.style.width = width + 'px';
 						_this.container.style.height = height + 'px';
@@ -486,10 +486,18 @@
 						_this._calculateTransition(height, width);
 						_this._applyClip(height, width);
 
+						if (typeof _this.defaults.onBeforeOpen === 'function') {
+							_this.defaults.onBeforeOpen.call(_this);
+						}
+
 						window.requestAnimationFrame(function () {
 							_this.element.classList.add(_this.classes.animating);
 							_this.element.style.clip = 'rect(0 ' + width + 'px ' + height + 'px 0)';
 							_this.container.classList.add(_this.classes.visible);
+
+							if (typeof _this.defaults.onOpen === 'function') {
+								_this.defaults.onOpen.call(_this);
+							}
 						});
 
 						_this._animationEndListener();
@@ -513,6 +521,10 @@
 			value: function _hide() {
 				if (this.element && this.container) {
 
+					if (typeof this.defaults.onBeforeClose === 'function') {
+						this.defaults.onBeforeClose.call(this);
+					}
+
 					for (var i = 0; i < this.items.length; i++) {
 						this.items[i].style.removeProperty('transition-delay');
 					}
@@ -526,6 +538,10 @@
 					this.element.classList.add(this.classes.animating);
 					this._applyClip(height, width);
 					this.container.classList.remove(this.classes.visible);
+
+					if (typeof this.defaults.onClose === 'function') {
+						this.defaults.onClose.call(this);
+					}
 				}
 			}
 		}, {
@@ -535,17 +551,6 @@
 					this.hide();
 				} else {
 					this.show(e);
-				}
-			}
-		}, {
-			key: '_applySettings',
-			value: function _applySettings(options) {
-				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-					for (var i in options) {
-						if (options.hasOwnProperty(i)) {
-							this.defaults[i] = options[i];
-						}
-					}
 				}
 			}
 
@@ -803,6 +808,24 @@
 			key: '_removeAnimationEndListener',
 			value: function _removeAnimationEndListener() {
 				this.element.classList.remove(this.classes.animating);
+			}
+
+			/**
+	   *
+	   	Utils
+	   *
+	  **/
+
+		}, {
+			key: '_applySettings',
+			value: function _applySettings(options) {
+				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+					for (var i in options) {
+						if (options.hasOwnProperty(i)) {
+							this.defaults[i] = options[i];
+						}
+					}
+				}
 			}
 		}]);
 

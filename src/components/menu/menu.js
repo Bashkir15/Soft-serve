@@ -10,7 +10,11 @@ class menu {
 			element: '.soft-menu',
 			transitionDuration: 0.3,
 			transitionFraction: 0.8,
-			closeTimeout: 150
+			closeTimeout: 150,
+			onBeforeOpen: null,
+			onBeforeClose: null,
+			onOpen: null,
+			onClose: null
 		};
 
 		this.keycodes = {
@@ -53,8 +57,8 @@ class menu {
 
 	_show(e) {
 		if (this.element && this.container) {
-			var height = this.element.getBoundingClientRect().height;
-			var width = this.element.getBoundingClientRect().width;
+			let height = this.element.getBoundingClientRect().height;
+			let width = this.element.getBoundingClientRect().width;
 
 			this.container.style.width = width + 'px';
 			this.container.style.height = height + 'px';
@@ -66,10 +70,18 @@ class menu {
 			this._calculateTransition(height, width);
 			this._applyClip(height, width);
 
+			if (typeof this.defaults.onBeforeOpen === 'function') {
+				this.defaults.onBeforeOpen.call(this);
+			}
+
 			window.requestAnimationFrame(() => {
 				this.element.classList.add(this.classes.animating);
 				this.element.style.clip = 'rect(0 ' + width + 'px ' + height + 'px 0)';
-				this.container.classList.add(this.classes.visible);  
+				this.container.classList.add(this.classes.visible);
+
+				if (typeof this.defaults.onOpen === 'function') {
+					this.defaults.onOpen.call(this);
+				}  
 			});
 
 			this._animationEndListener();
@@ -91,6 +103,10 @@ class menu {
 	_hide() {
 		if (this.element && this.container) {
 
+			if (typeof this.defaults.onBeforeClose === 'function') {
+				this.defaults.onBeforeClose.call(this);
+			}
+
 			for (let i = 0; i < this.items.length; i++) {
 				this.items[i].style.removeProperty('transition-delay');
 			}
@@ -104,6 +120,10 @@ class menu {
 			this.element.classList.add(this.classes.animating);
 			this._applyClip(height, width);
 			this.container.classList.remove(this.classes.visible);
+
+			if (typeof this.defaults.onClose === 'function') {
+				this.defaults.onClose.call(this);
+			}
 		}
 	}
 
@@ -115,17 +135,6 @@ class menu {
 		}
 	}
 
-
-
-	_applySettings(options) {
-		if (typeof options === 'object') {
-			for (var i in options) {
-				if (options.hasOwnProperty(i)) {
-					this.defaults[i] = options[i];
-				}
-			}
-		}
-	}
 
 
 	/**
@@ -262,12 +271,15 @@ class menu {
 			} else if (this.element.classList.contains(this.classes.bottomRight)) {
 				this.container.style.right = (parentRect.right - rect.right) + 'px';
 				this.container.style.top = this.menuTrigger.offsetTop + this.menuTrigger.offsetHeight + 'px';
+
 			} else if (this.element.classList.contains(this.classes.topRight)) {
 				this.container.style.right = (parentRect.right - rect.right) + 'px';
 				this.container.style.bottom = (parentRect.bottom - rect.top) + 'px';
+
 			} else if (this.element.classList.contains(this.classes.topLeft)) {
 				this.container.style.left = this.menuTrigger.offsetLeft + 'px';
 				this.container.style.bottom = (parentRect.bottom - rect.top) + 'px';
+
 			} else {
 				// default position
 				this.container.style.left = this.menuTrigger.offsetLeft + 'px';
@@ -314,7 +326,7 @@ class menu {
 		if (this.element && this.container) {
 
 			if (this.items && this.items.length > 0 && this.container.classList.contains(this.classes.visible)) {
-				var currentIndex = Array.prototype.slice.call(this.items).indexOf(e.target);
+				let currentIndex = Array.prototype.slice.call(this.items).indexOf(e.target);
 
 				if (e.keyCode === this.keycodes.up) {
 					e.preventDefault();
@@ -389,6 +401,24 @@ class menu {
 
 	_removeAnimationEndListener() {
 		this.element.classList.remove(this.classes.animating);
+	}
+
+
+	/**
+	 *
+	 	Utils
+	 *
+	**/
+
+
+	_applySettings(options) {
+		if (typeof options === 'object') {
+			for (var i in options) {
+				if (options.hasOwnProperty(i)) {
+					this.defaults[i] = options[i];
+				}
+			}
+		}
 	}
 }
 
