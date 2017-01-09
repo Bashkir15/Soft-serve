@@ -192,39 +192,13 @@ class menu {
 
 		// Retrieve Items from the DOM and store them in the constructor
 		// so the DOM doesn't have to be queried multiple times and then
-		// attach events to the items
+		// attach item events and position the outline.
 
 		items = this.element.querySelectorAll('.' + this.classes.item);
 		this.items = items;
 
 		this._attachItemEvents();
-
-		// Handle the positioning of the outline so it will be inline with the
-		// Menu
-
 		this._positionOutline();
-
-		/* for (let i = 0; i < items.length; i++) {
-			items[i].addEventListener('click', itemClickHandler);
-			items[i].tabIndex = '-1';
-			items[i].addEventListener('keydown', itemKeyHandler);
-		}
-
-		if (this.element.classList.contains(this.classes.bottomLeft)) {
-			this.outline.classList.add(this.classes.bottomLeft);
-		}
-
-		if (this.element.classList.contains(this.classes.topLeft)) {
-			this.outline.classList.add(this.classes.bottomLeft);
-		}
-
-		if (this.element.classList.contains(this.classes.bottomRight)) {
-			this.outline.classList.add(this.classes.bottomRight);
-		}
-
-		if (this.element.classList.contains(this.classes.topRight)) {
-			this.outline.classList.add(this.classes.topRight);
-		} */
 
 	}
 
@@ -246,37 +220,16 @@ class menu {
 		}
 	}
 
-
 	/**
 	 *
-	 	Event Handling
+	 	Trigger Events
 	 *
 	**/
 
-
-	_attachTriggerEvents() {
-		var triggerClickHandler = this._triggerClickHandler.bind(this);
-		var triggerKeyHandler = this._triggerKeyHandler.bind(this);
-
-		this.menuTrigger.addEventListener('click', triggerClickHandler);
-		this.menuTrigger.addEventListener('keydown', triggerKeyHandler);
-	}
-
-	_attachItemEvents() {
-		var itemClickHandler = this._itemClickHandler.bind(this);
-		var itemKeyHandler = this._itemClickHandler.bind(this);
-
-		for(let i = 0; i < this.items.length; i++) {
-			this.items[i].addEventListener('click', itemClickHandler);
-			this.items[i].tabIndex = '-1';
-			this.items[i].addEventListener('keydown', itemKeyHandler);
-		}
-	}
-
 	_triggerClickHandler() {
 		if (this.element && this.menuTrigger) {
-			var rect = this.menuTrigger.getBoundingClientRect();
-			var parentRect = this.menuTrigger.parentNode.getBoundingClientRect();
+			let rect = this.menuTrigger.getBoundingClientRect();
+			let parentRect = this.menuTrigger.parentNode.getBoundingClientRect();
 
 			if (this.element.classList.contains(this.classes.unaligned)) {
 
@@ -301,19 +254,47 @@ class menu {
 
 	_triggerKeyHandler(e) {
 		if (this.element && this.container && this.menuTrigger) {
-			var items = this.element.querySelectorAll('.' + this.classes.item);
+			//var items = this.element.querySelectorAll('.' + this.classes.item);
 
-			if (items && items.length > 0 && this.container.classList.contains(this.classes.visible)) {
+			if (this.items && this.items.length > 0 && this.container.classList.contains(this.classes.visible)) {
 				if (e.keyCode === this.keycodes.up) {
 					e.preventDefault();
-					items[items.length - 1].focus();
+					this.items[this.items.length - 1].focus();
 				} else if (e.keyCode === this.keycodes.down) {
 					e.preventDefault();
-					items[0].focus();
+					this.items[0].focus();
 				}
 			}
 		}
 	}
+
+
+
+	/**
+	 *
+	 	Event Delegation
+	 *
+	**/
+
+
+	_attachTriggerEvents() {
+		var triggerClickHandler = this._triggerClickHandler.bind(this);
+		var triggerKeyHandler = this._triggerKeyHandler.bind(this);
+
+		this.menuTrigger.addEventListener('click', triggerClickHandler);
+		this.menuTrigger.addEventListener('keydown', triggerKeyHandler);
+	}
+
+	 _attachItemEvents() {
+		let itemClickHandler = this._itemClickHandler.bind(this);
+		let itemKeyHandler = this._itemKeyHandler.bind(this);
+
+		for (let i = 0; i < this.items.length; i++) {
+			this.items[i].addEventListener('click', itemClickHandler);
+			this.items[i].tabIndex = '-1';
+			this.items[i].addEventListener('keydown', itemKeyHandler);
+		}
+	} 
 
 	_itemClickHandler(e) {
 		window.setTimeout((e) => {
@@ -323,28 +304,29 @@ class menu {
 
 	_itemKeyHandler(e) {
 		if (this.element && this.container) {
-			var items = this.element.querySelectorAll('.' + this.classes.item);
 
-			if (items && items.length > 0 && this.container.classList.contains(this.classes.visible)) {
-				var currentIndex = Array.prototype.slice.call(items).indexOf(e.target);
+			if (this.items && this.items.length > 0 && this.container.classList.contains(this.classes.visible)) {
+				var currentIndex = Array.prototype.slice.call(this.items).indexOf(e.target);
 
 				if (e.keyCode === this.keycodes.up) {
 					e.preventDefault();
 
 					if (currentIndex > 0) {
-						items[currentIndex - 1].focus();
+						this.items[currentIndex - 1].focus();
 					} else {
-						items[items.length - 1].focus();
+						this.items[this.items.length - 1].focus();
 					}
+
 				} else if (e.keyCode === this.keycodes.down) {
 					e.preventDefault();
 
-					if (items.length > currentIndex + 1) {
-						items[currentIndex + 1].focus();
+					if (this.items.length > currentIndex + 1) {
+						this.items[currentIndex + 1].focus();
 					} else {
-						items[0].focus();
+						this.items[0].focus();
 					}
-				} else if  (e.keyCode === this.keycodes.space || e.keyCode === this.keycodes.enter) {
+					
+				} else if (e.keyCode === this.keycodes.space || e.keyCode === this.keycodes.enter) {
 					e.preventDefault();
 					
 					//
