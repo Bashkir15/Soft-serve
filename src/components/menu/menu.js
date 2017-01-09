@@ -83,7 +83,7 @@ class menu {
 		}
 
 		if (this.element.classList.contains(this.classes.topRight)) {
-			this.outine.classList.add(this.classes.topRight);
+			this.outline.classList.add(this.classes.topRight);
 		}
 
 	}
@@ -106,7 +106,9 @@ class menu {
 				this.container.style.top = this.menuTrigger.offsetTop + this.menuTrigger.offsetHeight + 'px';
 			} else if (this.element.classList.contains(this.classes.topRight)) {
 				this.container.style.right = (parentRect.right - rect.right) + 'px';
-				this.container.style.bottom = (parentRect.bottom - rect.top) + 'px';
+				this.container.style.bottom = (rect.top - parentRect.bottom) + 'px';
+				console.log(parentRect.bottom);
+				console.log(rect.top);
 			} else if (this.element.classList.contains(this.classes.topLeft)) {
 				this.container.style.left = this.menuTrigger.offsetLeft + 'px';
 				this.container.style.bottom = (parentRect.bottom - rect.top) + 'px';
@@ -135,7 +137,14 @@ class menu {
 			// Calculate transition delays for each menu item so they fade in order
 			var items = this.element.querySelectorAll('.' + this.classes.item);
 			for (let i = 0; i < items.length; i++) {
-				var itemDelay = (items[i].offsetTop / height * transitionDuration) + 's';
+				var itemDelay = null;
+
+				if (this.element.classList.contains(this.classes.topLeft) || this.element.classList.contains(this.classes.topRight)) {
+					itemDelay = ((height - items[i].offsetTop - items[i].offsetHeight) / height * transitionDuration) + 's';
+				} else {
+					itemDelay = (items[i].offsetTop / height * transitionDuration) + 's';
+				}
+
 				items[i].style.transitionDelay = itemDelay;
 			}
 

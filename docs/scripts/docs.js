@@ -486,6 +486,22 @@
 						this._attachTriggerEvents();
 					}
 				}
+
+				if (this.element.classList.contains(this.classes.bottomLeft)) {
+					this.outline.classList.add(this.classes.bottomLeft);
+				}
+
+				if (this.element.classList.contains(this.classes.topLeft)) {
+					this.outline.classList.add(this.classes.bottomLeft);
+				}
+
+				if (this.element.classList.contains(this.classes.bottomRight)) {
+					this.outline.classList.add(this.classes.bottomRight);
+				}
+
+				if (this.element.classList.contains(this.classes.topRight)) {
+					this.outline.classList.add(this.classes.topRight);
+				}
 			}
 		}, {
 			key: '_attachTriggerEvents',
@@ -506,7 +522,9 @@
 						this.container.style.top = this.menuTrigger.offsetTop + this.menuTrigger.offsetHeight + 'px';
 					} else if (this.element.classList.contains(this.classes.topRight)) {
 						this.container.style.right = parentRect.right - rect.right + 'px';
-						this.container.style.bottom = parentRect.bottom - rect.top + 'px';
+						this.container.style.bottom = rect.top - parentRect.bottom + 'px';
+						console.log(parentRect.bottom);
+						console.log(rect.top);
 					} else if (this.element.classList.contains(this.classes.topLeft)) {
 						this.container.style.left = this.menuTrigger.offsetLeft + 'px';
 						this.container.style.bottom = parentRect.bottom - rect.top + 'px';
@@ -546,7 +564,7 @@
 
 					//var items = this.element.querySelectorAll('.' + this.classes.item);
 
-					// start clip
+					this._applyClip(height, width);
 
 					window.requestAnimationFrame(function () {
 						_this.element.classList.add(_this.classes.animating);
@@ -585,6 +603,19 @@
 					this.hide();
 				} else {
 					this.show(e);
+				}
+			}
+		}, {
+			key: '_applyClip',
+			value: function _applyClip(height, width) {
+				if (this.element.classList.contains(this.classes.unaligned)) {} else if (this.element.classList.contains(this.classes.bottomRight)) {
+					this.element.style.clip = 'rect(0 ' + width + 'px ' + '0 ' + width + 'px)';
+				} else if (this.element.classList.contains(this.classes.topLeft)) {
+					this.element.style.clip = 'rect(' + height + 'px 0 ' + height + 'px 0)';
+				} else if (this.element.classList.contains(this.classes.topRight)) {
+					this.element.style.clip = 'rect(' + height + 'px ' + width + 'px ' + height + 'px ' + width + 'px)';
+				} else {
+					this.element.style.clip = '';
 				}
 			}
 
