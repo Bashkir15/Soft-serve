@@ -578,7 +578,7 @@
 						_this.container.classList.add(_this.classes.visible);
 					});
 
-					// add clean up for animation end
+					this._animationEndListener();
 
 					// add a function to close menu on document click
 				}
@@ -612,6 +612,18 @@
 				} else {
 					this.show(e);
 				}
+			}
+		}, {
+			key: '_animationEndListener',
+			value: function _animationEndListener() {
+				var removeAnimationEndListener = this._removeAnimationEndListener.bind(this);
+				this.element.addEventListener('transitionend', removeAnimationEndListener);
+				this.element.addEventListener('webkitTransitionEnd', removeAnimationEndListener);
+			}
+		}, {
+			key: '_removeAnimationEndListener',
+			value: function _removeAnimationEndListener() {
+				this.element.classList.remove(this.classes.animating);
 			}
 		}, {
 			key: '_applyClip',

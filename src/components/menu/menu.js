@@ -160,7 +160,7 @@ class menu {
 				this.container.classList.add(this.classes.visible);  
 			});
 
-			// add clean up for animation end
+			this._animationEndListener();
 
 			// add a function to close menu on document click
 		}
@@ -192,6 +192,16 @@ class menu {
 		} else {
 			this.show(e)
 		}
+	}
+
+	_animationEndListener() {
+		let removeAnimationEndListener = this._removeAnimationEndListener.bind(this);
+		this.element.addEventListener('transitionend', removeAnimationEndListener);
+		this.element.addEventListener('webkitTransitionEnd', removeAnimationEndListener);
+	}
+
+	_removeAnimationEndListener() {
+		this.element.classList.remove(this.classes.animating);
 	}
 
 	_applyClip(height, width) {
