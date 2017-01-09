@@ -148,6 +148,34 @@ class menu {
 		}
 	}
 
+	_itemKeyHandler(e) {
+		if (this.element && this.container) {
+			var items = this.element.querySelectorAll('.' + this.classes.item);
+
+			if (items && items.length > 0 && this.container.classList.contains(this.classes.visible)) {
+				var currentIndex = Array.prototype.slice.call(items).indexOf(e.target);
+
+				if (e.keyCode === this.keycodes.up) {
+					e.preventDefault();
+
+					if (currentIndex > 0) {
+						items[currentIndex - 1].focus();
+					} else {
+						items[items.length - 1].focus();
+					}
+				} else if (e.keyCode === this.keycodes.down) {
+					e.preventDefault();
+
+					if (items.length > currentIndex + 1) {
+						items[currentIndex + 1].focus();
+					} else {
+						items[0].focus();
+					}
+				}
+			}
+		}
+	}
+
 	_show(e) {
 		if (this.element && this.container) {
 			var height = this.element.getBoundingClientRect().height;

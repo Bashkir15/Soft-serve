@@ -555,12 +555,40 @@
 
 					if (items && items.length > 0 && this.container.classList.contains(this.classes.visible)) {
 						if (e.keyCode === this.keycodes.up) {
-							console.log('rawr');
 							e.preventDefault();
 							items[items.length - 1].focus();
 						} else if (e.keyCode === this.keycodes.down) {
 							e.preventDefault();
 							items[0].focus();
+						}
+					}
+				}
+			}
+		}, {
+			key: '_itemKeyHandler',
+			value: function _itemKeyHandler(e) {
+				if (this.element && this.container) {
+					var items = this.element.querySelectorAll('.' + this.classes.item);
+
+					if (items && items.length > 0 && this.container.classList.contains(this.classes.visible)) {
+						var currentIndex = Array.prototype.slice.call(items).indexOf(e.target);
+
+						if (e.keyCode === this.keycodes.up) {
+							e.preventDefault();
+
+							if (currentIndex > 0) {
+								items[currentIndex - 1].focus();
+							} else {
+								items[items.length - 1].focus();
+							}
+						} else if (e.keyCode === this.keycodes.down) {
+							e.preventDefault();
+
+							if (items.length > currentIndex + 1) {
+								items[currentIndex + 1].focus();
+							} else {
+								items[0].focus();
+							}
 						}
 					}
 				}
