@@ -468,36 +468,44 @@
 				var _this = this;
 
 				if (this.element && this.container) {
-					var height = this.element.getBoundingClientRect().height;
-					var width = this.element.getBoundingClientRect().width;
+					var height;
+					var width;
 
-					this.container.style.width = width + 'px';
-					this.container.style.height = height + 'px';
-					this.outline.style.width = width + 'px';
-					this.outline.style.height = height + 'px';
+					(function () {
+						height = _this.element.getBoundingClientRect().height;
+						width = _this.element.getBoundingClientRect().width;
 
-					// Calculate transition delays for each menu item so they fade in order
 
-					this._calculateTransition(height, width);
+						_this.container.style.width = width + 'px';
+						_this.container.style.height = height + 'px';
+						_this.outline.style.width = width + 'px';
+						_this.outline.style.height = height + 'px';
 
-					this._applyClip(height, width);
+						// Calculate transition delays for each menu item so they fade in order
 
-					window.requestAnimationFrame(function () {
-						_this.element.classList.add(_this.classes.animating);
-						_this.element.style.clip = 'rect(0 ' + width + 'px ' + height + 'px 0)';
-						_this.container.classList.add(_this.classes.visible);
-					});
+						_this._calculateTransition(height, width);
+						_this._applyClip(height, width);
 
-					this._animationEndListener();
+						window.requestAnimationFrame(function () {
+							_this.element.classList.add(_this.classes.animating);
+							_this.element.style.clip = 'rect(0 ' + width + 'px ' + height + 'px 0)';
+							_this.container.classList.add(_this.classes.visible);
+						});
 
-					var callback = function (evt) {
-						if (evt !== e && evt.target.parentNode !== this.element) {
-							//document.removeEventListener('click', callback);
-							this.hide();
-						}
-					}.bind(this);
+						_this._animationEndListener();
 
-					document.addEventListener('click', callback);
+						var documentClickHandler = function documentClickHandler(evt) {
+							if (evt !== e && evt.target.parentNode !== _this.element && _this.container.classList.contains(_this.classes.visible)) {
+								_this.hide();
+
+								setTimeout(function () {
+									document.removeEventListener('click', documentClickHandler);
+								}, 50);
+							}
+						};
+
+						document.addEventListener('click', documentClickHandler);
+					})();
 				}
 			}
 		}, {

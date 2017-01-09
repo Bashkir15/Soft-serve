@@ -64,9 +64,6 @@ class menu {
 			// Calculate transition delays for each menu item so they fade in order
 
 			this._calculateTransition(height, width);
-
-
-
 			this._applyClip(height, width);
 
 			window.requestAnimationFrame(() => {
@@ -77,14 +74,17 @@ class menu {
 
 			this._animationEndListener();
 
-			var callback = function(evt) {
-				if (evt !== e && evt.target.parentNode !== this.element) {
-					//document.removeEventListener('click', callback);
+			let documentClickHandler = (evt) => {
+				if (evt !== e && evt.target.parentNode !== this.element && this.container.classList.contains(this.classes.visible)) {
 					this.hide();
-				} 
-			}.bind(this);
 
-			document.addEventListener('click', callback);
+					setTimeout(() => {
+						document.removeEventListener('click', documentClickHandler);
+					}, 50);
+				} 
+			};
+
+			document.addEventListener('click', documentClickHandler);
 		}
 	}
 
