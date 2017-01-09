@@ -57,17 +57,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 
 	var _modal = __webpack_require__(1);
 
 	var _modal2 = _interopRequireDefault(_modal);
 
+	var _menu = __webpack_require__(2);
+
+	var _menu2 = _interopRequireDefault(_menu);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var softServer = {};
-	softServer.modal = _modal2.default;
+	var softServer = {
+		modal: _modal2.default,
+		menu: _menu2.default
+	};
 
 	exports.default = softServer;
 
@@ -364,6 +370,446 @@ return /******/ (function(modules) { // webpackBootstrap
 	}();
 
 	exports.default = modal;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var menu = function () {
+		function menu(options) {
+			_classCallCheck(this, menu);
+
+			this.element = null;
+			this.container = null;
+			this.outline = null;
+			this.menuTrigger = null;
+			this.items = null;
+
+			this.defaults = {
+				element: '.soft-menu',
+				transitionDuration: 0.3,
+				transitionFraction: 0.8,
+				closeTimeout: 150,
+				onBeforeOpen: null,
+				onBeforeClose: null,
+				onOpen: null,
+				onClose: null
+			};
+
+			this.keycodes = {
+				enter: 13,
+				escape: 27,
+				space: 32,
+				up: 38,
+				down: 40
+			};
+
+			this.classes = {
+				container: 'soft-menu-container',
+				outline: 'soft-menu-outline',
+				item: 'soft-menu-item',
+				unaligned: 'soft-menu-unaligned',
+				bottomRight: 'soft-menu-bottom-right',
+				bottomLeft: 'soft-menu-bottom-left',
+				topRight: 'soft-menu-top-right',
+				topLeft: 'soft-menu-top-left',
+				animating: 'soft-menu-animating',
+				visible: 'soft-menu-visible'
+			};
+
+			this.toggle = this._toggle.bind(this);
+			this.show = this._show.bind(this);
+			this.hide = this._hide.bind(this);
+
+			this._applySettings(options);
+			this._init();
+		}
+
+		/**
+	  *
+	  	Public Methods
+	  *
+	 **/
+
+		_createClass(menu, [{
+			key: '_show',
+			value: function _show(e) {
+				var _this = this;
+
+				if (this.element && this.container) {
+					(function () {
+						var height = _this.element.getBoundingClientRect().height;
+						var width = _this.element.getBoundingClientRect().width;
+
+						_this.container.style.width = width + 'px';
+						_this.container.style.height = height + 'px';
+						_this.outline.style.width = width + 'px';
+						_this.outline.style.height = height + 'px';
+
+						// Calculate transition delays for each menu item so they fade in order
+
+						_this._calculateTransition(height, width);
+						_this._applyClip(height, width);
+
+						if (typeof _this.defaults.onBeforeOpen === 'function') {
+							_this.defaults.onBeforeOpen.call(_this);
+						}
+
+						window.requestAnimationFrame(function () {
+							_this.element.classList.add(_this.classes.animating);
+							_this.element.style.clip = 'rect(0 ' + width + 'px ' + height + 'px 0)';
+							_this.container.classList.add(_this.classes.visible);
+
+							if (typeof _this.defaults.onOpen === 'function') {
+								_this.defaults.onOpen.call(_this);
+							}
+						});
+
+						_this._animationEndListener();
+
+						var documentClickHandler = function documentClickHandler(evt) {
+							if (evt !== e && evt.target.parentNode !== _this.element && _this.container.classList.contains(_this.classes.visible)) {
+								_this.hide();
+
+								setTimeout(function () {
+									document.removeEventListener('click', documentClickHandler);
+								}, 50);
+							}
+						};
+
+						document.addEventListener('click', documentClickHandler);
+					})();
+				}
+			}
+		}, {
+			key: '_hide',
+			value: function _hide() {
+				if (this.element && this.container) {
+
+					if (typeof this.defaults.onBeforeClose === 'function') {
+						this.defaults.onBeforeClose.call(this);
+					}
+
+					for (var i = 0; i < this.items.length; i++) {
+						this.items[i].style.removeProperty('transition-delay');
+					}
+
+					// measure the inner element
+
+					var rect = this.element.getBoundingClientRect();
+					var height = rect.height;
+					var width = rect.width;
+
+					this.element.classList.add(this.classes.animating);
+					this._applyClip(height, width);
+					this.container.classList.remove(this.classes.visible);
+
+					if (typeof this.defaults.onClose === 'function') {
+						this.defaults.onClose.call(this);
+					}
+				}
+			}
+		}, {
+			key: '_toggle',
+			value: function _toggle(e) {
+				if (this.container.classList.contains(this.classes.visible)) {
+					this.hide();
+				} else {
+					this.show(e);
+				}
+			}
+
+			/**
+	   *
+	   	Build Methods
+	   *
+	  **/
+
+		}, {
+			key: '_init',
+			value: function _init() {
+
+				// Declare the component variables for the menu -- Menu container,
+				// Menu outline, Menu trigger button, Menu trigger Id, menu items
+
+				var container = document.createElement('div');
+				var outline = document.createElement('div');
+				var menuTrigger = null;
+				var menuId = null;
+				var items = null;
+
+				// Retrieve elements from DOM based on user-provided class
+
+				this.element = document.querySelector(this.defaults.element);
+
+				// Restructure the DOM to append the container and outline
+
+				this.element.parentNode.insertBefore(container, this.element);
+				this.element.parentNode.removeChild(this.element);
+				container.classList.add(this.classes.container);
+				container.appendChild(this.element);
+
+				outline.classList.add(this.classes.outline);
+
+				this.container = container;
+				this.outline = outline;
+				this.container.insertBefore(outline, this.element);
+
+				// Retrieve the menuId and then find the Trigger matching that Id
+
+				menuId = this.element.getAttribute('for');
+
+				if (menuId) {
+					menuTrigger = document.getElementById(menuId);
+
+					if (menuTrigger) {
+						this.menuTrigger = menuTrigger;
+						this._attachTriggerEvents();
+					}
+				}
+
+				// Retrieve Items from the DOM and store them in the constructor
+				// so the DOM doesn't have to be queried multiple times and then
+				// attach item events and position the outline.
+
+				items = this.element.querySelectorAll('.' + this.classes.item);
+				this.items = items;
+
+				this._attachItemEvents();
+				this._positionOutline();
+			}
+		}, {
+			key: '_positionOutline',
+			value: function _positionOutline() {
+				if (this.element.classList.contains(this.classes.bottomLeft)) {
+					this.outline.classList.add(this.classes.bottomLeft);
+				}
+
+				if (this.element.classList.contains(this.classes.topLeft)) {
+					this.outline.classList.add(this.classes.topLeft);
+				}
+
+				if (this.element.classList.contains(this.classes.bottomRight)) {
+					this.outline.classList.add(this.classes.bottomRight);
+				}
+
+				if (this.element.classList.contains(this.classes.topRight)) {
+					this.outline.classList.add(this.classes.topRight);
+				}
+			}
+		}, {
+			key: '_applyClip',
+			value: function _applyClip(height, width) {
+				if (this.element.classList.contains(this.classes.unaligned)) {} else if (this.element.classList.contains(this.classes.bottomRight)) {
+					this.element.style.clip = 'rect(0 ' + width + 'px ' + '0 ' + width + 'px)';
+				} else if (this.element.classList.contains(this.classes.topLeft)) {
+					this.element.style.clip = 'rect(' + height + 'px 0 ' + height + 'px 0)';
+				} else if (this.element.classList.contains(this.classes.topRight)) {
+					this.element.style.clip = 'rect(' + height + 'px ' + width + 'px ' + height + 'px ' + width + 'px)';
+				} else {
+					this.element.style.clip = '';
+				}
+			}
+		}, {
+			key: '_calculateTransition',
+			value: function _calculateTransition(height, width) {
+				// Calculate and apply a transition for the items so they the fade in order
+
+				var transitionDuration = this.defaults.transitionDuration * this.defaults.transitionFraction;
+
+				for (var i = 0; i < this.items.length; i++) {
+					var itemDelay = null;
+
+					if (this.element.classList.contains(this.classes.topLeft) || this.element.classList.contains(this.classes.topRight)) {
+						itemDelay = (height - this.items[i].offsetTop - this.items[i].offsetHeight) / height * transitionDuration + 's';
+					} else {
+						itemDelay = this.items[i].offsetTop / height * transitionDuration + 's';
+					}
+
+					this.items[i].style.transitionDelay = itemDelay;
+				}
+			}
+
+			/**
+	   *
+	   	Trigger Events
+	   *
+	  **/
+
+		}, {
+			key: '_triggerClickHandler',
+			value: function _triggerClickHandler() {
+				if (this.element && this.menuTrigger) {
+					var rect = this.menuTrigger.getBoundingClientRect();
+					var parentRect = this.menuTrigger.parentNode.getBoundingClientRect();
+
+					if (this.element.classList.contains(this.classes.unaligned)) {} else if (this.element.classList.contains(this.classes.bottomRight)) {
+						this.container.style.right = parentRect.right - rect.right + 'px';
+						this.container.style.top = this.menuTrigger.offsetTop + this.menuTrigger.offsetHeight + 'px';
+					} else if (this.element.classList.contains(this.classes.topRight)) {
+						this.container.style.right = parentRect.right - rect.right + 'px';
+						this.container.style.bottom = parentRect.bottom - rect.top + 'px';
+					} else if (this.element.classList.contains(this.classes.topLeft)) {
+						this.container.style.left = this.menuTrigger.offsetLeft + 'px';
+						this.container.style.bottom = parentRect.bottom - rect.top + 'px';
+					} else {
+						// default position
+						this.container.style.left = this.menuTrigger.offsetLeft + 'px';
+						this.container.style.top = this.menuTrigger.offsetTop + this.menuTrigger.offsetHeight + 'px';
+					}
+				}
+
+				this.toggle();
+			}
+		}, {
+			key: '_triggerKeyHandler',
+			value: function _triggerKeyHandler(e) {
+				if (this.element && this.container && this.menuTrigger) {
+					//var items = this.element.querySelectorAll('.' + this.classes.item);
+
+					if (this.items && this.items.length > 0 && this.container.classList.contains(this.classes.visible)) {
+						if (e.keyCode === this.keycodes.up) {
+							e.preventDefault();
+							this.items[this.items.length - 1].focus();
+						} else if (e.keyCode === this.keycodes.down) {
+							e.preventDefault();
+							this.items[0].focus();
+						}
+					}
+				}
+			}
+
+			/**
+	   *
+	   	Item Events
+	   *
+	  **/
+
+		}, {
+			key: '_itemClickHandler',
+			value: function _itemClickHandler(e) {
+				var _this2 = this;
+
+				window.setTimeout(function (e) {
+					_this2.hide();
+				}, this.defaults.closeTimeout);
+			}
+		}, {
+			key: '_itemKeyHandler',
+			value: function _itemKeyHandler(e) {
+				if (this.element && this.container) {
+
+					if (this.items && this.items.length > 0 && this.container.classList.contains(this.classes.visible)) {
+						var currentIndex = Array.prototype.slice.call(this.items).indexOf(e.target);
+
+						if (e.keyCode === this.keycodes.up) {
+							e.preventDefault();
+
+							if (currentIndex > 0) {
+								this.items[currentIndex - 1].focus();
+							} else {
+								this.items[this.items.length - 1].focus();
+							}
+						} else if (e.keyCode === this.keycodes.down) {
+							e.preventDefault();
+
+							if (this.items.length > currentIndex + 1) {
+								this.items[currentIndex + 1].focus();
+							} else {
+								this.items[0].focus();
+							}
+						} else if (e.keyCode === this.keycodes.space || e.keyCode === this.keycodes.enter) {
+							e.preventDefault();
+
+							//
+							//
+							//eventually create a mouse event for ripple here
+							//
+							//
+						} else if (e.keyCode === this.keycodes.escape) {
+							e.preventDefault();
+							this.hide();
+						}
+					}
+				}
+			}
+
+			/**
+	   *
+	   	Event Delegation
+	   *
+	  **/
+
+		}, {
+			key: '_attachTriggerEvents',
+			value: function _attachTriggerEvents() {
+				var triggerClickHandler = this._triggerClickHandler.bind(this);
+				var triggerKeyHandler = this._triggerKeyHandler.bind(this);
+
+				this.menuTrigger.addEventListener('click', triggerClickHandler);
+				this.menuTrigger.addEventListener('keydown', triggerKeyHandler);
+			}
+		}, {
+			key: '_attachItemEvents',
+			value: function _attachItemEvents() {
+				var itemClickHandler = this._itemClickHandler.bind(this);
+				var itemKeyHandler = this._itemKeyHandler.bind(this);
+
+				for (var i = 0; i < this.items.length; i++) {
+					this.items[i].addEventListener('click', itemClickHandler);
+					this.items[i].tabIndex = '-1';
+					this.items[i].addEventListener('keydown', itemKeyHandler);
+				}
+			}
+		}, {
+			key: '_animationEndListener',
+			value: function _animationEndListener() {
+				var removeAnimationEndListener = this._removeAnimationEndListener.bind(this);
+
+				this.element.addEventListener('transitionend', removeAnimationEndListener);
+				this.element.addEventListener('webkitTransitionEnd', removeAnimationEndListener);
+			}
+		}, {
+			key: '_removeAnimationEndListener',
+			value: function _removeAnimationEndListener() {
+				this.element.classList.remove(this.classes.animating);
+			}
+
+			/**
+	   *
+	   	Utils
+	   *
+	  **/
+
+		}, {
+			key: '_applySettings',
+			value: function _applySettings(options) {
+				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+					for (var i in options) {
+						if (options.hasOwnProperty(i)) {
+							this.defaults[i] = options[i];
+						}
+					}
+				}
+			}
+		}]);
+
+		return menu;
+	}();
+
+	exports.default = menu;
 
 /***/ }
 /******/ ])
