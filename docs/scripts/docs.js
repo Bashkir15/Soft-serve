@@ -653,12 +653,9 @@
 						items[i].style.transitionDelay = itemDelay;
 					}
 
-					//var items = this.element.querySelectorAll('.' + this.classes.item);
-
 					this._applyClip(height, width);
 
 					window.requestAnimationFrame(function () {
-						console.log('boy');
 						_this2.element.classList.add(_this2.classes.animating);
 						_this2.element.style.clip = 'rect(0 ' + width + 'px ' + height + 'px 0)';
 						_this2.container.classList.add(_this2.classes.visible);
@@ -666,7 +663,15 @@
 
 					this._animationEndListener();
 
-					// add a function to close menu on document click
+					var callback = function (evt) {
+						console.log('arrrrrrrrrrrrrr');
+						if (evt !== e && evt.target.parentNode !== this.element) {
+							//document.removeEventListener('click', callback);
+							this.hide();
+						}
+					}.bind(this);
+
+					document.addEventListener('click', callback);
 				}
 			}
 		}, {

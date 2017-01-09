@@ -231,12 +231,10 @@ class menu {
 			}
 
 
-			//var items = this.element.querySelectorAll('.' + this.classes.item);
 
 			this._applyClip(height, width);
 
 			window.requestAnimationFrame(() => {
-				console.log('boy');
 				this.element.classList.add(this.classes.animating);
 				this.element.style.clip = 'rect(0 ' + width + 'px ' + height + 'px 0)';
 				this.container.classList.add(this.classes.visible);  
@@ -244,7 +242,15 @@ class menu {
 
 			this._animationEndListener();
 
-			// add a function to close menu on document click
+			var callback = function(evt) {
+				console.log('arrrrrrrrrrrrrr');
+				if (evt !== e && evt.target.parentNode !== this.element) {
+					//document.removeEventListener('click', callback);
+					this.hide();
+				} 
+			}.bind(this);
+
+			document.addEventListener('click', callback);
 		}
 	}
 
