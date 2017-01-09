@@ -556,17 +556,23 @@
 					// Calculate transition delays for each menu item so they fade in order
 					var items = this.element.querySelectorAll('.' + this.classes.item);
 					for (var i = 0; i < items.length; i++) {
-						var itemDelay = items[i].offsetTop / height * transitionDuration + 's';
+						var itemDelay = null;
+
+						if (this.element.classList.contains(this.classes.topLeft) || this.element.classList.contains(this.classes.topRight)) {
+							itemDelay = (height - items[i].offsetTop - items[i].offsetHeight) / height * transitionDuration + 's';
+						} else {
+							itemDelay = items[i].offsetTop / height * transitionDuration + 's';
+						}
+
 						items[i].style.transitionDelay = itemDelay;
 					}
-
-					//var transitionDuration = this.defaults.transitionDuration;
 
 					//var items = this.element.querySelectorAll('.' + this.classes.item);
 
 					this._applyClip(height, width);
 
 					window.requestAnimationFrame(function () {
+						console.log('boy');
 						_this.element.classList.add(_this.classes.animating);
 						_this.element.style.clip = 'rect(0 ' + width + 'px ' + height + 'px 0)';
 						_this.container.classList.add(_this.classes.visible);
@@ -583,7 +589,9 @@
 				if (this.element && this.container) {
 					var items = this.element.querySelectorAll('.' + this.classes.item);
 
-					// remove transition delays and such
+					for (var i = 0; i < items.length; i++) {
+						items[i].style.removeProperty('transition-delay');
+					}
 
 					// measure the inner element
 
@@ -592,7 +600,7 @@
 					var width = rect.width;
 
 					this.element.classList.add(this.classes.animating);
-					// work with clip here
+					this._applyClip(height, width);
 					this.container.classList.remove(this.classes.visible);
 				}
 			}

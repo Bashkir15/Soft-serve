@@ -149,13 +149,12 @@ class menu {
 			}
 
 
-			//var transitionDuration = this.defaults.transitionDuration;
-
 			//var items = this.element.querySelectorAll('.' + this.classes.item);
 
 			this._applyClip(height, width);
 
 			window.requestAnimationFrame(() => {
+				console.log('boy');
 				this.element.classList.add(this.classes.animating);
 				this.element.style.clip = 'rect(0 ' + width + 'px ' + height + 'px 0)';
 				this.container.classList.add(this.classes.visible);  
@@ -171,7 +170,9 @@ class menu {
 		if (this.element && this.container) {
 			var items = this.element.querySelectorAll('.' + this.classes.item);
 
-			// remove transition delays and such
+			for (let i = 0; i < items.length; i++) {
+				items[i].style.removeProperty('transition-delay');
+			}
 
 			// measure the inner element
 
@@ -180,7 +181,7 @@ class menu {
 			var width = rect.width;
 
 			this.element.classList.add(this.classes.animating);
-			// work with clip here
+			this._applyClip(height, width);
 			this.container.classList.remove(this.classes.visible);
 		}
 	}
