@@ -512,10 +512,9 @@
 			key: '_hide',
 			value: function _hide() {
 				if (this.element && this.container) {
-					var items = this.element.querySelectorAll('.' + this.classes.item);
 
-					for (var i = 0; i < items.length; i++) {
-						items[i].style.removeProperty('transition-delay');
+					for (var i = 0; i < this.items.length; i++) {
+						this.items[i].style.removeProperty('transition-delay');
 					}
 
 					// measure the inner element

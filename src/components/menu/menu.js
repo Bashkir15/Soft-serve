@@ -90,17 +90,16 @@ class menu {
 
 	_hide() {
 		if (this.element && this.container) {
-			var items = this.element.querySelectorAll('.' + this.classes.item);
 
-			for (let i = 0; i < items.length; i++) {
-				items[i].style.removeProperty('transition-delay');
+			for (let i = 0; i < this.items.length; i++) {
+				this.items[i].style.removeProperty('transition-delay');
 			}
 
 			// measure the inner element
 
-			var rect = this.element.getBoundingClientRect();
-			var height = rect.height;
-			var width = rect.width;
+			let rect = this.element.getBoundingClientRect();
+			let height = rect.height;
+			let width = rect.width;
 
 			this.element.classList.add(this.classes.animating);
 			this._applyClip(height, width);
