@@ -61,21 +61,9 @@ class menu {
 			this.outline.style.width = width + 'px';
 			this.outline.style.height = height + 'px';
 
-			var transitionDuration = this.defaults.transitionDuration * this.defaults.transitionFraction;
-
 			// Calculate transition delays for each menu item so they fade in order
-			var items = this.element.querySelectorAll('.' + this.classes.item);
-			for (let i = 0; i < items.length; i++) {
-				var itemDelay = null;
 
-				if (this.element.classList.contains(this.classes.topLeft) || this.element.classList.contains(this.classes.topRight)) {
-					itemDelay = ((height - items[i].offsetTop - items[i].offsetHeight) / height * transitionDuration) + 's';
-				} else {
-					itemDelay = (items[i].offsetTop / height * transitionDuration) + 's';
-				}
-
-				items[i].style.transitionDelay = itemDelay;
-			}
+			this._calculateTransition(height, width);
 
 
 
@@ -220,11 +208,50 @@ class menu {
 		}
 	}
 
+	_applyClip(height, width) {
+		if (this.element.classList.contains(this.classes.unaligned)) {
+
+		} else if (this.element.classList.contains(this.classes.bottomRight)) {
+			this.element.style.clip = 'rect(0 ' + width + 'px ' + '0 ' + width + 'px)';
+
+		} else if (this.element.classList.contains(this.classes.topLeft)) {
+			this.element.style.clip = 'rect(' + height + 'px 0 ' + height + 'px 0)';
+
+		} else if (this.element.classList.contains(this.classes.topRight)) {
+			this.element.style.clip = 'rect(' + height + 'px ' + width + 'px ' + height + 'px ' + width + 'px)';
+
+		} else {
+			this.element.style.clip = '';
+		}
+	}
+
+	_calculateTransition(height, width) {
+		// Calculate and apply a transition for the items so they the fade in order
+
+		let transitionDuration = this.defaults.transitionDuration * this.defaults.transitionFraction;
+
+		for (let i = 0; i < this.items.length; i++) {
+			let itemDelay = null;
+
+			if (this.element.classList.contains(this.classes.topLeft) || this.element.classList.contains(this.classes.topRight)) {
+				itemDelay = ((height - this.items[i].offsetTop - this.items[i].offsetHeight) / height * transitionDuration) + 's';
+			} else {
+				itemDelay = (this.items[i].offsetTop / height * transitionDuration) + 's';
+			}
+
+			this.items[i].style.transitionDelay = itemDelay;
+		}
+	}
+
+
+
 	/**
 	 *
 	 	Trigger Events
 	 *
 	**/
+
+
 
 	_triggerClickHandler() {
 		if (this.element && this.menuTrigger) {
@@ -272,29 +299,11 @@ class menu {
 
 	/**
 	 *
-	 	Event Delegation
+	 	Item Events
 	 *
 	**/
 
 
-	_attachTriggerEvents() {
-		var triggerClickHandler = this._triggerClickHandler.bind(this);
-		var triggerKeyHandler = this._triggerKeyHandler.bind(this);
-
-		this.menuTrigger.addEventListener('click', triggerClickHandler);
-		this.menuTrigger.addEventListener('keydown', triggerKeyHandler);
-	}
-
-	 _attachItemEvents() {
-		let itemClickHandler = this._itemClickHandler.bind(this);
-		let itemKeyHandler = this._itemKeyHandler.bind(this);
-
-		for (let i = 0; i < this.items.length; i++) {
-			this.items[i].addEventListener('click', itemClickHandler);
-			this.items[i].tabIndex = '-1';
-			this.items[i].addEventListener('keydown', itemKeyHandler);
-		}
-	} 
 
 	_itemClickHandler(e) {
 		window.setTimeout((e) => {
@@ -325,7 +334,7 @@ class menu {
 					} else {
 						this.items[0].focus();
 					}
-					
+
 				} else if (e.keyCode === this.keycodes.space || e.keyCode === this.keycodes.enter) {
 					e.preventDefault();
 					
@@ -343,30 +352,44 @@ class menu {
 		}
 	}
 
-	
 
+
+	/**
+	 *
+	 	Event Delegation
+	 *
+	**/
+
+
+	_attachTriggerEvents() {
+		let triggerClickHandler = this._triggerClickHandler.bind(this);
+		let triggerKeyHandler = this._triggerKeyHandler.bind(this);
+
+		this.menuTrigger.addEventListener('click', triggerClickHandler);
+		this.menuTrigger.addEventListener('keydown', triggerKeyHandler);
+	}
+
+	 _attachItemEvents() {
+		let itemClickHandler = this._itemClickHandler.bind(this);
+		let itemKeyHandler = this._itemKeyHandler.bind(this);
+
+		for (let i = 0; i < this.items.length; i++) {
+			this.items[i].addEventListener('click', itemClickHandler);
+			this.items[i].tabIndex = '-1';
+			this.items[i].addEventListener('keydown', itemKeyHandler);
+		}
+	} 
+
+	
 	_animationEndListener() {
 		let removeAnimationEndListener = this._removeAnimationEndListener.bind(this);
+
 		this.element.addEventListener('transitionend', removeAnimationEndListener);
 		this.element.addEventListener('webkitTransitionEnd', removeAnimationEndListener);
 	}
 
 	_removeAnimationEndListener() {
 		this.element.classList.remove(this.classes.animating);
-	}
-
-	_applyClip(height, width) {
-		if (this.element.classList.contains(this.classes.unaligned)) {
-
-		} else if (this.element.classList.contains(this.classes.bottomRight)) {
-			this.element.style.clip = 'rect(0 ' + width + 'px ' + '0 ' + width + 'px)';
-		} else if (this.element.classList.contains(this.classes.topLeft)) {
-			this.element.style.clip = 'rect(' + height + 'px 0 ' + height + 'px 0)';
-		} else if (this.element.classList.contains(this.classes.topRight)) {
-			this.element.style.clip = 'rect(' + height + 'px ' + width + 'px ' + height + 'px ' + width + 'px)';
-		} else {
-			this.element.style.clip = '';
-		}
 	}
 }
 

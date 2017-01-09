@@ -476,21 +476,9 @@
 					this.outline.style.width = width + 'px';
 					this.outline.style.height = height + 'px';
 
-					var transitionDuration = this.defaults.transitionDuration * this.defaults.transitionFraction;
-
 					// Calculate transition delays for each menu item so they fade in order
-					var items = this.element.querySelectorAll('.' + this.classes.item);
-					for (var i = 0; i < items.length; i++) {
-						var itemDelay = null;
 
-						if (this.element.classList.contains(this.classes.topLeft) || this.element.classList.contains(this.classes.topRight)) {
-							itemDelay = (height - items[i].offsetTop - items[i].offsetHeight) / height * transitionDuration + 's';
-						} else {
-							itemDelay = items[i].offsetTop / height * transitionDuration + 's';
-						}
-
-						items[i].style.transitionDelay = itemDelay;
-					}
+					this._calculateTransition(height, width);
 
 					this._applyClip(height, width);
 
@@ -632,6 +620,38 @@
 					this.outline.classList.add(this.classes.topRight);
 				}
 			}
+		}, {
+			key: '_applyClip',
+			value: function _applyClip(height, width) {
+				if (this.element.classList.contains(this.classes.unaligned)) {} else if (this.element.classList.contains(this.classes.bottomRight)) {
+					this.element.style.clip = 'rect(0 ' + width + 'px ' + '0 ' + width + 'px)';
+				} else if (this.element.classList.contains(this.classes.topLeft)) {
+					this.element.style.clip = 'rect(' + height + 'px 0 ' + height + 'px 0)';
+				} else if (this.element.classList.contains(this.classes.topRight)) {
+					this.element.style.clip = 'rect(' + height + 'px ' + width + 'px ' + height + 'px ' + width + 'px)';
+				} else {
+					this.element.style.clip = '';
+				}
+			}
+		}, {
+			key: '_calculateTransition',
+			value: function _calculateTransition(height, width) {
+				// Calculate and apply a transition for the items so they the fade in order
+
+				var transitionDuration = this.defaults.transitionDuration * this.defaults.transitionFraction;
+
+				for (var i = 0; i < this.items.length; i++) {
+					var itemDelay = null;
+
+					if (this.element.classList.contains(this.classes.topLeft) || this.element.classList.contains(this.classes.topRight)) {
+						itemDelay = (height - this.items[i].offsetTop - this.items[i].offsetHeight) / height * transitionDuration + 's';
+					} else {
+						itemDelay = this.items[i].offsetTop / height * transitionDuration + 's';
+					}
+
+					this.items[i].style.transitionDelay = itemDelay;
+				}
+			}
 
 			/**
 	   *
@@ -684,31 +704,10 @@
 
 			/**
 	   *
-	   	Event Delegation
+	   	Item Events
 	   *
 	  **/
 
-		}, {
-			key: '_attachTriggerEvents',
-			value: function _attachTriggerEvents() {
-				var triggerClickHandler = this._triggerClickHandler.bind(this);
-				var triggerKeyHandler = this._triggerKeyHandler.bind(this);
-
-				this.menuTrigger.addEventListener('click', triggerClickHandler);
-				this.menuTrigger.addEventListener('keydown', triggerKeyHandler);
-			}
-		}, {
-			key: '_attachItemEvents',
-			value: function _attachItemEvents() {
-				var itemClickHandler = this._itemClickHandler.bind(this);
-				var itemKeyHandler = this._itemKeyHandler.bind(this);
-
-				for (var i = 0; i < this.items.length; i++) {
-					this.items[i].addEventListener('click', itemClickHandler);
-					this.items[i].tabIndex = '-1';
-					this.items[i].addEventListener('keydown', itemKeyHandler);
-				}
-			}
 		}, {
 			key: '_itemClickHandler',
 			value: function _itemClickHandler(e) {
@@ -722,7 +721,6 @@
 			key: '_itemKeyHandler',
 			value: function _itemKeyHandler(e) {
 				if (this.element && this.container) {
-					//var items = this.element.querySelectorAll('.' + this.classes.item);
 
 					if (this.items && this.items.length > 0 && this.container.classList.contains(this.classes.visible)) {
 						var currentIndex = Array.prototype.slice.call(this.items).indexOf(e.target);
@@ -752,17 +750,45 @@
 							//
 							//
 						} else if (e.keyCode === this.keycodes.escape) {
-							console.log('eh?');
 							e.preventDefault();
 							this.hide();
 						}
 					}
 				}
 			}
+
+			/**
+	   *
+	   	Event Delegation
+	   *
+	  **/
+
+		}, {
+			key: '_attachTriggerEvents',
+			value: function _attachTriggerEvents() {
+				var triggerClickHandler = this._triggerClickHandler.bind(this);
+				var triggerKeyHandler = this._triggerKeyHandler.bind(this);
+
+				this.menuTrigger.addEventListener('click', triggerClickHandler);
+				this.menuTrigger.addEventListener('keydown', triggerKeyHandler);
+			}
+		}, {
+			key: '_attachItemEvents',
+			value: function _attachItemEvents() {
+				var itemClickHandler = this._itemClickHandler.bind(this);
+				var itemKeyHandler = this._itemKeyHandler.bind(this);
+
+				for (var i = 0; i < this.items.length; i++) {
+					this.items[i].addEventListener('click', itemClickHandler);
+					this.items[i].tabIndex = '-1';
+					this.items[i].addEventListener('keydown', itemKeyHandler);
+				}
+			}
 		}, {
 			key: '_animationEndListener',
 			value: function _animationEndListener() {
 				var removeAnimationEndListener = this._removeAnimationEndListener.bind(this);
+
 				this.element.addEventListener('transitionend', removeAnimationEndListener);
 				this.element.addEventListener('webkitTransitionEnd', removeAnimationEndListener);
 			}
@@ -770,19 +796,6 @@
 			key: '_removeAnimationEndListener',
 			value: function _removeAnimationEndListener() {
 				this.element.classList.remove(this.classes.animating);
-			}
-		}, {
-			key: '_applyClip',
-			value: function _applyClip(height, width) {
-				if (this.element.classList.contains(this.classes.unaligned)) {} else if (this.element.classList.contains(this.classes.bottomRight)) {
-					this.element.style.clip = 'rect(0 ' + width + 'px ' + '0 ' + width + 'px)';
-				} else if (this.element.classList.contains(this.classes.topLeft)) {
-					this.element.style.clip = 'rect(' + height + 'px 0 ' + height + 'px 0)';
-				} else if (this.element.classList.contains(this.classes.topRight)) {
-					this.element.style.clip = 'rect(' + height + 'px ' + width + 'px ' + height + 'px ' + width + 'px)';
-				} else {
-					this.element.style.clip = '';
-				}
 			}
 		}]);
 
