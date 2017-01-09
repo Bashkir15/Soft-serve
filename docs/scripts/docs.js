@@ -497,8 +497,10 @@
 
 				var items = this.element.querySelectorAll('.' + this.classes.item);
 				var itemKeyHandler = this._itemKeyHandler.bind(this);
+				var itemClickHandler = this._itemClickHandler.bind(this);
 
 				for (var i = 0; i < items.length; i++) {
+					items[i].addEventListener('click', itemClickHandler);
 					items[i].tabIndex = '-1';
 					items[i].addEventListener('keydown', itemKeyHandler);
 				}
@@ -573,6 +575,15 @@
 				}
 			}
 		}, {
+			key: '_itemClickHandler',
+			value: function _itemClickHandler(e) {
+				var _this = this;
+
+				window.setTimeout(function (e) {
+					_this.hide();
+				}, this.defaults.closeTimeout);
+			}
+		}, {
 			key: '_itemKeyHandler',
 			value: function _itemKeyHandler(e) {
 				if (this.element && this.container) {
@@ -597,6 +608,17 @@
 							} else {
 								items[0].focus();
 							}
+						} else if (e.keyCode === this.keycodes.space || e.keyCode === this.keycodes.enter) {
+							e.preventDefault();
+
+							//
+							//
+							//eventually create a mouse event for ripple here
+							//
+							//
+						} else if (e.keyCode === this.keycodes.escape) {
+							e.preventDefault();
+							this.hide();
 						}
 					}
 				}
@@ -604,7 +626,7 @@
 		}, {
 			key: '_show',
 			value: function _show(e) {
-				var _this = this;
+				var _this2 = this;
 
 				if (this.element && this.container) {
 					var height = this.element.getBoundingClientRect().height;
@@ -637,9 +659,9 @@
 
 					window.requestAnimationFrame(function () {
 						console.log('boy');
-						_this.element.classList.add(_this.classes.animating);
-						_this.element.style.clip = 'rect(0 ' + width + 'px ' + height + 'px 0)';
-						_this.container.classList.add(_this.classes.visible);
+						_this2.element.classList.add(_this2.classes.animating);
+						_this2.element.style.clip = 'rect(0 ' + width + 'px ' + height + 'px 0)';
+						_this2.container.classList.add(_this2.classes.visible);
 					});
 
 					this._animationEndListener();

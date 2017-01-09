@@ -80,8 +80,10 @@ class menu {
 
 		var items = this.element.querySelectorAll('.' + this.classes.item);
 		var itemKeyHandler = this._itemKeyHandler.bind(this);
+		var itemClickHandler = this._itemClickHandler.bind(this);
 
 		for (let i = 0; i < items.length; i++) {
+			items[i].addEventListener('click', itemClickHandler);
 			items[i].tabIndex = '-1';
 			items[i].addEventListener('keydown', itemKeyHandler);
 		}
@@ -154,6 +156,12 @@ class menu {
 				}
 			}
 		}
+	}
+
+	_itemClickHandler(e) {
+		window.setTimeout((e) => {
+			this.hide();
+		}, this.defaults.closeTimeout);
 	}
 
 	_itemKeyHandler(e) {
