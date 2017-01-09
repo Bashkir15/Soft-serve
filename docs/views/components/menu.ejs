@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset='utf-8'>
+		<link rel='stylesheet' href='../prismjs/themes/prism-twilight.css'>
 		<link rel='stylesheet' href='../styles/main.min.css'>
 		<link rel='stylesheet' href='../prod/styles/main.min.css'>
 	</head>
@@ -90,24 +91,98 @@
 			</div>
 		</div>
 
+		<div class='component-description'>
+			<p>The Softserver menu is a simple, expandable, easily-customized, dropdown menu. By default, the menu is intended to attract a user's attention to certain choices or actions and as such will be dismissed once an action is selected. The menu comes with multiple configuration options to allow the menu to be fitted to multiple different use cases. All menu options come acessible with keyboard control functionality</p>
+
+			<div class='component-note'>
+				<p>** In order for the positioning of the menu and its container to work properly, the parent element of the menu and the menu trigger must not be statically positioned. If it is, the Top alligned menus might not work as intended</p>
+			</div>
+		</div>
+
+		<div class='component-usage' id='component-usage'>
+			<p>1. To incorporate a menu into your application, create a non-statically positioned parent element. Inside this parent you will need to create an element, a button will be used here, to be used as a trigger for toggling the menu. This element should contain an id for the code to recognize it as a trigger element</p>
+
+			<div class='component-html'>
+				<pre>
+					<code class='language-markup'>
+						&lt;!-- non-static positioned parent --&gt;
+						&lt;div&gt;
+						    &lt;button id='dropdown-menu'&gt;
+						        &lt;span&gt;Menu&lt;/span&gt;
+						   &lt;/button&gt;
+						&lt;/div&gt;
+					</code>
+				</pre>
+			</div>
+
+			<p>2. Inside the parent-container directly below the menu trigger, create an unordered-list element and add a for attribute that corresponds to the id on your trigger element, and then apply the 'soft-menu' class on the list element.</p>
+
+			<div class='component-html'>
+				<pre>
+					<code class='language-markup'>
+						&lt;ul class='soft-menu' for='dropdown-menu'&gt;
+						&lt;/ul&gt;
+					</code>
+				</pre>
+			</div>
+
+			<p>3. For each item in your menu, construct an li element inside the unordered list element, adding a class of 'soft-menu-item' for each option in your list. From here you may apply any attribute, class, etc. that is needed for your use case.</p>
+
+			<div class='component-html'>
+				<pre>
+					<code class='language-markup'>
+						&lt;ul class='soft-menu' for='dropdown-menu'&gt;
+						     &lt;li class='soft-menu-item'&gt;Item 1&lt;/li&gt;
+						     &lt;li class='soft-menu-item'&gt;Item 2&lt;/li&gt;
+						&lt;/ul&gt;
+					</code>
+				</pre>
+			</div>
+
+			<p>4. The last step is to include the library in a script tag or by importing it into your script file and initializing the menu</p>
+
+			<div class='component-js'>
+				<pre>
+					<code class='language-javascript'>
+						import softServe from './dist/soft-serve'
+
+						var menu = new softServe.menu();
+					</code>
+				</pre>
+			</div>
+
+			<p>That is all it takes to setup a basic instance of a SoftServe menu. Once finished, this is what your default menu will look like</p>
+
+			<div class='component-default'>
+				<div class='menu-bar'>
+					<button id='dropdown-menu'>
+						Default
+					</button>
+
+					<ul class='soft-menu menu-1' for='dropdown-menu'>
+						<li class='soft-menu-item'>Item 1</li>
+						<li class='soft-menu-item'>Item 2</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
 		<div class='menu-test'>
-			<button id='dropdown-menu'>
-				<span>Dropdown</span>
-			</button>
 
-			<ul class='soft-menu menu-1' for='dropdown-menu'>
-				<li class='soft-menu-item'>Stuff1</li>
-				<li class='soft-menu-item'>Stuff2</li>
-			</ul>
+			<div>
+				<div class='menu-bar'>
+					<button id='dropdown-menu-2'>
+						Bottom Right
+					</button>
 
-			<button id='dropdown-menu-2'>
-				<span>Top Right</span>
-			</button>
+					<ul class='soft-menu menu-2 soft-menu-bottom-right' for='dropdown-menu-2'>
+						<li class='soft-menu-item'>Item 1</li>
+						<li class='soft-menu-item'>Item 2</li>
+					</ul>
+				</div>
 
-			<ul class='soft-menu menu-2 soft-menu-top-right' for='dropdown-menu-2'>
-				<li class='soft-menu-item'>Stuff1</li>
-				<li class='soft-menu-item'>Stuff2</li>
-			</ul>
+				<p>Bottom Right alligned menu</p>
+			</div>
 
 			<button id='dropdown-menu-3'>
 				<span>Top Left</span>
@@ -128,6 +203,19 @@
 			</ul>
 		</div>
 
+		<div>
+			<pre>
+				<code class='language-markup'>
+					&lt;div class='menu-container'&gt;
+     					&lt;p&gt;Stuff&lt;/p&gt;
+					&lt;/div&gt;
+
+					
+				</code>
+			</pre>
+		</div>
+
 		<script src='../../scripts/docs.js'></script>
+		<script src="../prismjs/prism.js"></script>
 	</body>
 </html>

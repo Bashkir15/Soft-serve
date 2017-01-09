@@ -2,6 +2,7 @@
 import softServe from '../../../dist/soft-serve'
 
 export function menuComponent() {
+
 	var dropdown1 = new softServe.menu({
 		element: '.menu-1'
 	});

@@ -46,7 +46,55 @@
 		font-size: 16px
 		color: #fff
 
+.component-description
+	width: 55%
+	padding-top: 40px
+	padding-bottom: 30px
+	margin: 0 auto
+
+	> p
+		@include rale()
+		font-weight: 300
+		letter-spacing: 2px
+		font-size: 16px
+		line-height: 35px
+		padding-bottom: 40px
+
+.component-note
+	width: 80%
+	padding: 40px 0
+	margin: 0 auto
+
+	p
+		@include quick()
+		font-weight: 400
+		letter-spacing: 2px
+		font-size: 15px
+		line-height: 28px
+
+.component-usage
+	width: 50%
+	padding: 40px 0
+	margin: 0 auto
+
+	p
+		@include quick()
+		font-weight: 400
+		letter-spacing: 2px
+		line-height: 30px
+		font-size: 16px
+		padding-bottom: 35px
+		padding-top: 40px
+
+.component-default
+	width: 80%
+	padding: 40px 0
+	margin: 0 auto
+
+
+
 .menu-test
 	position: relative
 
 @import "modals"
+@import "menus"
