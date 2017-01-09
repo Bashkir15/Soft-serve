@@ -11,7 +11,7 @@ class menu {
 			transitionFraction: 0.8,
 			closeTimeout: 150
 		};
-		
+
 		this.keycodes = {
 			enter: 13,
 			escape: 27,
@@ -98,8 +98,10 @@ class menu {
 
 	_attachTriggerEvents() {
 		var triggerClickHandler = this._triggerClickHandler.bind(this);
+		var triggerKeyHandler = this._triggerKeyHandler.bind(this);
 
 		this.menuTrigger.addEventListener('click', triggerClickHandler);
+		this.menuTrigger.addEventListener('keydown', triggerKeyHandler);
 	}
 
 	_triggerClickHandler() {
@@ -128,6 +130,22 @@ class menu {
 		}
 
 		this.toggle();
+	}
+
+	_triggerKeyHandler(e) {
+		if (this.element && this.container && this.menuTrigger) {
+			var items = this.element.querySelectorAll('.' + this.classes.item);
+
+			if (items && items.length > 0 && this.container.classList.contains(this.classes.visible)) {
+				if (e.keyCode === this.keycodes.up) {
+					e.preventDefault();
+					items[items.length - 1].focus();
+				} else if (e.keyCode === this.keycodes.down) {
+					e.preventDefault();
+					items[0].focus();
+				}
+			}
+		}
 	}
 
 	_show(e) {

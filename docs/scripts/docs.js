@@ -425,7 +425,15 @@
 				transitionFraction: 0.8,
 				closeTimeout: 150
 			};
-			this.keycodes = {};
+
+			this.keycodes = {
+				enter: 13,
+				escape: 27,
+				space: 32,
+				up: 38,
+				down: 40
+			};
+
 			this.classes = {
 				container: 'soft-menu-container',
 				outline: 'soft-menu-outline',
@@ -507,8 +515,10 @@
 			key: '_attachTriggerEvents',
 			value: function _attachTriggerEvents() {
 				var triggerClickHandler = this._triggerClickHandler.bind(this);
+				var triggerKeyHandler = this._triggerKeyHandler.bind(this);
 
 				this.menuTrigger.addEventListener('click', triggerClickHandler);
+				this.menuTrigger.addEventListener('keydown', triggerKeyHandler);
 			}
 		}, {
 			key: '_triggerClickHandler',
@@ -536,6 +546,24 @@
 				}
 
 				this.toggle();
+			}
+		}, {
+			key: '_triggerKeyHandler',
+			value: function _triggerKeyHandler(e) {
+				if (this.element && this.container && this.menuTrigger) {
+					var items = this.element.querySelectorAll('.' + this.classes.item);
+
+					if (items && items.length > 0 && this.container.classList.contains(this.classes.visible)) {
+						if (e.keyCode === this.keycodes.up) {
+							console.log('rawr');
+							e.preventDefault();
+							items[items.length - 1].focus();
+						} else if (e.keyCode === this.keycodes.down) {
+							e.preventDefault();
+							items[0].focus();
+						}
+					}
+				}
 			}
 		}, {
 			key: '_show',
