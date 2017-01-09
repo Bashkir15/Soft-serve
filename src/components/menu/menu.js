@@ -78,6 +78,14 @@ class menu {
 			}
 		}
 
+		var items = this.element.querySelectorAll('.' + this.classes.item);
+		var itemKeyHandler = this._itemKeyHandler.bind(this);
+
+		for (let i = 0; i < items.length; i++) {
+			items[i].tabIndex = '-1';
+			items[i].addEventListener('keydown', itemKeyHandler);
+		}
+
 		if (this.element.classList.contains(this.classes.bottomLeft)) {
 			this.outline.classList.add(this.classes.bottomLeft);
 		}
