@@ -179,6 +179,18 @@ class menu {
 					} else {
 						items[0].focus();
 					}
+				} else if  (e.keyCode === this.keycodes.space || e.keyCode === this.keycodes.enter) {
+					e.preventDefault();
+					
+					//
+					//
+					//eventually create a mouse event for ripple here
+					//
+					//
+
+				} else if (e.keyCode === this.keycodes.escape) {
+					e.preventDefault();
+					this.hide();
 				}
 			}
 		}
