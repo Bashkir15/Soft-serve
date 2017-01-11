@@ -30,4 +30,6 @@ export function menuComponent() {
 	var dropdown7 = new softServe.menu({
 		element: '.menu-7'
 	});
+
+	var scroller = new softServe.smoothScroll();
 }

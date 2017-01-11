@@ -405,6 +405,8 @@
 		var dropdown7 = new _softServe2.default.menu({
 			element: '.menu-7'
 		});
+
+		var scroller = new _softServe2.default.smoothScroll();
 	} //import menu from '../../../src/components/menu/menu'
 
 /***/ },
@@ -480,13 +482,18 @@
 
 				var _menu2 = _interopRequireDefault(_menu);
 
+				var _smoothScroll = __webpack_require__(3);
+
+				var _smoothScroll2 = _interopRequireDefault(_smoothScroll);
+
 				function _interopRequireDefault(obj) {
 					return obj && obj.__esModule ? obj : { default: obj };
 				}
 
 				var softServer = {
 					modal: _modal2.default,
-					menu: _menu2.default
+					menu: _menu2.default,
+					smoothScroll: _smoothScroll2.default
 				};
 
 				exports.default = softServer;
@@ -1258,6 +1265,130 @@
 				}();
 
 				exports.default = menu;
+
+				/***/
+			},
+			/* 3 */
+			/***/function (module, exports) {
+
+				'use strict';
+
+				Object.defineProperty(exports, "__esModule", {
+					value: true
+				});
+
+				var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
+					return typeof obj === 'undefined' ? 'undefined' : _typeof2(obj);
+				} : function (obj) {
+					return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === 'undefined' ? 'undefined' : _typeof2(obj);
+				};
+
+				var _createClass = function () {
+					function defineProperties(target, props) {
+						for (var i = 0; i < props.length; i++) {
+							var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+						}
+					}return function (Constructor, protoProps, staticProps) {
+						if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+					};
+				}();
+
+				function _classCallCheck(instance, Constructor) {
+					if (!(instance instanceof Constructor)) {
+						throw new TypeError("Cannot call a class as a function");
+					}
+				}
+
+				var smoothScroll = function () {
+					function smoothScroll(options) {
+						_classCallCheck(this, smoothScroll);
+
+						this.targets = null;
+						this.scrollTargets = null;
+
+						this.defaults = {
+							clickTargets: '[data-scroll]',
+							scrollTargets: '.scroll-target',
+							duration: 1000,
+							factor: null,
+							timer: null,
+							start: null
+						};
+
+						this._applySettings(options);
+						this._init();
+					}
+
+					_createClass(smoothScroll, [{
+						key: '_applySettings',
+						value: function _applySettings(options) {
+							if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+								for (var i in options) {
+									if (options.hasOwnProperty(i)) {
+										this.defaults[i] = options[i];
+									}
+								}
+							}
+						}
+					}, {
+						key: '_init',
+						value: function _init() {
+							var _this = this;
+
+							var handleClickEvent = this._handleClickEvent.bind(this);
+
+							this.clickTargets = document.querySelectorAll(this.defaults.clickTargets);
+
+							Array.prototype.map.call(this.clickTargets, function (item) {
+								item.addEventListener('click', function () {
+									_this._handleClickEvent(item);
+								});
+							});
+						}
+					}, {
+						key: '_handleClickEvent',
+						value: function _handleClickEvent(item) {
+
+							var step = this._step.bind(this);
+
+							this.defaults.start = Date.now();
+							this.defaults.factor = 0;
+
+							if (this.defaults.timer) {
+								clearInterval(this.defaults.timer);
+							}
+
+							this.defaults.timer = setInterval(function () {
+								step(item);
+							}, 10);
+
+							return this.defaults.timer;
+						}
+					}, {
+						key: '_step',
+						value: function _step(item) {
+							var y;
+							var target = item.getAttribute('data-scroll');
+							var scrollTarget = document.getElementById(target).offsetTop;
+							var offset = window.pageYOffset;
+							var delta = scrollTarget - window.pageYOffset;
+
+							this.defaults.factor = (Date.now() - this.defaults.start) / this.defaults.duration;
+
+							if (this.defaults.factor >= 1) {
+								clearInterval(this.defaults.timer);
+								this.defaults.factor = 1;
+							}
+
+							y = this.defaults.factor * delta + offset;
+							window.scrollBy(0, y - window.pageYOffset);
+						}
+					}]);
+
+					return smoothScroll;
+				}();
+
+				exports.default = smoothScroll;
 
 				/***/
 			}
