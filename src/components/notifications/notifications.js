@@ -79,8 +79,30 @@ class notifications {
 		}
 
 		this._attachEvents();
+	}
 
-		return notifyId;
+	_close(notifyId) {
+		let notification = document.getElementById(notifyId);
+
+		if (notification) {
+			if (typeof this.defaults.onBeforeClose === 'function') {
+				this.defaults.onBeforeClose.call(this);
+			}
+
+			notification.classList.remove(this.classes.active);
+
+			if (typeof this.defaults.onClose === 'function') {
+				this.defaults.onClose.call(this);
+			}
+			
+			setTimeout(() => {
+				notification.parentNode.removeChild(notification);
+			}, 600);
+
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	_buildOut() {
