@@ -2,6 +2,7 @@ class notifications {
 	constructor(options) {
 		this.container = null;
 		this.count = 0;
+		this.notifyId = null;
 
 		this.defaults = {
 			content: '',
@@ -15,6 +16,7 @@ class notifications {
 			action: null,
 			requiredAction: null,
 			clickOutsideToClose: true,
+			keyActions: true,
 			timeoutClose: true,
 			posX: 'right',
 			posY: 'bottom',
@@ -35,6 +37,10 @@ class notifications {
 			none: 'notification-bland'
 		};
 
+		this.keycodes = {
+			escape: 27
+		};
+
 		this._applySettings(options);
 	}
 
@@ -49,7 +55,7 @@ class notifications {
 	}
 
 	_open() {
-		let notifyId = "notification-" + this.count;
+		this.notifyId = "notification-" + this.count;
 
 		if (typeof this.defaults.onBeforeOpen === 'function') {
 			this.defaults.onBeforeOpen.call(this);
@@ -72,7 +78,7 @@ class notifications {
 			}, this.defaults.timeout);
 		}
 
-		this._attachEvents(notifyId);
+		this._attachEvents();
 
 		return notifyId;
 	}
@@ -159,14 +165,14 @@ class notifications {
 		} 
 	}
 
-	_attachEvents(notifyId) {
+	_attachEvents() {
 		let keyHandler = this._keyHandler.bind(this);
 
 		if (this.defaults.requiredAction === false) {
 			if (this.defaults.clickOutsideToClose === true) {
 				let documentClickHandler = (evt) => {
 					if (evt.target.parentNode !== this.container && this.container.classList.contains(this.classes.active)) {
-						this.close(notifyId);
+						this.close(this.notifyId);
 
 						setTimeout(() => {
 							document.removeEventListener('click', documentClickHandler);
@@ -175,6 +181,20 @@ class notifications {
 				};
 
 				document.addEventListener('click', documentClickHandler);
+			}
+		} else {
+
+		}
+
+		if (this.defaults.keyActions === true) {
+			this.container.addEventListener('keydown', keyHandler);
+		}
+	}
+
+	_keyHandler(e) {
+		if (this.defaults.requiredAction === false) {
+			if (e.keyCode === this.keycodes.escape) {
+				this.close(this.notifyId);
 			}
 		}
 	}
