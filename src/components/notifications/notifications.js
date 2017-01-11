@@ -15,6 +15,7 @@ class notifications {
 			action: null,
 			requiredAction: null,
 			clickOutsideToClose: true,
+			timeoutClose: true,
 			posX: 'right',
 			posY: 'bottom',
 			aligned: true
@@ -47,7 +48,32 @@ class notifications {
 		}
 	}
 
-	_BuildOut() {
+	_open() {
+		let notifyId = "notification-" + this.count;
+
+		if (typeof this.defaults.onBeforeOpen === 'function') {
+			this.defaults.onBeforeOpen.call(this);
+		}
+
+		this._buildOut.call(this);
+
+		setTimeout(() => {
+			this.container.classList.add(this.classes.active);
+			this.container.setAttribute('id', notifyId);
+		}, 100);
+
+		if (this.defaults.timeoutClose === true && this.defaults.timeout > 0) {
+			setTimeout(() => {
+				this.close(notifyId);
+			}, this.defaults.timeout);
+		}
+
+		this._attachEvents();
+
+		return notifyId;
+	}
+
+	_buildOut() {
 		var container = document.createElement('div');
 		var contentHolder = document.createElement('div');
 		var content;
@@ -69,6 +95,7 @@ class notifications {
 
 		contentHolder.innerHTML = content;
 		this.container.appendChild(contentHolder);
+		document.body.appendChild(this.container);
 	}
 
 	_checkTyoe(item) {
