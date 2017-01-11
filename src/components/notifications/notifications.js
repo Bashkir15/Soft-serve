@@ -24,6 +24,7 @@ class notifications {
 
 		this.classes = {
 			container: 'notification-container',
+			notification: 'notification',
 			title: 'notification-title',
 			text: 'notification-text',
 			confirmAction: 'notification-action-confirm',
@@ -109,8 +110,8 @@ class notifications {
 		var contentHolder = document.createElement('div');
 		var content;
 
-		container.classList.add('notification-container');
-		contentHolder.classList.add('notification');
+		container.classList.add(this.classes.container);
+		contentHolder.classList.add(this.classes.notification);
 
 		this.container = container;
 		this.container.style.position = "fixed";
@@ -147,7 +148,7 @@ class notifications {
 				item.classList.add(this.classes.alert);
 				break;
 
-			case "none"
+			case "none":
 				item.classList.add(this.classes.bland);
 				break;
 
@@ -177,7 +178,7 @@ class notifications {
 					break;
 
 				case "bottom":
-					this.container.style.bottom = 20 "px";
+					this.container.style.bottom = 20 + "px";
 					break;
 
 				default:
@@ -249,3 +250,5 @@ class notifications {
 		}
 	} */
 }
+
+export default notifications

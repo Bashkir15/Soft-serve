@@ -68,7 +68,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _menu2 = _interopRequireDefault(_menu);
 
-	var _smoothScroll = __webpack_require__(3);
+	var _notifications = __webpack_require__(3);
+
+	var _notifications2 = _interopRequireDefault(_notifications);
+
+	var _smoothScroll = __webpack_require__(4);
 
 	var _smoothScroll2 = _interopRequireDefault(_smoothScroll);
 
@@ -77,6 +81,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var softServer = {
 		modal: _modal2.default,
 		menu: _menu2.default,
+		notifications: _notifications2.default,
 		smoothScroll: _smoothScroll2.default
 	};
 
@@ -818,6 +823,289 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var notifications = function () {
+		function notifications(options) {
+			_classCallCheck(this, notifications);
+
+			this.container = null;
+			this.count = 0;
+			this.notifyId = null;
+
+			this.defaults = {
+				content: '',
+				timeout: 200,
+				type: 'alert',
+				onBeforeOpen: null,
+				onOpen: null,
+				onBeforeClose: null,
+				onClose: null,
+				actionTriggers: [],
+				requiredAction: null,
+				clickOutsideToClose: true,
+				keyActions: true,
+				timeoutClose: true,
+				posX: 'right',
+				posY: 'bottom',
+				aligned: true
+			};
+
+			this.classes = {
+				container: 'notification-container',
+				title: 'notification-title',
+				text: 'notification-text',
+				confirmAction: 'notification-action-confirm',
+				confirmCancel: 'notification-action-cancel',
+				active: 'notification-shown',
+				success: 'notification-sucess',
+				alert: 'notification-alert',
+				warning: 'notification-warning',
+				danger: 'notification-danger',
+				none: 'notification-bland'
+			};
+
+			this.keycodes = {
+				escape: 27
+			};
+
+			this._applySettings(options);
+		}
+
+		_createClass(notifications, [{
+			key: '_applySettings',
+			value: function _applySettings(options) {
+				if (typeof options === 'function') {
+					for (var i in options) {
+						if (options.hasOwnProperty(i)) {
+							this.defaults[i] = options[i];
+						}
+					}
+				}
+			}
+		}, {
+			key: '_open',
+			value: function _open() {
+				var _this = this;
+
+				this.notifyId = "notification-" + this.count;
+
+				if (typeof this.defaults.onBeforeOpen === 'function') {
+					this.defaults.onBeforeOpen.call(this);
+				}
+
+				this._buildOut.call(this);
+
+				setTimeout(function () {
+					_this.container.classList.add(_this.classes.active);
+					_this.container.setAttribute('id', notifyId);
+
+					if (typeof _this.defaults.onOpen === 'function') {
+						_this.defaults.onOpen.call(_this);
+					}
+				}, 100);
+
+				if (this.defaults.timeoutClose === true && this.defaults.timeout > 0) {
+					setTimeout(function () {
+						_this.close(notifyId);
+					}, this.defaults.timeout);
+				}
+
+				this._attachEvents();
+			}
+		}, {
+			key: '_close',
+			value: function _close(notifyId) {
+				var notification = document.getElementById(notifyId);
+
+				if (notification) {
+					if (typeof this.defaults.onBeforeClose === 'function') {
+						this.defaults.onBeforeClose.call(this);
+					}
+
+					notification.classList.remove(this.classes.active);
+
+					if (typeof this.defaults.onClose === 'function') {
+						this.defaults.onClose.call(this);
+					}
+
+					setTimeout(function () {
+						notification.parentNode.removeChild(notification);
+					}, 600);
+
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}, {
+			key: '_buildOut',
+			value: function _buildOut() {
+				var container = document.createElement('div');
+				var contentHolder = document.createElement('div');
+				var content;
+
+				container.classList.add('notification-container');
+				contentHolder.classList.add('notification');
+
+				this.container = container;
+				this.container.style.position = "fixed";
+
+				if (typeof this.defaults.content === 'string') {
+					content = this.defaults.content;
+				} else {
+					content = this.defaults.content.innerHTML;
+				}
+
+				this._checkType(contentHolder);
+				this._checkPosition();
+
+				contentHolder.innerHTML = content;
+				this.container.appendChild(contentHolder);
+				document.body.appendChild(this.container);
+			}
+		}, {
+			key: '_checkTyoe',
+			value: function _checkTyoe(item) {
+				switch (this.defaults.type) {
+					case "success":
+						item.classList.add(this.classes.success);
+						break;
+
+					case "danger":
+						item.classList.add(this.classes.danger);
+						break;
+
+					case "warning":
+						item.classList.add(this.classes.warning);
+						break;
+
+					case "alert":
+						item.classList.add(this.classes.alert);
+						break;
+
+					case "none":
+						item.classList.add(this.classes.bland);
+						break;
+
+					default:
+						item.classList.add(this.classes.alert);
+				}
+			}
+		}, {
+			key: '_checkPosition',
+			value: function _checkPosition() {
+				if (this.defaults.aligned === true) {
+					switch (this.defaults.posX) {
+						case "right":
+							this.container.style.right = 20 + "px";
+							break;
+
+						case "left":
+							this.container.style.left = 20 + "px";
+							break;
+
+						default:
+							this.container.style.right = 20 + "px";
+					}
+
+					switch (this.defaults.posY) {
+						case "top":
+							this.container.style.top = 20 + "px";
+							break;
+
+						case "bottom":
+							this.container.style.bottom = 20 + "px";
+							break;
+
+						default:
+							this.container.style.right = 20 + "px";
+					}
+				}
+			}
+		}, {
+			key: '_attachEvents',
+			value: function _attachEvents() {
+				var _this2 = this;
+
+				var keyHandler = this._keyHandler.bind(this);
+
+				if (this.defaults.requiredAction === false) {
+					if (this.defaults.clickOutsideToClose === true) {
+						(function () {
+							var documentClickHandler = function documentClickHandler(evt) {
+								if (evt.target.parentNode !== _this2.container && _this2.container.classList.contains(_this2.classes.active)) {
+									_this2.close(_this2.notifyId);
+
+									setTimeout(function () {
+										document.removeEventListener('click', documentClickHandler);
+									}, 50);
+								}
+							};
+
+							document.addEventListener('click', documentClickHandler);
+						})();
+					}
+				} else {}
+
+				if (this.defaults.keyActions === true) {
+					this.container.addEventListener('keydown', keyHandler);
+				}
+			}
+		}, {
+			key: '_keyHandler',
+			value: function _keyHandler(e) {
+				if (this.defaults.requiredAction === false) {
+					if (e.keyCode === this.keycodes.escape) {
+						this.close(this.notifyId);
+					}
+				}
+			}
+
+			/* _handleActionTriggers() {
+	  	if (this.defaults.actionTriggers.length) {
+	  		for (let i = 0; i < this.defaults.actionTriggers.length; i++) {
+	  			for var (k in this.defaults.actionTriggers[i]) {
+	  				if (this.defaults.actionTriggers[i].hasOwnProperty(k)) {
+	  					let actionTrigger = this.defaults.actionTriggers[i];
+	  					let eventTrigger;
+	  					let eventAction;
+	  					let eventTarget;
+	  						if (typeof actionTrigger.eventTrigger === 'string') {
+	  						eventTrigger = actionTrigger.eventTrigger;
+	  					}
+	  						if (typeof actionTrigger.eventAction === 'function') {
+	  						eventAction = actionTrigger.eventAction;
+	  					}
+	  						if (typeof actionTrigger.eventTarget === 'string') {
+	  						eventTarget === document.querySelector(actionTrigger.eventTarget);
+	  					}
+	  						eventTarget.addEventListener(eventTrigger, eventAction);
+	  				}
+	  			}
+	  		}
+	  	}
+	  } */
+
+		}]);
+
+		return notifications;
+	}();
+
+	exports.default = notifications;
+
+/***/ },
+/* 4 */
 /***/ function(module, exports) {
 
 	'use strict';
