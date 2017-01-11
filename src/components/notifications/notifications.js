@@ -42,6 +42,9 @@ class notifications {
 		};
 
 		this._applySettings(options);
+
+		this.open = this._open.bind(this);
+		this.close = this._close.bind(this);
 	}
 
 	_applySettings(options) {

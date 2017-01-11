@@ -863,6 +863,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			this.classes = {
 				container: 'notification-container',
+				notification: 'notification',
 				title: 'notification-title',
 				text: 'notification-text',
 				confirmAction: 'notification-action-confirm',
@@ -880,6 +881,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			};
 
 			this._applySettings(options);
+
+			this.open = this._open.bind(this);
+			this.close = this._close.bind(this);
 		}
 
 		_createClass(notifications, [{
@@ -955,8 +959,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				var contentHolder = document.createElement('div');
 				var content;
 
-				container.classList.add('notification-container');
-				contentHolder.classList.add('notification');
+				container.classList.add(this.classes.container);
+				contentHolder.classList.add(this.classes.notification);
 
 				this.container = container;
 				this.container.style.position = "fixed";

@@ -14,4 +14,8 @@ router.get('/components/menu', (req, res) => {
 	res.render('./components/menu');
 });
 
+router.get('/components/notifications', (req, res) => {
+	res.render('./components/notifications');
+});
+
 module.exports = router;
