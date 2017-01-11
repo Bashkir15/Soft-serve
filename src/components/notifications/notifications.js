@@ -14,7 +14,10 @@ class notifications {
 			actionTriggers: [],
 			action: null,
 			requiredAction: null,
-			clickOutsideToClose: true,			
+			clickOutsideToClose: true,
+			posX: 'right',
+			posY: 'bottom',
+			aligned: true
 		};
 
 		this.classes = {
@@ -37,5 +40,29 @@ class notifications {
 				}
 			}
 		}
+	}
+
+	_BuildOut() {
+		var container = document.createElement('div');
+		var contentHolder = document.createElement('div');
+		var content;
+
+		container.classList.add('notification-container');
+		contentHolder.classList.add('notification');
+
+		this.container = container;
+		this.container.style.position = "fixed";
+
+		if (typeof this.defaults.content === 'string') {
+			content = this.defaults.content;
+		} else {
+			content = this.defaults.content.innerHTML;
+		}
+
+		this._checkType();
+		this._checkPosition();
+
+		contentHolder.innerHTML = content;
+		this.container.appendChild(contentHolder);
 	}
 }
