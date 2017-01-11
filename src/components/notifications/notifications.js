@@ -27,6 +27,11 @@ class notifications {
 			confirmAction: 'notification-action-confirm',
 			confirmCancel: 'notification-action-cancel',
 			active: 'notification-shown',
+			success: 'notification-sucess',
+			alert: 'notification-alert',
+			warning: 'notification-warning',
+			danger: 'notification-danger',
+			none: 'notification-bland'
 		};
 
 		this._applySettings(options);
@@ -59,10 +64,37 @@ class notifications {
 			content = this.defaults.content.innerHTML;
 		}
 
-		this._checkType();
+		this._checkType(contentHolder);
 		this._checkPosition();
 
 		contentHolder.innerHTML = content;
 		this.container.appendChild(contentHolder);
+	}
+
+	_checkTyoe(item) {
+		switch (this.defaults.type) {
+			case "success":
+				item.classList.add(this.classes.success);
+				break;
+
+			case "danger":
+				item.classList.add(this.classes.danger);
+				break;
+
+			case "warning":
+				item.classList.add(this.classes.warning);
+				break;
+
+			case "alert":
+				item.classList.add(this.classes.alert);
+				break;
+
+			case "none"
+				item.classList.add(this.classes.bland);
+				break;
+
+			default:
+				item.classList.add(this.classes.alert);
+		}
 	}
 }
