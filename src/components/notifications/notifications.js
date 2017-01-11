@@ -72,7 +72,7 @@ class notifications {
 			}, this.defaults.timeout);
 		}
 
-		this._attachEvents();
+		this._attachEvents(notifyId);
 
 		return notifyId;
 	}
@@ -157,5 +157,25 @@ class notifications {
 					this.container.style.right = 20 + "px";				
 			}
 		} 
+	}
+
+	_attachEvents(notifyId) {
+		let keyHandler = this._keyHandler.bind(this);
+
+		if (this.defaults.requiredAction === false) {
+			if (this.defaults.clickOutsideToClose === true) {
+				let documentClickHandler = (evt) => {
+					if (evt.target.parentNode !== this.container && this.container.classList.contains(this.classes.active)) {
+						this.close(notifyId);
+
+						setTimeout(() => {
+							document.removeEventListener('click', documentClickHandler);
+						}, 50);
+					}
+				};
+
+				document.addEventListener('click', documentClickHandler);
+			}
+		}
 	}
 }
