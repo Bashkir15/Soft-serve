@@ -13,7 +13,6 @@ class notifications {
 			onBeforeClose: null,
 			onClose: null,
 			actionTriggers: [],
-			action: null,
 			requiredAction: null,
 			clickOutsideToClose: true,
 			keyActions: true,
@@ -220,4 +219,33 @@ class notifications {
 			}
 		}
 	}
+
+	/* _handleActionTriggers() {
+		if (this.defaults.actionTriggers.length) {
+			for (let i = 0; i < this.defaults.actionTriggers.length; i++) {
+				for var (k in this.defaults.actionTriggers[i]) {
+					if (this.defaults.actionTriggers[i].hasOwnProperty(k)) {
+						let actionTrigger = this.defaults.actionTriggers[i];
+						let eventTrigger;
+						let eventAction;
+						let eventTarget;
+
+						if (typeof actionTrigger.eventTrigger === 'string') {
+							eventTrigger = actionTrigger.eventTrigger;
+						}
+
+						if (typeof actionTrigger.eventAction === 'function') {
+							eventAction = actionTrigger.eventAction;
+						}
+
+						if (typeof actionTrigger.eventTarget === 'string') {
+							eventTarget === document.querySelector(actionTrigger.eventTarget);
+						}
+
+						eventTarget.addEventListener(eventTrigger, eventAction);
+					}
+				}
+			}
+		}
+	} */
 }
