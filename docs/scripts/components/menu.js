@@ -22,4 +22,12 @@ export function menuComponent() {
 	var dropdown5 = new softServe.menu({
 		element: '.menu-5'
 	});
+
+	var dropdown6 = new softServe.menu({
+		element: '.menu-6'
+	});
+
+	var dropdown7 = new softServe.menu({
+		element: '.menu-7'
+	});
 }

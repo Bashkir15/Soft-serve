@@ -397,6 +397,14 @@
 		var dropdown5 = new _softServe2.default.menu({
 			element: '.menu-5'
 		});
+
+		var dropdown6 = new _softServe2.default.menu({
+			element: '.menu-6'
+		});
+
+		var dropdown7 = new _softServe2.default.menu({
+			element: '.menu-7'
+		});
 	} //import menu from '../../../src/components/menu/menu'
 
 /***/ },

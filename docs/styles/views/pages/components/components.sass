@@ -46,14 +46,46 @@
 		font-size: 16px
 		color: #fff
 
+.component-directory
+	display: flex
+	align-items: center
+	justify-content: center
+	width: 100%
+	padding-top: 40px
+
+	ul
+		width: 25%
+		background: #fff
+		text-align: center
+		padding: 20px 0
+
+		li
+			@include quick()
+			font-weight: 400
+			letter-spacing: 2px
+			font-size: 16px
+			line-height: 38px
+			cursor: pointer
+
+.component-info
+	background: #fafafa
+
 .component-description
-	width: 55%
+	width: 80%
 	padding-top: 40px
 	padding-bottom: 30px
 	margin: 0 auto
 
+	h2
+		@include quick()
+		font-weight: 400
+		letter-spacing: 3px
+		font-size: 28px
+		color: #575757
+		padding-bottom: 25px
+
 	> p
-		@include rale()
+		@include sans()
 		font-weight: 300
 		letter-spacing: 2px
 		font-size: 16px
@@ -62,8 +94,10 @@
 
 .component-note
 	width: 80%
-	padding: 40px 0
+	padding: 40px 30px
 	margin: 0 auto
+	background: #fff
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.23)
 
 	p
 		@include quick()
@@ -71,11 +105,20 @@
 		letter-spacing: 2px
 		font-size: 15px
 		line-height: 28px
+		text-align: center
 
 .component-usage
-	width: 50%
+	width: 80%
 	padding: 40px 0
 	margin: 0 auto
+
+	h2
+		@include quick()
+		font-weight: 400
+		letter-spacing: 3px
+		font-size: 28px
+		color: #575757
+		padding-bottom: 25px
 
 	p
 		@include quick()
@@ -90,6 +133,53 @@
 	width: 80%
 	padding: 40px 0
 	margin: 0 auto
+
+	&.multiple-component-display
+		margin-top: 45px
+
+.component-table
+	margin-top: 65px
+	border-collapse: collapse
+
+.component-table-header
+	height: 40px
+	background: #5dc560
+
+	tr
+		height: 55px
+		padding: 10px 0
+
+		th
+			color: #fff
+			width: 20%
+			padding: 0 20px
+			@include quick()
+			font-weight: 400
+			font-size: 20px
+
+
+			&:nth-of-type(3)
+				width: 40%
+
+.component-table-body
+	background: #fff
+
+	tr
+		border-bottom: 1px solid rgba(0,0,0,0.08)
+
+		td
+			padding: 15px 0
+			@include quick()
+			font-weight: 400
+			letter-spacing: 2px
+			font-size: 16px
+			text-align: center
+			line-height: 24px
+			border-right: 1px solid rgba(0,0,0,0.08)
+
+			&:nth-of-type(3)
+				padding-left: 10px
+				padding-right: 10px
 
 
 

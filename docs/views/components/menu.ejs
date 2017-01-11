@@ -91,6 +91,7 @@
 			</div>
 		</div>
 
+		<div class='component-info'>
 		<div class='component-directory'>
 			<ul>
 				<li>Description</li>
@@ -103,6 +104,7 @@
 		</div>
 
 		<div class='component-description'>
+			<h2>Description</h2>
 			<p>The Softserver menu is a simple, expandable, easily-customized, dropdown menu. By default, the menu is intended to attract a user's attention to certain choices or actions and as such will be dismissed once an action is selected. The menu comes with multiple configuration options to allow the menu to be fitted to multiple different use cases. All menu options come acessible with keyboard control functionality</p>
 
 			<div class='component-note'>
@@ -111,17 +113,18 @@
 		</div>
 
 		<div class='component-usage' id='component-usage'>
+			<h2>Default Usage</h2>
 			<p>1. To incorporate a menu into your application, create a non-statically positioned parent element. Inside this parent you will need to create an element, a button will be used here, to be used as a trigger for toggling the menu. This element should contain an id for the code to recognize it as a trigger element</p>
 
 			<div class='component-html'>
 				<pre>
 					<code class='language-markup'>
-						&lt;!-- non-static positioned parent --&gt;
-						&lt;div&gt;
-						    &lt;button id='dropdown-menu'&gt;
-						        &lt;span&gt;Menu&lt;/span&gt;
-						   &lt;/button&gt;
-						&lt;/div&gt;
+&lt;!-- non-static positioned parent --&gt;
+&lt;div&gt;
+    &lt;button id='dropdown-menu'&gt;
+        &lt;span&gt;Menu&lt;/span&gt;
+   &lt;/button&gt;
+&lt;/div&gt;
 					</code>
 				</pre>
 			</div>
@@ -131,8 +134,8 @@
 			<div class='component-html'>
 				<pre>
 					<code class='language-markup'>
-						&lt;ul class='soft-menu' for='dropdown-menu'&gt;
-						&lt;/ul&gt;
+&lt;ul class='soft-menu' for='dropdown-menu'&gt;
+&lt;/ul&gt;
 					</code>
 				</pre>
 			</div>
@@ -142,10 +145,10 @@
 			<div class='component-html'>
 				<pre>
 					<code class='language-markup'>
-						&lt;ul class='soft-menu' for='dropdown-menu'&gt;
-						     &lt;li class='soft-menu-item'&gt;Item 1&lt;/li&gt;
-						     &lt;li class='soft-menu-item'&gt;Item 2&lt;/li&gt;
-						&lt;/ul&gt;
+&lt;ul class='soft-menu' for='dropdown-menu'&gt;
+     &lt;li class='soft-menu-item'&gt;Item 1&lt;/li&gt;
+     &lt;li class='soft-menu-item'&gt;Item 2&lt;/li&gt;
+&lt;/ul&gt;
 					</code>
 				</pre>
 			</div>
@@ -155,9 +158,9 @@
 			<div class='component-js'>
 				<pre>
 					<code class='language-javascript'>
-						import softServe from './dist/soft-serve'
+import softServe from './dist/soft-serve'
 
-						var menu = new softServe.menu();
+var menu = new softServe.menu();
 					</code>
 				</pre>
 			</div>
@@ -179,6 +182,7 @@
 		</div>
 
 		<div class='component-usage' id='component-postioning'>
+			<h2>Positioning</h2>
 			<p>The menu component comes with several different positioning options. The default positioning option is alligned to the Bottom-Left of the trigger. By applying classes to the unordered list element you can change this default behavior. In addition to the changes in position, the menu will animate open and fade differently for each position to ensure the elements appear in the correct order</p>
 
 			<p>To align the menu to the Top-Right, Top-Left, or Bottom-Right, just apply this class 'soft-menu-(your-positioning-here)'. To demonstrate this more explicitly through code</p>
@@ -186,30 +190,30 @@
 			<div class='component-html'>
 				<pre>
 					<code class='language-markup'>
-						&lt;!-- Top-Left aligned menu --&gt;
-						&lt;ul class='soft-menu soft-menu-top-left' for='dropdown-menu'&gt;
-						     &lt;li class='soft-menu-item'&gt;Top Left&lt;/li&gt;
-						&lt;/ul&gt;
+&lt;!-- Top-Left aligned menu --&gt;
+&lt;ul class='soft-menu soft-menu-top-left' for='dropdown-menu'&gt;
+     &lt;li class='soft-menu-item'&gt;Top Left&lt;/li&gt;
+&lt;/ul&gt;
 
-						&lt;!-- Top-Right aligned menu --&gt;
-						&lt;ul class='soft-menu soft-menu-top-right' for='dropdown-menu'&gt;
-						     &lt;li class='soft-menu-item'&gt;Top Right&lt;/li&gt;
-						&lt;/ul&gt;
+&lt;!-- Top-Right aligned menu --&gt;
+&lt;ul class='soft-menu soft-menu-top-right' for='dropdown-menu'&gt;
+     &lt;li class='soft-menu-item'&gt;Top Right&lt;/li&gt;
+&lt;/ul&gt;
 
-						&lt;!-- Bottom-Right alligned menu --&gt;
-						&lt;ul class='soft-menu soft-menu-bottom-right' for='dropdown-menu'&gt;
-						     &lt;li class='soft-menu-item&gt;Bottom Right&lt;/li&gt;
-						&lt;ul&gt;
+&lt;!-- Bottom-Right alligned menu --&gt;
+&lt;ul class='soft-menu soft-menu-bottom-right' for='dropdown-menu'&gt;
+     &lt;li class='soft-menu-item'&gt;Bottom Right&lt;/li&gt;
+&lt;ul&gt;
 
-						&lt;!-- An unaligned menu that leaves the positioning up to the developer --&gt;
-						&lt;ul class='soft-menu soft-menu-unaligned' for='dropdown-menu'&gt;
-						     &lt;li class='soft-menu-item'&gt;Unaligned&lt;/li&gt;
-						&lt;/ul&gt;
+&lt;!-- An unaligned menu that leaves the positioning up to the developer --&gt;
+&lt;ul class='soft-menu soft-menu-unaligned' for='dropdown-menu'&gt;
+     &lt;li class='soft-menu-item'&gt;Unaligned&lt;/li&gt;
+&lt;/ul&gt;
 					</code>
 				</pre>
 			</div>
 
-			<div class='component-default'>
+			<div class='component-default multiple-component-display'>
 				<div class='menu-bar'>
 					<button id='dropdown-menu-2'>
 						Top Left
@@ -218,9 +222,7 @@
 					<ul class='soft-menu menu-2 soft-menu-top-left' for='dropdown-menu-2'>
 						<li class='soft-menu-item'>Top Left</li>
 					</ul>
-				</div>
 
-				<div class='menu-bar'>
 					<button id='dropdown-menu-3'>
 						Top Right
 					</button>
@@ -228,9 +230,7 @@
 					<ul class='soft-menu menu-3 soft-menu-top-right' for='dropdown-menu-3'>
 						<li class='soft-menu-item'>Top Right</li>
 					</ul>
-				</div>
 
-				<div class='menu-bar'>
 					<button id='dropdown-menu-4'>
 						Bottom Right
 					</button>
@@ -238,9 +238,7 @@
 					<ul class='soft-menu menu-4 soft-menu-bottom-right' for='dropdown-menu-4'>
 						<li class='soft-menu-item'>Bottom Right</li>
 					</ul>
-				</div>
 
-				<div class='menu-bar'>
 					<button id='dropdown-menu-5'>
 						Unaligned
 					</button>
@@ -250,8 +248,149 @@
 					</ul>
 				</div>
 			</div>
+		</div>
 
+		<div class='component-usage' id='multiple-menus'>
+			<h2>Multiple Menus</h2>
+			<p>If you intend on using multiple menus within the same page, as in done on this page, you must override the default settings on the configuration object and apply your own element class on the unordered list. Then you can instantiate each menu within your script file</p>
 
+			<p>In the example to follow, say we want to have two menus adjacent to each other, one that will open in the default pattern, and another which will open at the bottom right. We will start with adding the html markup for these</p>
+
+			<div class='component-html'>
+				<pre>
+					<code class='language-markup'>
+&lt;div class='non-static-container'&gt;
+     &lt;button id='dropdown-menu'&gt;
+          Menu 1
+     &lt;/button&gt;
+
+     &lt;ul class='soft-menu menu-1' for='dropdown-menu'&gt;
+         &lt;li class='soft-menu-item'&gt;Default Menu 1&lt;/li&gt;
+     &lt;/ul&gt;
+
+     &lt;button id='dropdown-2'&gt;
+         Menu 2
+     &lt;/button&gt;
+
+     &lt;ul class='soft-menu menu-2 soft-menu-bottom-right' for='dropdown-2'&gt;
+          &lt;li class='soft-menu-item'&gt;Menu 2 Bottom Right&lt;/li&gt;
+     &lt;/ul&gt;
+&lt;/div&gt;
+					</code>
+				</pre>
+			</div>
+
+			<p>Notice when we use more than one menu, we cannot rely on the default class of 'soft-menu' for our first element. Technically we could because the script only grabs the first instance of the 'soft-menu' class it finds, but when creating multiple menus it can sometimes bug out on later menus when one is left as the default. So for a best practice, since the soft-menu class needs to be included for styling, you should append an additional class to each menu as down above with 'menu-1' and 'menu-2'</p>
+
+			<p>From here, all there is left to do is require the menu component and then instantiate both of the menus</p>
+
+			<div class='component-js'>
+				<pre>
+					<code class='language-javascript'>
+import softServe from './dist/soft-serve'
+
+var menu1 = new softServe.menu({
+	element: '.menu-1'
+});
+
+var menu2 = new softServe.menu({
+	element: '.menu-2'
+});
+					</code>
+				</pre>
+			</div>
+
+			<p>When that is done, we are left with this result</p>
+
+			<div class='component-default'>
+				<div class='menu-bar'>
+					<button id='dropdown-menu-6'>
+						Menu 1
+					</button>
+
+					<ul class='soft-menu menu-6' for='dropdown-menu-6'>
+						<li class='soft-menu-item'>Default Menu 1</li>
+					</ul>
+
+					<button id='dropdown-menu-7'>
+						Menu 2
+					</button>
+
+					<ul class='soft-menu soft-menu-bottom-right menu-7' for='dropdown-menu-7'>
+						<li class='soft-menu-item'>Menu 2</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class='component-usage' id='component-configuration'>
+			<h2>Configuration</h2>
+			<p>As was done when creating multiple menus on the same page, you can pass a configuration object to the menu constructor to override some default settings. Below is an example of this with the default options substituted in, along with a list of what all the configuration options do</p>
+
+			<div class='component-js'>
+				<pre>
+					<code class='language-javascript'>
+var menu = new softServe.menu({
+	element: '.soft-menu',
+	closeTimeout: 250,
+	onBeforeOpen: null,
+	onOpen: null,
+	onBeforeClose: null,
+	onClose: null
+});
+					</code>
+				</pre>
+			</div>
+			
+
+			<table class='component-table'>
+				<thead class='component-table-header'>
+					<tr>
+						<th>Options</th>
+						<th>Type</th>
+						<th>Effect</th>
+					</tr>
+				</thead>
+
+				<tbody class='component-table-body'>
+					<tr>
+						<td>element</td>
+						<td>String</td>
+						<td>The class that the menu script will look for on the unordered list component</td>
+					</tr>
+
+					<tr>
+						<td>closeTimeout</td>
+						<td>Number</td>
+						<td>Determines how long to wait before closing the menu after a menu item has been selected</td>
+					</tr>
+
+					<tr>
+						<td>onBeforeOpen</td>
+						<td>Function</td>
+						<td>A hook that will be called before the visible class is applied to the menu</td>
+					</tr>
+
+					<tr>
+						<td>onOpen</td>
+						<td>Function</td>
+						<td>A hook that will be called immediately after the visible class is applied to the menu</td>
+					</tr>
+
+					<tr>
+						<td>onBeforeClose</td>
+						<td>Function</td>
+						<td>A hook that will be called before the visible class is removed from the menu</td>
+					</tr>
+
+					<tr>
+						<td>onClose</td>
+						<td>Function</td>
+						<td>A hook that will be called immediately after the visible class is removed from the menu</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 		</div>
 
 		<script src='../../scripts/docs.js'></script>
