@@ -97,4 +97,34 @@ class notifications {
 				item.classList.add(this.classes.alert);
 		}
 	}
+
+	_checkPosition() {
+		if (this.defaults.aligned === true) {
+			switch (this.defaults.posX) {
+				case "right":
+					this.container.style.right = 20 + "px";
+					break;
+
+				case "left":
+					this.container.style.left = 20 + "px";
+					break;
+
+				default:
+					this.container.style.right = 20 + "px";
+			}
+
+			switch (this.defaults.posY) {
+				case "top":
+					this.container.style.top = 20 + "px";
+					break;
+
+				case "bottom":
+					this.container.style.bottom = 20 "px";
+					break;
+
+				default:
+					this.container.style.right = 20 + "px";				
+			}
+		} 
+	}
 }
