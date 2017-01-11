@@ -60,6 +60,10 @@ class notifications {
 		setTimeout(() => {
 			this.container.classList.add(this.classes.active);
 			this.container.setAttribute('id', notifyId);
+
+			if (typeof this.defaults.onOpen === 'function') {
+				this.defaults.onOpen.call(this);
+			}
 		}, 100);
 
 		if (this.defaults.timeoutClose === true && this.defaults.timeout > 0) {
