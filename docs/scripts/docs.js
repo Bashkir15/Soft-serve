@@ -992,6 +992,12 @@
 					value: true
 				});
 
+				var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
+					return typeof obj === 'undefined' ? 'undefined' : _typeof2(obj);
+				} : function (obj) {
+					return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === 'undefined' ? 'undefined' : _typeof2(obj);
+				};
+
 				var _createClass = function () {
 					function defineProperties(target, props) {
 						for (var i = 0; i < props.length; i++) {
@@ -1062,7 +1068,7 @@
 					_createClass(notifications, [{
 						key: '_applySettings',
 						value: function _applySettings(options) {
-							if (typeof options === 'function') {
+							if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
 								for (var i in options) {
 									if (options.hasOwnProperty(i)) {
 										this.defaults[i] = options[i];
