@@ -73,4 +73,25 @@ class tooltip {
 
 		this.element.classList.add(this.classes.active);
 	}
+
+	_attachEvents() {
+		let mouseEnterHandler = this._handleMouseEvent.bind(this);
+		let scrollAndResizeHandler = this._throttle.bind(this);
+
+		this.parent.addEventListener('mouseenter', mouseEnterHandler, false);
+		this.parent.addEventListener('touchend', mouseEnterHandler, false);
+		this.parent.addEventListener('mouseleave', this.hide, false);
+	}
+
+	_throttle() {
+		let ticking = false;
+		if (!ticking) {
+			window.requestAnimationFrame(() => {
+				this.hide();
+				ticking = false;
+			});
+		}
+
+		ticking = true;
+	}
 }
