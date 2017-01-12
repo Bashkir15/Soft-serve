@@ -25,6 +25,19 @@ describe('SoftserveNotifications', function() {
 				element.dispatchEvent(event);
 				done();
 			}, 100);
-		})
-	})
-})
+		});
+
+		it('should start animating on close()', function(done) {
+			expect($(element.parentElement)).to.have.class('notification-shown');
+			notification.close();
+			window.setTimeout(function() {
+				expect($(element.parentElement)).to.not.have.class('notification-shown');
+
+				var event = document.createElement('HTMLEvents');
+				event.initEvent('transitionend', true, true);
+				event.dispatchEvent(event);
+				done();
+			}, 100);
+		});
+	});
+});
