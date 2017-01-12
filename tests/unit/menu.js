@@ -66,5 +66,26 @@ describe('SoftserveMenu', function() {
 				done();
 			}, 100);
 		});
+
+		it('should appear on click', function(done) {
+			var test = document.createElement('div');
+			test.innerHTML = `<button id='clickme'>Menu</button><ul class='soft-menu' for='clickme'><li class='soft-menu-item'>Stuff</li></ul>`;
+			document.body.appendChild(test);
+
+			var el = document.querySelector('ul');
+
+			var newMenu = new softServe.menu({
+				element: '.soft-menu'
+			});
+
+			var event = document.createElement('MouseEvents');
+			event.initEvent('click', true, true);
+			test.querySelector('#clickme').dispatchEvent(event);
+			window.setTimeout(function() {
+				expect($(el.parentElement)).to.have.class('soft-menu-visible');
+				document.body.removeChild(test);
+				done();
+			}, 100);
+		});	
 	});
 });
