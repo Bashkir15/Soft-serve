@@ -39,5 +39,21 @@ describe('SoftserveNotifications', function() {
 				done();
 			}, 100);
 		});
+
+		it('should appear on click', function(done) {
+			var test = document.createElement('div');
+			test.innerHTML = `<button id='notificationtrigger>Click</button>`;
+			document.body.appendChild(test);
+
+			var event = document.createEvent('MouseEvents');
+			event.initEvent('click', true, true);
+			test.querySelector('#notificationtrigger').addEventListener('click', notification.open);
+			test.querySelector('#notificationtrigger').dispatchEvent(event);
+			window.setTimeout(function() {
+				expect($(element.parentElement)).to.have.class('notification-shown');
+				document.body.removeChild(test);
+				done();
+			}, 100);
+		});
 	});
 });
