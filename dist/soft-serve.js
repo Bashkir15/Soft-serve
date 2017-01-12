@@ -72,7 +72,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _notifications2 = _interopRequireDefault(_notifications);
 
-	var _smoothScroll = __webpack_require__(4);
+	var _tooltip = __webpack_require__(4);
+
+	var _tooltip2 = _interopRequireDefault(_tooltip);
+
+	var _smoothScroll = __webpack_require__(5);
 
 	var _smoothScroll2 = _interopRequireDefault(_smoothScroll);
 
@@ -82,6 +86,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		modal: _modal2.default,
 		menu: _menu2.default,
 		notifications: _notifications2.default,
+		tooltip: _tooltip2.default,
 		smoothScroll: _smoothScroll2.default
 	};
 
@@ -891,18 +896,13 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.close = this._close.bind(this);
 		}
 
+		/**
+	  *
+	   	Public Methods
+	  *
+	  **/
+
 		_createClass(notifications, [{
-			key: '_applySettings',
-			value: function _applySettings(options) {
-				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-					for (var i in options) {
-						if (options.hasOwnProperty(i)) {
-							this.defaults[i] = options[i];
-						}
-					}
-				}
-			}
-		}, {
 			key: '_open',
 			value: function _open(e) {
 				var _this = this;
@@ -973,6 +973,13 @@ return /******/ (function(modules) { // webpackBootstrap
 					return false;
 				}
 			}
+
+			/**
+	   *
+	   	Build Methods
+	   *
+	  **/
+
 		}, {
 			key: '_buildOut',
 			value: function _buildOut() {
@@ -1066,6 +1073,13 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 				}
 			}
+
+			/**
+	   *
+	   	Handle Events
+	   *
+	  **/
+
 		}, {
 			key: '_attachEvents',
 			value: function _attachEvents() {
@@ -1110,6 +1124,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	  	}
 	  } */
 
+			/**
+	   *
+	   	Utils
+	   *
+	  **/
+
+		}, {
+			key: '_applySettings',
+			value: function _applySettings(options) {
+				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+					for (var i in options) {
+						if (options.hasOwnProperty(i)) {
+							this.defaults[i] = options[i];
+						}
+					}
+				}
+			}
 		}]);
 
 		return notifications;
@@ -1119,6 +1150,153 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 4 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var tooltip = function () {
+		function tooltip(options) {
+			_classCallCheck(this, tooltip);
+
+			this.element = null;
+			this.parent = null;
+
+			this.defaults = {
+				element: '.soft-tooltip'
+			};
+
+			this.classes = {
+				active: 'soft-tooltip-active',
+				bottom: 'soft-tooltip-bottom',
+				left: 'soft-tooltip-left',
+				right: 'soft-tooltip-right',
+				top: 'soft-tooltip-right'
+			};
+
+			this._applySettings(options);
+			this._init();
+
+			this.hide = this._hide.bind(this);
+		}
+
+		_createClass(tooltip, [{
+			key: '_hide',
+			value: function _hide() {
+				this.element.classList.remove(this.classes.active);
+			}
+		}, {
+			key: '_init',
+			value: function _init() {
+				this.element = document.querySelector(this.defaults.element);
+
+				if (this.element) {
+					var tooltipParent = this.element.getAttribute('for');
+
+					if (tooltipParent) {
+						this.parent = document.getElementById(tooltipParent);
+
+						this._attachEvents();
+					}
+				}
+			}
+		}, {
+			key: '_handleMouseEvent',
+			value: function _handleMouseEvent(e) {
+				var rect = e.target.getBoundingClientRect();
+				var left = rect.left + ret.width / 2;
+				var top = rect.top + rect.height / 2;
+				var marginLeft = -1 * (this.element.offsetWidth / 2);
+				var marginTop = -1 * (this.element.offsetHeight / 2);
+
+				if (this.element.classList.contains(this.classes.left) || this.element.classList.contains(this.classes.right)) {
+					left = rect.width / 2;
+
+					if (top + marginTop < 0) {
+						this.element.style.top = '0';
+						this.element.style.marginTop = '0';
+					} else {
+						this.element.style.top = top + 'px';
+						this.element.style.marginTop = marginTop + 'px';
+					}
+				} else {
+					if (left + marginLeft < 0) {
+						this.element.style.left = '0';
+						this.element.style.marginLeft = '0';
+					} else {
+						this.element.style.left = left + 'px';
+						this.element.style.marginLeft = marginLeft + 'px';
+					}
+				}
+
+				if (this.element.classList.contains(this.classes.top)) {
+					this.element.style.top = rect.top - this.element.offsetHeight - 10 + 'px';
+				} else if (this.element.classList.contains(this.classes.right)) {
+					this.element.style.left = rect.left + rect.width + 10 + 'px';
+				} else if (this.element.classList.contains(this.classes.left)) {
+					this.element.style.left = rect.left - this.element.offsetWidth - 10 + 'px';
+				} else {
+					this.element.style.top = rect.top + rect.height + 10 + 'px';
+				}
+
+				this.element.classList.add(this.classes.active);
+			}
+		}, {
+			key: '_attachEvents',
+			value: function _attachEvents() {
+				var mouseEnterHandler = this._handleMouseEvent.bind(this);
+				var scrollAndResizeHandler = this._throttle.bind(this);
+
+				this.parent.addEventListener('mouseenter', mouseEnterHandler, false);
+				this.parent.addEventListener('touchend', mouseEnterHandler, false);
+				this.parent.addEventListener('mouseleave', this.hide, false);
+				window.addEventListener('scroll', scrollAndResizeHandler, true);
+				window.addEventListener('touchstart', scrollAndResizeHandler);
+			}
+		}, {
+			key: '_throttle',
+			value: function _throttle() {
+				var _this = this;
+
+				var ticking = false;
+				if (!ticking) {
+					window.requestAnimationFrame(function () {
+						_this.hide();
+						ticking = false;
+					});
+				}
+
+				ticking = true;
+			}
+		}, {
+			key: '_applySettings',
+			value: function _applySettings(options) {
+				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+					for (var i in options) {
+						if (options.hasOwnProperty(i)) {
+							this.defaults[i] = options[i];
+						}
+					}
+				}
+			}
+		}]);
+
+		return tooltip;
+	}();
+
+	exports.default = tooltip;
+
+/***/ },
+/* 5 */
 /***/ function(module, exports) {
 
 	'use strict';

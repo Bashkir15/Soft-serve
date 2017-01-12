@@ -1,0 +1,38 @@
+.soft-tooltip
+	display: inline-block
+	position: fixed
+	top: -500px
+	left: -500px
+	max-width: 170px
+	padding: 8px
+	color: #fff
+	background:#575757
+	border-radius: 2px
+	font-size: 14px
+	font-weight: normal
+	line-height: 16px
+	text-align:center
+	z-index: 999
+	transform-origin: top center
+	transform: scale(0)
+
+	&.is-active
+		animation: pulse 200ms .4s forwards
+
+.soft-tooltip-large
+	line-height: 18px
+	font-size: 17px
+	padding: 16px
+
+@keyframes pulse
+	0% 
+		transform: scale(0)
+		opacity: 0
+
+	50%
+		transform: scale(0.9)
+
+	100%
+		transform: scale(1)
+		opacity:1
+		visibility: visible
