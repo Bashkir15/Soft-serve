@@ -184,7 +184,144 @@ notificationTrigger.addEventListener('click', notification.open);
 					</button>
 				</div>
 			</div>
+
+			<p>We can also use javascript to build out the content dynamically depending on the situation, so if you only need a few notifications and don't feel like clutting up your html or templates with code, then you can simply provide a template string as the content for the notification</p>
+
+			<div class='component-html'>
+				<pre>
+					<code class='language-markup'>
+&lt;button id='notification-trigger'&gt;
+     Click me!
+&lt;/button&gt;
+					</code>
+				</pre>
+			</div>
+
+			<div class='component-js'>
+				<pre>
+					<code class='language-javascript'>
+import s from './dist/soft-serve'
+
+var notificationTrigger = document.getElementById('notification-trigger');
+
+var notification = new s.notifications({
+	content: '&lt;h2 class="notification-title"&gt;I\'m a title!&lt;/h2&gt; &lt;span class="notfiication-text"&gt;I\'m some text!&lt;/p&gt;'
+});
+					</code>
+				</pre>
+			</div>
+
+			<p>Now when you click the button you should see exactly what we saw before</p>
+
+			<div class='component-default'>
+				<div class='notification-default-container'>
+					<button id='notification-trigger-2'>
+						Click me!
+					</button>
+				</div>
+			</div>
 		</div>
+
+		<div class='component-usage' id='component-positioning'>
+			<h2>Positioning</h2>
+			<p>All notifications are fixed positioning that way they will always be visible to users on the screen. By default, the notification will be positioned in the bottom right of the screen. To override this default configuration, we can pass in string values to the notifications constructor for the X-position and the Y-positition. If you wish for the notification to not be positioned at all, you can pass in false for the aligned option in the configuration object. Since the notifications have a default position, the aligned option is by default set to true.</p>
+
+			<p>The values that the configuration object will accept are 'right' or 'left' for the X-position, and 'top' or 'bottom' for the Y-position. Below you will see an example of all of these and how to incorporate multiple different notifications</p>
+
+			<div class='component-html'>
+				<pre>
+					<code class='language-markup'>
+&lt;div class='notification-container-1'&gt;
+     &lt;h2 class='notification-title'&gt;Title&lt;/h2&gt;
+     &lt;p class='notification-text'&gt;Bottom Left&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class='notification-container-2'&gt;
+     &lt;h2 class='notification-title'&gt;Title&lt;/h2&gt;
+     &lt;p class='notification-text'&gt;Top Right&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class='notification-container-3'&gt;
+     &lt;h2 class='notification-title'&gt;Title&lt;/h2&gt;
+     &lt;p class='notification-text'&gt;Top Left&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class='notification-4'&gt;
+      &lt;h2 class='notification-title'&gt;Title&lt;/h2&gt;
+      &lt;p class='notification-text'&gt;Unaligned&lt;/p&gt;
+&lt;/div&gt;
+				   </code>
+				</pre>
+			</div>
+
+			<div class='component-js'>
+				<pre>
+					<code class='language-javascript'>
+// not including the triggers or content because it is apparent how to do those
+
+import s from './dist/soft-serve'
+
+var notification1 = new s.notifications({
+	posY: 'bottom',
+	posX: 'left'
+});
+
+var notification2 = new s.notifications({
+	posY: 'top',
+	posX: 'right'
+});
+
+var notification3 = new s.notifications({
+	posY: 'top',
+	posX: 'left'
+});
+
+var notification4 = new s.notifications({
+	aligned: false
+});
+					</code>
+				</pre>
+			</div>
+
+			<div class='component-default multiple-component-display'>
+				<div class='menu-bar'>
+					<button id='notification-trigger-3'>
+						Bottom Left
+					</button>
+
+					<button id='notification-trigger-4'>
+						Top Right
+					</button>
+
+					<button id='notification-trigger-5'>
+						Top Left
+					</button>
+
+					<button id='notification-trigger-6'>
+						Unaligned
+					</button>
+
+					<div id='notification-2'>
+						<h2 class='notification-title'>Title</h2>
+						<p class='notification-text'>Bottom Left</p>
+					</div>
+
+					<div id='notification-3'>
+						<h2 class='notiication-title'>Title</h2>
+						<p class='notification-text'>Top Right</p>
+					</div>
+
+					<div id='notification-4'>
+						<h2 class='notification-title'>Title</h2>
+						<p class='notification-text'>Top Left</p>
+					</div>
+
+					<div id='notification-5'>
+						<h2 class='notification-title'>Title</h2>
+						<p class='notification-text'>Unaligned</p>
+					</div>
+				</div>
+			</div>
 
 		<script src='../../scripts/docs.js'></script>
 		<script src="../prismjs/prism.js"></script>
