@@ -9,11 +9,21 @@
 
 	&.notification-top-left
 		.notification
-			translateX(-100%)
+			transform: translateX(-100%)
+
+		&.notification-shown
+			.notification
+				transform: translateX(0)
+				opacity: 1
 
 	&.notification-bottom-left
 		.notification
-			translateX(-100%)
+			transform: translateX(-100%)
+
+		&.notification-shown
+			.notification
+				transform: translateX(0)
+				opacity: 1
 
 .notification
 	position: relative

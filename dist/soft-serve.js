@@ -866,6 +866,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.classes = {
 				container: 'notification-container',
 				notification: 'notification',
+				topLeft: 'notification-top-left',
+				topRight: 'notification-top-right',
+				bottomLeft: 'notification-bottom-left',
 				title: 'notification-title',
 				text: 'notification-text',
 				confirmAction: 'notification-action-confirm',
@@ -1036,6 +1039,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 						default:
 							this.container.style.right = 20 + "px";
+					}
+
+					if (this.defaults.posX === 'right' && this.defaults.posY === 'top') {
+						this.container.classList.add(this.classes.topRight);
+					} else if (this.defaults.posX === 'left' && this.defaults.posY === 'top') {
+						this.container.classList.add(this.classes.topLeft);
+					} else if (this.defaults.posX === 'left' && this.defaults.posY === 'bottom') {
+						this.container.classList.add(this.classes.bottomLeft);
 					}
 				}
 			}
