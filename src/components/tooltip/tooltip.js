@@ -14,6 +14,11 @@ class tooltip {
 			right: 'soft-tooltip-right',
 			top: 'soft-tooltip-right'
 		};
+
+		this._applySettings(options);
+		this._init();
+
+		this.hide = this._hide.bind(this);
 	}
 
 	_hide() {
@@ -96,4 +101,16 @@ class tooltip {
 
 		ticking = true;
 	}
+
+	_applySettings(options) {
+		if (typeof options === 'object') {
+			for (var i in options) {
+				if (options.hasOwnProperty(i)) {
+					this.defaults[i] = options[i];
+				}
+			}
+		}
+	}
 }
+
+export default tooltip
