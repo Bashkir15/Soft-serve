@@ -1024,7 +1024,7 @@
 
 						this.defaults = {
 							content: '',
-							timeout: 4500,
+							timeout: 2500,
 							type: 'alert',
 							onBeforeOpen: null,
 							onOpen: null,
@@ -1081,7 +1081,7 @@
 						}
 					}, {
 						key: '_open',
-						value: function _open() {
+						value: function _open(e) {
 							var _this = this;
 
 							this.notifyId = "notification-" + this.count;
@@ -1100,6 +1100,22 @@
 									_this.defaults.onOpen.call(_this);
 								}
 							}, 100);
+
+							if (this.defaults.clickOutsideToClose === true && this.defaults.requiredAction !== true) {
+								(function () {
+									var documentClickHandler = function documentClickHandler(evt) {
+										if (e !== evt && evt.target.parentNode !== _this.container && _this.container.classList.contains(_this.classes.active)) {
+											_this.close(_this.notifyId);
+
+											setTimeout(function () {
+												document.removeEventListener('click', documentClickHandler);
+											}, 50);
+										}
+									};
+
+									document.addEventListener('click', documentClickHandler);
+								})();
+							}
 
 							if (this.defaults.timeoutClose === true && this.defaults.timeout > 0) {
 								setTimeout(function () {
@@ -1230,36 +1246,16 @@
 					}, {
 						key: '_attachEvents',
 						value: function _attachEvents() {
-							var _this2 = this;
-
 							var keyHandler = this._keyHandler.bind(this);
 
-							if (this.defaults.requiredAction === false) {
-								if (this.defaults.clickOutsideToClose === true) {
-									(function () {
-										var documentClickHandler = function documentClickHandler(evt) {
-											if (evt.target.parentNode !== _this2.container && _this2.container.classList.contains(_this2.classes.active)) {
-												_this2.close(_this2.notifyId);
-
-												setTimeout(function () {
-													document.removeEventListener('click', documentClickHandler);
-												}, 50);
-											}
-										};
-
-										document.addEventListener('click', documentClickHandler);
-									})();
-								}
-							} else {}
-
 							if (this.defaults.keyActions === true) {
-								this.container.addEventListener('keydown', keyHandler);
+								document.addEventListener('keydown', keyHandler);
 							}
 						}
 					}, {
 						key: '_keyHandler',
 						value: function _keyHandler(e) {
-							if (this.defaults.requiredAction === false) {
+							if (this.defaults.requiredAction !== true) {
 								if (e.keyCode === this.keycodes.escape) {
 									this.close(this.notifyId);
 								}
@@ -1505,6 +1501,8 @@
 		var notification6 = new _softServe2.default.notifications({
 			aligned: false
 		});
+
+		var scroller = new _softServe2.default.smoothScroll();
 
 		notificationTrigger1.addEventListener('click', notification1.open);
 		notificationTrigger2.addEventListener('click', notification2.open);

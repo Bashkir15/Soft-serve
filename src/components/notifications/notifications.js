@@ -6,7 +6,7 @@ class notifications {
 
 		this.defaults = {
 			content: '',
-			timeout: 4500,
+			timeout: 2500,
 			type: 'alert',
 			onBeforeOpen: null,
 			onOpen: null,
@@ -60,7 +60,7 @@ class notifications {
 		}
 	}
 
-	_open() {
+	_open(e) {
 		this.notifyId = "notification-" + this.count;
 
 		if (typeof this.defaults.onBeforeOpen === 'function') {
@@ -77,6 +77,20 @@ class notifications {
 				this.defaults.onOpen.call(this);
 			}
 		}, 100);
+
+		if (this.defaults.clickOutsideToClose === true && this.defaults.requiredAction !== true) {
+			let documentClickHandler = (evt) => {
+				if (e !== evt && evt.target.parentNode !== this.container && this.container.classList.contains(this.classes.active)) {
+					this.close(this.notifyId);
+
+					setTimeout(() => {
+						document.removeEventListener('click', documentClickHandler);
+					}, 50);
+				}
+			};
+
+			document.addEventListener('click', documentClickHandler);
+		}
 
 		if (this.defaults.timeoutClose === true && this.defaults.timeout > 0) {
 			setTimeout(() => {
@@ -204,31 +218,13 @@ class notifications {
 	_attachEvents() {
 		let keyHandler = this._keyHandler.bind(this);
 
-		if (this.defaults.requiredAction === false) {
-			if (this.defaults.clickOutsideToClose === true) {
-				let documentClickHandler = (evt) => {
-					if (evt.target.parentNode !== this.container && this.container.classList.contains(this.classes.active)) {
-						this.close(this.notifyId);
-
-						setTimeout(() => {
-							document.removeEventListener('click', documentClickHandler);
-						}, 50);
-					}
-				};
-
-				document.addEventListener('click', documentClickHandler);
-			}
-		} else {
-
-		}
-
 		if (this.defaults.keyActions === true) {
-			this.container.addEventListener('keydown', keyHandler);
+			document.addEventListener('keydown', keyHandler);
 		}
 	}
 
 	_keyHandler(e) {
-		if (this.defaults.requiredAction === false) {
+		if (this.defaults.requiredAction !== true) {
 			if (e.keyCode === this.keycodes.escape) {
 				this.close(this.notifyId);
 			}

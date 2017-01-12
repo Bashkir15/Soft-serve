@@ -44,6 +44,8 @@ function notificationsComponent() {
 		aligned: false
 	});
 
+	var scroller = new s.smoothScroll();
+
 	notificationTrigger1.addEventListener('click', notification1.open);
 	notificationTrigger2.addEventListener('click', notification2.open);
 	notificationTrigger3.addEventListener('click', notification3.open);

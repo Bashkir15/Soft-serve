@@ -101,61 +101,61 @@
 					<li data-scroll='component-configuration'>Configuration</li>
 				</ul>
 			</div>
-		</div>
+		
 
-		<div class='component-description' id='component-description'>
-			<h2>Description</h2>
-			<p>The Softserve notification serves as an alert to respond to a users action in a variety of ways, or to prompt the user for further information or action on their part. The component is highly customizable and in the future will return a promise to allow you to chain methods to have more control over what will happen based on the user's interaction. While notifications will support any range of actions and inputs in the interests of best practices, the actions provided to the notifications should be simple. A confirm action, such as a button or a checkbox, or a dismiss action are recommended. For any more complicated action, it is recommended to use a modal component to achieve more of the user's focus and attention</p>
-		</div>
+			<div class='component-description' id='component-description'>
+				<h2>Description</h2>
+				<p>The Softserve notification serves as an alert to respond to a users action in a variety of ways, or to prompt the user for further information or action on their part. The component is highly customizable and in the future will return a promise to allow you to chain methods to have more control over what will happen based on the user's interaction. While notifications will support any range of actions and inputs in the interests of best practices, the actions provided to the notifications should be simple. A confirm action, such as a button or a checkbox, or a dismiss action are recommended. For any more complicated action, it is recommended to use a modal component to achieve more of the user's focus and attention</p>
+			</div>
 
-		<div class='component-usage' id='component-usage'>
-			<h2>Default Usage</h2>
-			<p>There are two ways to include a notification component in your application. The first is to build the inner HTML content beforehand and assign it an id to register with the component, or to provide a template String to the configuration options. We will cover both methods starting with the pre-built option</p>
+			<div class='component-usage' id='component-usage'>
+				<h2>Default Usage</h2>
+				<p>There are two ways to include a notification component in your application. The first is to build the inner HTML content beforehand and assign it an id to register with the component, or to provide a template String to the configuration options. We will cover both methods starting with the pre-built option</p>
 
-			<p>The first step is to create an element, a div in this case, that will house the content of the component. An ID attribute should be associated with the div so its content can be passed into the notifications constructor. Once this is done, feel free to include whatever content you would like inside of the container. Some default styles are provided for a title and a text component through the classes displayed below</p>
+				<p>The first step is to create an element, a div in this case, that will house the content of the component. An ID attribute should be associated with the div so its content can be passed into the notifications constructor. Once this is done, feel free to include whatever content you would like inside of the container. Some default styles are provided for a title and a text component through the classes displayed below</p>
 
-			<div class='component-html'>
-				<pre>
-					<code class='language-markup'>
+				<div class='component-html'>
+					<pre>
+						<code class='language-markup'>
 &lt;div id='notification-container'&gt;
      &lt;h2 class='notification-title'&gt;I'm a title!&lt;/h2&gt;
      &lt;p class='notification-text'&gt;I'm some text!&lt;/p&gt;
 &lt;/div&gt;
-					</code>
-				</pre>
-			</div>
+						</code>
+					</pre>
+				</div>
 
-			<p>That is pretty much it as far as the HTML goes. The next step is to register the notifications content with the notifications component</p>
+				<p>That is pretty much it as far as the HTML goes. The next step is to register the notifications content with the notifications component</p>
 
-			<div class='component-js'>
-				<pre>
-					<code class='language-javascript'>
-import softServe from './dist/soft-serve'
+				<div class='component-js'>
+					<pre>
+						<code class='language-javascript'>
+	import softServe from './dist/soft-serve'
 
-var notificationContent = document.getElementById('notification-container');
+	var notificationContent = document.getElementById('notification-container');
 
-var notification = new softServe.notifications({
-	content: notificationContent
-});
-					</code>
-				</pre>
-			</div>
+	var notification = new softServe.notifications({
+		content: notificationContent
+	});
+						</code>
+					</pre>
+				</div>
 
-			<p>With that, we are pretty much done. All that is left to be done is to provide some hook or trigger to activate the notification. For simplicities sake, we will create a button and attach an event listener to it</p>
+				<p>With that, we are pretty much done. All that is left to be done is to provide some hook or trigger to activate the notification. For simplicities sake, we will create a button and attach an event listener to it</p>
 
-			<div class='component-html'>
-				<pre>
-					<code class='language-markup'>
+				<div class='component-html'>
+					<pre>
+						<code class='language-markup'>
 &lt;button id='notification-trigger'&gt;
      Click me!
 &lt;/button&gt;
-					</code>
-				</pre>
-			</div>
+						</code>
+					</pre>
+				</div>
 
-			<div class='component-js'>
-				<pre>
-					<code class='language-javascript'>
+				<div class='component-js'>
+					<pre>
+						<code class='language-javascript'>
 import softServe from './dist/soft-serve'
 
 var notificationContent = document.getElementById('notification-container');
@@ -166,40 +166,40 @@ var notification = new softServe.notifications({
 });
 
 notificationTrigger.addEventListener('click', notification.open);
-					</code>
-				</pre>
-			</div>
-
-			<p>You should now have a working notification. Let's test it out below</p>
-
-			<div class='component-default'>
-				<div class='notification-default-container'>
-					<div id='notification-1'>
-						<h2 class='notification-title'>I'm a Title!</h2>
-						<p class='notification-text'>I'm some text!</p>
-					</div>
-
-					<button id='notification-trigger-1'>
-						Click me!
-					</button>
+						</code>
+					</pre>
 				</div>
-			</div>
 
-			<p>We can also use javascript to build out the content dynamically depending on the situation, so if you only need a few notifications and don't feel like clutting up your html or templates with code, then you can simply provide a template string as the content for the notification</p>
+				<p>You should now have a working notification. Let's test it out below</p>
 
-			<div class='component-html'>
-				<pre>
-					<code class='language-markup'>
+				<div class='component-default'>
+					<div class='notification-default-container'>
+						<div id='notification-1'>
+							<h2 class='notification-title'>I'm a Title!</h2>
+							<p class='notification-text'>I'm some text!</p>
+						</div>
+
+						<button id='notification-trigger-1'>
+							Click me!
+						</button>
+					</div>
+				</div>
+
+				<p>We can also use javascript to build out the content dynamically depending on the situation, so if you only need a few notifications and don't feel like clutting up your html or templates with code, then you can simply provide a template string as the content for the notification</p>
+
+				<div class='component-html'>
+					<pre>
+						<code class='language-markup'>
 &lt;button id='notification-trigger'&gt;
      Click me!
 &lt;/button&gt;
-					</code>
-				</pre>
-			</div>
+						</code>
+					</pre>
+				</div>
 
-			<div class='component-js'>
-				<pre>
-					<code class='language-javascript'>
+				<div class='component-js'>
+					<pre>
+						<code class='language-javascript'>
 import s from './dist/soft-serve'
 
 var notificationTrigger = document.getElementById('notification-trigger');
@@ -207,30 +207,30 @@ var notificationTrigger = document.getElementById('notification-trigger');
 var notification = new s.notifications({
 	content: '&lt;h2 class="notification-title"&gt;I\'m a title!&lt;/h2&gt; &lt;span class="notfiication-text"&gt;I\'m some text!&lt;/p&gt;'
 });
-					</code>
-				</pre>
-			</div>
+						</code>
+					</pre>
+				</div>
 
-			<p>Now when you click the button you should see exactly what we saw before</p>
+				<p>Now when you click the button you should see exactly what we saw before</p>
 
-			<div class='component-default'>
-				<div class='notification-default-container'>
-					<button id='notification-trigger-2'>
-						Click me!
-					</button>
+				<div class='component-default'>
+					<div class='notification-default-container'>
+						<button id='notification-trigger-2'>
+							Click me!
+						</button>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class='component-usage' id='component-positioning'>
-			<h2>Positioning</h2>
-			<p>All notifications are fixed positioning that way they will always be visible to users on the screen. By default, the notification will be positioned in the bottom right of the screen. To override this default configuration, we can pass in string values to the notifications constructor for the X-position and the Y-positition. If you wish for the notification to not be positioned at all, you can pass in false for the aligned option in the configuration object. Since the notifications have a default position, the aligned option is by default set to true.</p>
+			<div class='component-usage' id='component-positioning'>
+				<h2>Positioning</h2>
+				<p>All notifications are fixed positioning that way they will always be visible to users on the screen. By default, the notification will be positioned in the bottom right of the screen. To override this default configuration, we can pass in string values to the notifications constructor for the X-position and the Y-positition. If you wish for the notification to not be positioned at all, you can pass in false for the aligned option in the configuration object. Since the notifications have a default position, the aligned option is by default set to true.</p>
 
-			<p>The values that the configuration object will accept are 'right' or 'left' for the X-position, and 'top' or 'bottom' for the Y-position. Below you will see an example of all of these and how to incorporate multiple different notifications</p>
+				<p>The values that the configuration object will accept are 'right' or 'left' for the X-position, and 'top' or 'bottom' for the Y-position. Below you will see an example of all of these and how to incorporate multiple different notifications</p>
 
-			<div class='component-html'>
-				<pre>
-					<code class='language-markup'>
+				<div class='component-html'>
+					<pre>
+						<code class='language-markup'>
 &lt;div class='notification-container-1'&gt;
      &lt;h2 class='notification-title'&gt;Title&lt;/h2&gt;
      &lt;p class='notification-text'&gt;Bottom Left&lt;/p&gt;
@@ -250,13 +250,13 @@ var notification = new s.notifications({
       &lt;h2 class='notification-title'&gt;Title&lt;/h2&gt;
       &lt;p class='notification-text'&gt;Unaligned&lt;/p&gt;
 &lt;/div&gt;
-				   </code>
-				</pre>
-			</div>
+					   </code>
+					</pre>
+				</div>
 
-			<div class='component-js'>
-				<pre>
-					<code class='language-javascript'>
+				<div class='component-js'>
+					<pre>
+						<code class='language-javascript'>
 // not including the triggers or content because it is apparent how to do those
 
 import s from './dist/soft-serve'
@@ -279,50 +279,180 @@ var notification3 = new s.notifications({
 var notification4 = new s.notifications({
 	aligned: false
 });
-					</code>
-				</pre>
-			</div>
+						</code>
+					</pre>
+				</div>
 
-			<div class='component-default multiple-component-display'>
-				<div class='menu-bar'>
-					<button id='notification-trigger-3'>
-						Bottom Left
-					</button>
+				<div class='component-default multiple-component-display'>
+					<div class='menu-bar'>
+						<button id='notification-trigger-3'>
+							Bottom Left
+						</button>
 
-					<button id='notification-trigger-4'>
-						Top Right
-					</button>
+						<button id='notification-trigger-4'>
+							Top Right
+						</button>
 
-					<button id='notification-trigger-5'>
-						Top Left
-					</button>
+						<button id='notification-trigger-5'>
+							Top Left
+						</button>
 
-					<button id='notification-trigger-6'>
-						Unaligned
-					</button>
+						<button id='notification-trigger-6'>
+							Unaligned
+						</button>
 
-					<div id='notification-2'>
-						<h2 class='notification-title'>Title</h2>
-						<p class='notification-text'>Bottom Left</p>
-					</div>
+						<div id='notification-2'>
+							<h2 class='notification-title'>Title</h2>
+							<p class='notification-text'>Bottom Left</p>
+						</div>
 
-					<div id='notification-3'>
-						<h2 class='notiication-title'>Title</h2>
-						<p class='notification-text'>Top Right</p>
-					</div>
+						<div id='notification-3'>
+							<h2 class='notiication-title'>Title</h2>
+							<p class='notification-text'>Top Right</p>
+						</div>
 
-					<div id='notification-4'>
-						<h2 class='notification-title'>Title</h2>
-						<p class='notification-text'>Top Left</p>
-					</div>
+						<div id='notification-4'>
+							<h2 class='notification-title'>Title</h2>
+							<p class='notification-text'>Top Left</p>
+						</div>
 
-					<div id='notification-5'>
-						<h2 class='notification-title'>Title</h2>
-						<p class='notification-text'>Unaligned</p>
+						<div id='notification-5'>
+							<h2 class='notification-title'>Title</h2>
+							<p class='notification-text'>Unaligned</p>
+						</div>
 					</div>
 				</div>
-			</div>
 
+				<div class='component-description' id='component-configuration'>
+					<h2>Configuration</h2>
+
+					<p>The notifications component constructor accepts a configuration options with many different possible options to optimize customizability. Listed below are all of the default options and the possible options</p>
+
+					<div class='component-js'>
+						<pre>
+							<code class='language-javascript'>
+var notification = new softServe.notifications({
+	content: '',
+	timeoutClose: true,
+	timeout: 2500,
+	type: 'alert',
+	onBeforeOpen: null,
+	onOpen: null,
+	onBeforeClose: null,
+	onClose: null,
+	actionTriggers: [],
+	requiredAction: null,
+	clickOutsideToClose: true,
+	keyActions: true,
+	posX: 'right',
+	posY: 'bottom',
+	aligned: true
+});
+							</code>
+						</pre>
+					</div>
+
+					<table class='component-table'>
+						<thead class='component-table-header'>
+							<th>Options</th>
+							<th>Type</th>
+							<th>Effect</th>
+						</thead>
+
+						<tbody class='component-table-body'>
+							<tr>
+								<td>content</td>
+								<td>String || DOM Node</td>
+								<td>Either a template string or a reference to a DOM node to fill the notification with its content</td>
+							</tr>
+
+							<tr>
+								<td>timeoutClose</td>
+								<td>Boolean</td>
+								<td>When set to true will close the notification after the default timeout period has passed</td>
+							</tr>
+
+							<tr>
+								<td>timeout</td>
+								<td>Number</td>
+								<td>If timeoutClose is true this is the time that will pass before the notification is closed</td>
+							</tr>
+
+							<tr>
+								<td>type</td>
+								<td>String</td>
+								<td>Specifies the type of alert that should be displayed. Options are alert, warning, danger, success, and none</td>
+							</tr>
+
+							<tr>
+								<td>onBeforeOpen</td>
+								<td>Function</td>
+								<td>A hook that will be called before the notification is shown</td>
+							</tr>
+
+							<tr>
+								<td>onOpen</td>
+								<td>Function</td>
+								<td>A hook that will be called immediately after the notification is shown</td>
+							</tr>
+
+							<tr>
+								<td>onBeforeClose</td>
+								<td>Function</td>
+								<td>A hook that will be called before the notification is closed</td>
+							</tr>
+
+							<tr>
+								<td>onClose</td>
+								<td>Function</td>
+								<td>A hook that will be called immediately after the notification is closed</td>
+							</tr>
+
+							<tr>
+								<td>actionTriggers</td>
+								<td>Array</td>
+								<td>This feature is experimental and might not work properly. Use at your own risk. This will accept an array of objects where each object describes an event, an event trigger, and an event callback to be called upon the event</td>
+							</tr>
+
+							<tr>
+								<td>requiredAction</td>
+								<td>Boolean</td>
+								<td>If set to true, the notification will not be able to be closed until an action is performed</td>
+							</tr>
+
+							<tr>
+								<td>clickOutsideToClose</td>
+								<td>Boolean</td>
+								<td>When set to true, any clicks outside of the notification will close the notification</td>
+							</tr>
+
+							<tr>
+								<td>keyActions</td>
+								<td>Boolean</td>
+								<td>When set to true, enables keyactions for the notification such as being closed on escape press</td>
+							</tr>
+
+							<tr>
+								<td>posX</td>
+								<td>String</td>
+								<td>Accepts either left or right and will position the notification 20px from whichever side is specified</td>
+							</tr>
+
+							<tr>
+								<td>posY</td>
+								<td>String</td>
+								<td>Accepts either top or bottom and will position the notification 20px from whichever side is specified</td>
+							</tr>
+
+							<tr>
+								<td>aligned</td>
+								<td>Boolean</td>
+								<td>When set to true, the notification will be aligned to the position specified by the posX and posY options, or the bottom right by default. When false the notification will need to be positioned manually</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		<script src='../../scripts/docs.js'></script>
 		<script src="../prismjs/prism.js"></script>
 	</body>
