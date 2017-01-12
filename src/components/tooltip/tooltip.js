@@ -81,6 +81,8 @@ class tooltip {
 		this.parent.addEventListener('mouseenter', mouseEnterHandler, false);
 		this.parent.addEventListener('touchend', mouseEnterHandler, false);
 		this.parent.addEventListener('mouseleave', this.hide, false);
+		window.addEventListener('scroll', scrollAndResizeHandler, true);
+		window.addEventListener('touchstart', scrollAndResizeHandler);
 	}
 
 	_throttle() {
