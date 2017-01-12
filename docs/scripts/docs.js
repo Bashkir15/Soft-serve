@@ -1473,7 +1473,19 @@
 		var notificationTrigger6 = document.getElementById('notification-trigger-6');
 
 		var notification1 = new _softServe2.default.notifications({
-			content: notificationContent1
+			content: notificationContent1,
+			onBeforeOpen: function onBeforeOpen() {
+				alert('yay');
+			},
+			onOpen: function onOpen() {
+				alert('boo');
+			},
+			onBeforeClose: function onBeforeClose() {
+				alert('rawr');
+			},
+			onClose: function onClose() {
+				alert('meow');
+			}
 		});
 
 		var notification2 = new _softServe2.default.notifications({
