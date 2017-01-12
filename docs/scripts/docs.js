@@ -46,15 +46,19 @@
 
 	'use strict';
 
-	var _modal = __webpack_require__(1);
+	var _menu = __webpack_require__(1);
 
-	var _modal2 = _interopRequireDefault(_modal);
+	var _notifications = __webpack_require__(4);
 
-	var _menu = __webpack_require__(2);
+	var _notifications2 = _interopRequireDefault(_notifications);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	(0, _menu.menuComponent)();
+	if (window.location.href.indexOf('notifications') != -1) {
+		(0, _notifications2.default)();
+	} else if (window.location.href.indexOf('menu') != -1) {
+		(0, _menu.menuComponent)();
+	}
 
 	//let modalTrigger1 = document.getElementById('modal-trigger');
 	//let modalContent1 = document.getElementById('modal-component');
@@ -67,300 +71,6 @@
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var modal = function () {
-		function modal(options) {
-			_classCallCheck(this, modal);
-
-			this.overlay = null;
-			this.modal = null;
-			this.closeButton = null;
-
-			/* Customizable options */
-
-			this.defaults = {
-				classes: [],
-				overlay: true,
-				content: '',
-				closeKeys: [27],
-				closeButton: true,
-				onBeforeOpen: null,
-				onBeforeClose: null,
-				onOpen: null,
-				onClose: null
-			};
-
-			/* Public Methods */
-
-			this.open = this._open.bind(this);
-			this.close = this._close.bind(this);
-
-			this._applySettings(options);
-			this.transitionEvent = this._transitionSniff();
-		}
-
-		/* Public Methods */
-
-		_createClass(modal, [{
-			key: '_open',
-			value: function _open() {
-				var _this = this;
-
-				var self = this;
-
-				if (typeof this.defaults.onBeforeOpen === "function") {
-					this.defaults.onBeforeOpen.call(this);
-				}
-
-				document.body.classList.add('modal-open');
-				this._buildOut.call(this);
-				this.modal.classList.add('modal-open');
-				this.overlay.classList.add('modal-open');
-				this._attachEvents();
-
-				if (this.transitionEvent) {
-					this.modal.addEventListener(this.transitionEvent, function () {
-						if (typeof _this.defaults.onOpen === 'function') {
-							_this.defaults.onOpen();
-						}
-
-						//this.modal.removeEventListener(transitionEvent, handleTransition, false);
-					}, false);
-				}
-
-				this._checkOverflow.call(this);
-			}
-		}, {
-			key: '_close',
-			value: function _close() {
-				var _this2 = this;
-
-				var self = this;
-
-				if (typeof this.defaults.onBeforeClose === 'function') {
-					this.defaults.onBeforeClose.call(this);
-				}
-
-				this.modal.classList.remove('modal-open');
-
-				if (this.defaults.classes.length) {
-					this.defaults.classes.forEach(function (item) {
-						_this2.modal.classList.remove(item);s;
-					});
-				}
-
-				document.body.classList.remove('modal-open');
-
-				//this._destroyEvents();
-
-				if (this.transitionEvent) {
-					this.overlay.addEventListener(this.transitionEvent, function () {
-						document.body.removeChild(_this2.overlay);
-						//this.overlay.parentNode.removeChild(this.overlay);
-						//this.modal.removeEventListener(this.transitionEvent, handleClose, false);
-					}, false);
-				}
-
-				if (typeof this.defaults.onClose === 'function') {
-					this.defaults.onClose.call(this);
-				}
-			}
-
-			/* Events */
-
-		}, {
-			key: '_closeKeyHandler',
-			value: function _closeKeyHandler(e) {
-				if (this.defaults.closeKeys.indexOf(e.which) > -1) {
-					e.preventDefault();
-					this.close();
-				}
-			}
-		}, {
-			key: '_clickOutsideHandler',
-			value: function _clickOutsideHandler(e) {
-				if (!this._findAncestor(e.target, 'modal') && event.clientX < this.modal.clientWidth) {
-					this.close();
-				}
-			}
-		}, {
-			key: '_attachEvents',
-			value: function _attachEvents() {
-				var closeKeyHandler = this._closeKeyHandler.bind(this);
-				var clickOutsideHandler = this._clickOutsideHandler.bind(this);
-
-				if (typeof this.closeButton !== 'null') {
-					this.closeButton.addEventListener('click', this.close, false);
-				}
-
-				this.modal.addEventListener('mousedown', clickOutsideHandler, false);
-				document.addEventListener('keydown', closeKeyHandler, false);
-			}
-		}, {
-			key: '_destroyEvents',
-			value: function _destroyEvents() {
-				var closeKeyHandler = this._closeKeyHandler.bind(this);
-				var clickOutsideHandler = this._clickOutsideHandler.bind(this);
-
-				if (typeof this.closeButton !== 'null') {
-					this.closeButton.removeEventListener('click', this.close());
-				}
-
-				this.modal.removeEventListener('mousedown', clickOutsideHandler);
-				document.removeEventListener('keydown', closeKeyHandler);
-			}
-
-			/* Build */
-
-		}, {
-			key: '_buildOut',
-			value: function _buildOut() {
-				var _this3 = this;
-
-				var content;
-				var contentHolder = document.createElement('div');
-				contentHolder.classList.add('modal-content');
-
-				if (typeof this.defaults.content === 'string') {
-					content = this.defaults.content;
-				} else {
-					content = this.defaults.content.innerHTML;
-				}
-
-				contentHolder.innerHTML = content;
-
-				this._checkOverlay();
-				this._checkClose();
-
-				this.modal = document.createElement('div');
-				this.modal.classList.add('modal');
-
-				if (this.defaults.classes.length) {
-					this.defaults.classes.forEach(function (item) {
-						if (typeof item === 'string') {
-							_this3.modDal.classList.add(item);
-						}
-					});
-				}
-
-				this.modal.appendChild(contentHolder);
-				this.modal.appendChild(this.closeButton);
-				this.overlay.appendChild(this.modal);
-				document.body.insertBefore(this.overlay, document.body.firstChild);
-			}
-		}, {
-			key: '_checkContent',
-			value: function _checkContent() {
-				var content;
-
-				if (typeof this.defaults.content === 'string') {
-					content = this.defaults.content;
-				} else {
-					content = this.defaults.content.innerHTML;
-				}
-
-				return content;
-			}
-		}, {
-			key: '_checkOverlay',
-			value: function _checkOverlay() {
-				if (this.defaults.overlay === true) {
-					this.overlay = document.createElement('div');
-					this.overlay.classList.add('modal-overlay');
-				} else {
-					return;
-				}
-			}
-		}, {
-			key: '_checkClose',
-			value: function _checkClose() {
-				if (this.defaults.closeButton === true) {
-					this.closeButton = document.createElement('button');
-					this.closeButton.innerHTML = '<span>X</span>';
-					this.closeButton.classList.add('modal-close-button');
-				} else {
-					return;
-				}
-			}
-
-			/* Utils */
-
-		}, {
-			key: '_applySettings',
-			value: function _applySettings(options) {
-				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-					for (var i in options) {
-						if (options.hasOwnProperty(i)) {
-							this.defaults[i] = options[i];
-						}
-					}
-				}
-			}
-		}, {
-			key: '_transitionSniff',
-			value: function _transitionSniff() {
-				var t;
-				var el = document.createElement('div');
-				var transitions = {
-					'transition': 'transitionend',
-					'OTransition': 'oTransitionEnd',
-					'MozTransition': 'transitionend',
-					'WebkitTransition': 'webkitTransitionEnd'
-				};
-
-				for (t in transitions) {
-					if (el.style[t] !== undefined) {
-						return transitions[t];
-					}
-				}
-			}
-		}, {
-			key: '_checkOverflow',
-			value: function _checkOverflow() {
-				if (this.modal.classList.contains('modal-open')) {
-					if (this._isOverflow()) {
-						this.modal.classList.add('modal-overflow');
-					} else {
-						this.modal.classList.remove('modal-overflow');
-					}
-				}
-			}
-		}, {
-			key: '_isOverflow',
-			value: function _isOverflow() {
-				var viewportHeight = window.innerHeight;
-				var modalHeight = this.modal.clientHeight;
-				var isOverflow = modalHeight < viewportHeight ? false : true;
-				return isOverflow;
-			}
-		}, {
-			key: '_findAncestor',
-			value: function _findAncestor(el, cls) {
-				while ((el = el.parentElement) && !el.classList.contains(cls)) {}
-				return el;
-			}
-		}]);
-
-		return modal;
-	}();
-
-	exports.default = modal;
-
-/***/ },
-/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -370,7 +80,7 @@
 	});
 	exports.menuComponent = menuComponent;
 
-	var _softServe = __webpack_require__(3);
+	var _softServe = __webpack_require__(2);
 
 	var _softServe2 = _interopRequireDefault(_softServe);
 
@@ -410,7 +120,7 @@
 	} //import menu from '../../../src/components/menu/menu'
 
 /***/ },
-/* 3 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {'use strict';
@@ -1308,7 +1018,7 @@
 
 						this.defaults = {
 							content: '',
-							timeout: 200,
+							timeout: 4500,
 							type: 'alert',
 							onBeforeOpen: null,
 							onOpen: null,
@@ -1326,6 +1036,7 @@
 
 						this.classes = {
 							container: 'notification-container',
+							notification: 'notification',
 							title: 'notification-title',
 							text: 'notification-text',
 							confirmAction: 'notification-action-confirm',
@@ -1343,6 +1054,9 @@
 						};
 
 						this._applySettings(options);
+
+						this.open = this._open.bind(this);
+						this.close = this._close.bind(this);
 					}
 
 					_createClass(notifications, [{
@@ -1371,7 +1085,7 @@
 
 							setTimeout(function () {
 								_this.container.classList.add(_this.classes.active);
-								_this.container.setAttribute('id', notifyId);
+								_this.container.setAttribute('id', _this.notifyId);
 
 								if (typeof _this.defaults.onOpen === 'function') {
 									_this.defaults.onOpen.call(_this);
@@ -1380,7 +1094,7 @@
 
 							if (this.defaults.timeoutClose === true && this.defaults.timeout > 0) {
 								setTimeout(function () {
-									_this.close(notifyId);
+									_this.close(_this.notifyId);
 								}, this.defaults.timeout);
 							}
 
@@ -1418,8 +1132,8 @@
 							var contentHolder = document.createElement('div');
 							var content;
 
-							container.classList.add('notification-container');
-							contentHolder.classList.add('notification');
+							container.classList.add(this.classes.container);
+							contentHolder.classList.add(this.classes.notification);
 
 							this.container = container;
 							this.container.style.position = "fixed";
@@ -1438,8 +1152,8 @@
 							document.body.appendChild(this.container);
 						}
 					}, {
-						key: '_checkTyoe',
-						value: function _checkTyoe(item) {
+						key: '_checkType',
+						value: function _checkType(item) {
 							switch (this.defaults.type) {
 								case "success":
 									item.classList.add(this.classes.success);
@@ -1697,10 +1411,10 @@
 		);
 	});
 	;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -1714,6 +1428,36 @@
 		return module;
 	}
 
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _softServe = __webpack_require__(2);
+
+	var _softServe2 = _interopRequireDefault(_softServe);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function notificationsComponent() {
+
+		var notificationContent1 = document.getElementById('notification-1');
+		var notificationTrigger1 = document.getElementById('notification-trigger-1');
+
+		var notification1 = new _softServe2.default.notifications({
+			content: notificationContent1
+		});
+
+		notificationTrigger1.addEventListener('click', notification1.open);
+	}
+
+	exports.default = notificationsComponent;
 
 /***/ }
 /******/ ]);

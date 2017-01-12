@@ -6,7 +6,7 @@ class notifications {
 
 		this.defaults = {
 			content: '',
-			timeout: 200,
+			timeout: 4500,
 			type: 'alert',
 			onBeforeOpen: null,
 			onOpen: null,
@@ -48,7 +48,7 @@ class notifications {
 	}
 
 	_applySettings(options) {
-		if (typeof options === 'function') {
+		if (typeof options === 'object') {
 			for (var i in options) {
 				if (options.hasOwnProperty(i)) {
 					this.defaults[i] = options[i];
@@ -68,7 +68,7 @@ class notifications {
 
 		setTimeout(() => {
 			this.container.classList.add(this.classes.active);
-			this.container.setAttribute('id', notifyId);
+			this.container.setAttribute('id', this.notifyId);
 
 			if (typeof this.defaults.onOpen === 'function') {
 				this.defaults.onOpen.call(this);
@@ -77,7 +77,7 @@ class notifications {
 
 		if (this.defaults.timeoutClose === true && this.defaults.timeout > 0) {
 			setTimeout(() => {
-				this.close(notifyId);
+				this.close(this.notifyId);
 			}, this.defaults.timeout);
 		}
 
@@ -133,7 +133,7 @@ class notifications {
 		document.body.appendChild(this.container);
 	}
 
-	_checkTyoe(item) {
+	_checkType(item) {
 		switch (this.defaults.type) {
 			case "success":
 				item.classList.add(this.classes.success);

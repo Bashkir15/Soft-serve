@@ -845,7 +845,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			this.defaults = {
 				content: '',
-				timeout: 200,
+				timeout: 4500,
 				type: 'alert',
 				onBeforeOpen: null,
 				onOpen: null,
@@ -912,7 +912,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				setTimeout(function () {
 					_this.container.classList.add(_this.classes.active);
-					_this.container.setAttribute('id', notifyId);
+					_this.container.setAttribute('id', _this.notifyId);
 
 					if (typeof _this.defaults.onOpen === 'function') {
 						_this.defaults.onOpen.call(_this);
@@ -921,7 +921,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				if (this.defaults.timeoutClose === true && this.defaults.timeout > 0) {
 					setTimeout(function () {
-						_this.close(notifyId);
+						_this.close(_this.notifyId);
 					}, this.defaults.timeout);
 				}
 
@@ -979,8 +979,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				document.body.appendChild(this.container);
 			}
 		}, {
-			key: '_checkTyoe',
-			value: function _checkTyoe(item) {
+			key: '_checkType',
+			value: function _checkType(item) {
 				switch (this.defaults.type) {
 					case "success":
 						item.classList.add(this.classes.success);

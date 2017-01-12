@@ -102,3 +102,92 @@
 				</ul>
 			</div>
 		</div>
+
+		<div class='component-description' id='component-description'>
+			<h2>Description</h2>
+			<p>The Softserve notification serves as an alert to respond to a users action in a variety of ways, or to prompt the user for further information or action on their part. The component is highly customizable and in the future will return a promise to allow you to chain methods to have more control over what will happen based on the user's interaction. While notifications will support any range of actions and inputs in the interests of best practices, the actions provided to the notifications should be simple. A confirm action, such as a button or a checkbox, or a dismiss action are recommended. For any more complicated action, it is recommended to use a modal component to achieve more of the user's focus and attention</p>
+		</div>
+
+		<div class='component-usage' id='component-usage'>
+			<h2>Default Usage</h2>
+			<p>There are two ways to include a notification component in your application. The first is to build the inner HTML content beforehand and assign it an id to register with the component, or to provide a template String to the configuration options. We will cover both methods starting with the pre-built option</p>
+
+			<p>The first step is to create an element, a div in this case, that will house the content of the component. An ID attribute should be associated with the div so its content can be passed into the notifications constructor. Once this is done, feel free to include whatever content you would like inside of the container. Some default styles are provided for a title and a text component through the classes displayed below</p>
+
+			<div class='component-html'>
+				<pre>
+					<code class='language-markup'>
+&lt;div id='notification-container'&gt;
+     &lt;h2 class='notification-title'&gt;I'm a title!&lt;/h2&gt;
+     &lt;p class='notification-text'&gt;I'm some text!&lt;/p&gt;
+&lt;/div&gt;
+					</code>
+				</pre>
+			</div>
+
+			<p>That is pretty much it as far as the HTML goes. The next step is to register the notifications content with the notifications component</p>
+
+			<div class='component-js'>
+				<pre>
+					<code class='language-javascript'>
+import softServe from './dist/soft-serve'
+
+var notificationContent = document.getElementById('notification-container');
+
+var notification = new softServe.notifications({
+	content: notificationContent
+});
+					</code>
+				</pre>
+			</div>
+
+			<p>With that, we are pretty much done. All that is left to be done is to provide some hook or trigger to activate the notification. For simplicities sake, we will create a button and attach an event listener to it</p>
+
+			<div class='component-html'>
+				<pre>
+					<code class='language-markup'>
+&lt;button id='notification-trigger'&gt;
+     Click me!
+&lt;/button&gt;
+					</code>
+				</pre>
+			</div>
+
+			<div class='component-js'>
+				<pre>
+					<code class='language-javascript'>
+import softServe from './dist/soft-serve'
+
+var notificationContent = document.getElementById('notification-container');
+var notificationTrigger = document.getElementById('notification-trigger');
+
+var notification = new softServe.notifications({
+	content: notificationContent
+});
+
+notificationTrigger.addEventListener('click', notification.open);
+					</code>
+				</pre>
+			</div>
+
+			<p>You should now have a working notification. Let's test it out below</p>
+
+			<div class='component-default'>
+				<div class='notification-default-container'>
+					<div id='notification-1'>
+						<h2 class='notification-title'>I'm a Title!</h2>
+						<p class='notification-text'>I'm some text!</p>
+					</div>
+
+					<button id='notification-trigger-1'>
+						Click me!
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<script src='../../scripts/docs.js'></script>
+		<script src="../prismjs/prism.js"></script>
+	</body>
+</html>
+	

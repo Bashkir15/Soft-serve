@@ -1,8 +1,13 @@
-import  modal from '../../src/components/modal'
+
 
 import { menuComponent } from './components/menu'
+import notificationsComponent from './components/notifications'
 
-menuComponent();
+if (window.location.href.indexOf('notifications') != -1) {
+	notificationsComponent();
+} else if (window.location.href.indexOf('menu') != -1) {
+	menuComponent();
+}
 
 //let modalTrigger1 = document.getElementById('modal-trigger');
 //let modalContent1 = document.getElementById('modal-component');
