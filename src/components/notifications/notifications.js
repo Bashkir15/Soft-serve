@@ -50,15 +50,15 @@ class notifications {
 		this.close = this._close.bind(this);
 	}
 
-	_applySettings(options) {
-		if (typeof options === 'object') {
-			for (var i in options) {
-				if (options.hasOwnProperty(i)) {
-					this.defaults[i] = options[i];
-				}
-			}
-		}
-	}
+
+	/**
+	 *
+	  	Public Methods
+	 *
+	 **/
+
+
+
 
 	_open(e) {
 		this.notifyId = "notification-" + this.count;
@@ -124,6 +124,17 @@ class notifications {
 			return false;
 		}
 	}
+
+
+
+	/**
+	 *
+	 	Build Methods
+	 *
+	**/
+
+
+
 
 	_buildOut() {
 		var container = document.createElement('div');
@@ -215,6 +226,14 @@ class notifications {
 		} 
 	}
 
+
+	/**
+	 *
+	 	Handle Events
+	 *
+	**/
+
+
 	_attachEvents() {
 		let keyHandler = this._keyHandler.bind(this);
 
@@ -259,6 +278,25 @@ class notifications {
 			}
 		}
 	} */
+
+
+	/**
+	 *
+	 	Utils
+	 *
+	**/
+
+
+	_applySettings(options) {
+		if (typeof options === 'object') {
+			for (var i in options) {
+				if (options.hasOwnProperty(i)) {
+					this.defaults[i] = options[i];
+				}
+			}
+		}
+	}
+
 }
 
 export default notifications
