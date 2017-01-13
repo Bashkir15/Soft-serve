@@ -1180,13 +1180,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				bottom: 'soft-tooltip-bottom',
 				left: 'soft-tooltip-left',
 				right: 'soft-tooltip-right',
-				top: 'soft-tooltip-right'
+				top: 'soft-tooltip-top'
 			};
 
 			this._applySettings(options);
 			this._init();
-
-			this.hide = this._hide.bind(this);
 		}
 
 		_createClass(tooltip, [{
@@ -1213,7 +1211,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: '_handleMouseEvent',
 			value: function _handleMouseEvent(e) {
 				var rect = e.target.getBoundingClientRect();
-				var left = rect.left + ret.width / 2;
+				var left = rect.left + rect.width / 2;
 				var top = rect.top + rect.height / 2;
 				var marginLeft = -1 * (this.element.offsetWidth / 2);
 				var marginTop = -1 * (this.element.offsetHeight / 2);
@@ -1255,10 +1253,11 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function _attachEvents() {
 				var mouseEnterHandler = this._handleMouseEvent.bind(this);
 				var scrollAndResizeHandler = this._throttle.bind(this);
+				var hideHandler = this._hide.bind(this);
 
 				this.parent.addEventListener('mouseenter', mouseEnterHandler, false);
 				this.parent.addEventListener('touchend', mouseEnterHandler, false);
-				this.parent.addEventListener('mouseleave', this.hide, false);
+				this.parent.addEventListener('mouseleave', hideHandler, false);
 				window.addEventListener('scroll', scrollAndResizeHandler, true);
 				window.addEventListener('touchstart', scrollAndResizeHandler);
 			}
@@ -1270,7 +1269,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var ticking = false;
 				if (!ticking) {
 					window.requestAnimationFrame(function () {
-						_this.hide();
+						_this._hide.call(_this);
 						ticking = false;
 					});
 				}

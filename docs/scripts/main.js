@@ -2,11 +2,14 @@
 
 import { menuComponent } from './components/menu'
 import notificationsComponent from './components/notifications'
+import { tooltipComponent } from './components/tooltip'
 
 if (window.location.href.indexOf('notifications') != -1) {
 	notificationsComponent();
 } else if (window.location.href.indexOf('menu') != -1) {
 	menuComponent();
+} else if (window.location.href.indexOf('tooltip') != -1) {
+	tooltipComponent();
 }
 
 //let modalTrigger1 = document.getElementById('modal-trigger');

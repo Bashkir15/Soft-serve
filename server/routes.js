@@ -18,4 +18,8 @@ router.get('/components/notifications', (req, res) => {
 	res.render('./components/notifications');
 });
 
+router.get('/components/tooltip', (req, res) => {
+	res.render('./components/tooltip');
+});
+
 module.exports = router;

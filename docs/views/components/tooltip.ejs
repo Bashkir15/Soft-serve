@@ -1,0 +1,244 @@
+<DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<link rel='stylesheet' href='../prismjs/themes/prism-twilight.css'>
+		<link rel='stylesheet' href='../styles/main.min.css'>
+		<link rel='stylesheet' href='../prod/styles/main.min.css'>
+	</head>
+
+	<body>
+		
+		<% include ../shared/nav %>
+		<div class='component-page-wrapper'>
+			<div class='component-page-header'>
+				<h1>Components</h1>
+				<p>Components are individually consumable Javascript plugins</p>
+			</div>
+
+			<div class='component-page-tab-bar'>
+				<!-- <div class='component-page-tab-link'>
+					<a href='/'>
+						<button>
+							<span>Accordian</span>
+						</button>
+					</a>
+				</div>
+
+				<div class='component-page-tab-link'>
+					<a href='/'>
+						<button>
+							<span>Autocomplete</span>
+						</button>
+					</a>
+				</div>
+
+				<div class='component-page-tab-link'>
+					<a href='/'>
+						<button>
+							<span>Carousel</span>
+						</button>
+					</a>
+				</div>
+
+				<div class='component-page-tab-link'>
+					<a href='/'>
+						<button>
+							<span>Lightbox</span>
+						</button>
+					</a>
+				</div> -->
+
+				<div class='component-page-tab-link'>
+					<a href='/'>
+						<button>
+							<span>Modals</span>
+						</button>
+					</a>
+				</div>
+
+				<div class='component-page-tab-link'>
+					<a href='/components/menu'>
+						<button>
+							<span>Menus</span>
+						</button>
+					</a>
+				</div>
+
+				<div class='component-page-tab-link'>
+					<a href='/components/notifications'>
+						<button>
+							<span>Notifications</span>
+						</button>
+					</a>
+				</div>
+
+				<!-- <div class='component-page-tab-link'>
+					<a href='/'>
+						<button>
+							<span>Progress Bars</span>
+						</button>
+					</a>
+				</div>
+
+				<div class='component-page-tab-link'>
+					<a href='/'>
+						<button>
+							<span>Sidenav</span>
+						</button>
+					</a>
+				</div> -->
+
+				<div class='component-page-tab-link'>
+					<a href='/components/tooltip'>
+						<button>
+							<span>Tooltips</span>
+						</button>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class='component-info'>
+			<div class='component-directory'>
+				<ul>
+					<li data-scroll='component-description'>Description</li>
+					<li data-scroll='component-usage'>Default Usage</li>
+					<li data-scroll='component-positioning'>Positioning</li>
+					<li data-scroll='component-classes'>Class Options</li>
+					<li data-scroll='component-configuration'>Configuration</li>
+				</ul>
+			</div>
+
+			<div class='component-description' id='component-description'>
+				<h2>Description</h2>
+				<p>The Softserve Tooltip component provides an enhanced experiences over the standard HTML tooltip that is produced by the title attribute. For the sake of best practices the tooltip should contain minimal amounts of info that clearly conveys some additional information about an element on the page when a user interacts with it via mousehover or touches it on amobile-device. For these reasons, the nature of tooltips belies the belief that they should be succinct and not provide information that a user is required to know</p>
+			</div>
+
+			<div class='component-usage' id='component-usage'>
+				<h2>Default Usage</h2>
+				<p>Using the Softserve tooltip is incredibly simple and only takes a few steps. The first is to create a element and provide it with a unique ID to act as the target for the tooltip</p>
+
+				<div class='component-html'>
+					<pre>
+						<code class='language-markup'>
+&lt;button id='tooltip-test'&gt;Hover Me&lt;/button&gt;
+						</code>
+					</pre>
+				</div>
+
+				<p>Then provide another element below this one with a for attribute that matches the id of the element that was created before and a class attribute of 'soft-tooltip'</p>
+
+				<div class='component-html'>
+					<pre>
+						<code class='language-markup'>
+&lt;button id='tooltip-test'&gt;Hover Me&lt;/button&gt;
+&lt;p for='tooltip-test' class='soft-tooltip'&gt;This is a tooltip&lt;/p&gt;
+						</code>
+					</pre>
+				</div>
+
+				<p>With that done, the only thing left to do is initialize the component in your script. By default the element it will look for is the element with the class attribute 'soft-tooltip', but you can specify other classes and pass them into the constructor to specify a different class to look for</p>
+
+				<div class='component-js'>
+					<pre>
+						<code class='language-javascript'>
+import s from './dist/soft-serve'
+
+var tooltip = new s.tooltip();
+
+// or if you are using a custom class
+
+var tooltip = new s.tooltip({
+	element: '.your-element-class'
+});
+						</code>
+					</pre>
+				</div>
+
+				<p>When all is said and done, this is what we are left with</p>
+
+				<div class='component-default'>
+					<div class='notification-default-container'>
+						<button id='tooltip-test'>Hover Me</button>
+						<p for='tooltip-test' class='soft-tooltip'>This is a tooltip</p>
+					</div>
+				</div>
+			</div>
+
+			<div class='component-usage' id='component-positioning'>
+				<h2>Positioning</h2>
+				<p>The Softserve tooltip will be positioned directly below the element that is specified in its for attribute. The tooltip comes with a few class attributes to position the tooltip in various positions. The class attributes are demonstrated below.
+
+				<div class='component-html'>
+					<pre>
+						<code class='language-markup'>
+
+&lt;button id='tooltip-2'&gt;Left&lt;/button&gt;
+&lt;p class='soft-tooltip soft-tooltip-2 soft-tooltip-left' for='tooltip-2''&gt;Left Tooltip&lt;/p&gt;
+
+&lt;button id='tooltip-3'&gt;Right&lt;/button&gt;
+&lt;p class='soft-tooltip soft-tooltip-3 soft-tooltip-right' for='tooltip-3'&gt;Right&lt;/p&gt;
+
+&lt;button id='tooltip-4'&gt;Top&lt;/button&gt;
+&lt;p class='soft-tooltip soft-tooltip-4 soft-tooltip-top' for='tooltip-4'&gt;Top&lt;/p&gt;
+
+&lt;button id='tooltip-4'&gt;Large Tooltip&lt;/button&gt;
+&lt;p class='soft-tooltip soft-tooltip-5 soft-tooltip-large' for='tooltip-5'&gt;Large Tooltip&lt;/p&gt;
+						
+						</code>
+					</pre>
+				</div>
+
+				<p>Then we can initialize these in our script file, remembering to specify an element in the tooltip constructor for our multiple tooltips</p>
+
+				<div class='component-js'>
+					<pre>
+						<code class='language-javascript'>
+import s from './dist/soft-serve'
+
+var menu = new s.tooltip({
+	element: '.soft-tooltip-2'
+});
+
+var menu2 = new s.tooltip({
+	element: '.soft-tooltip-3'
+});
+
+var menu3 = new s.tooltip({
+	element: '.soft-tooltip-4'
+});
+
+var menu4 = new s.tooltip({
+	element: '.soft-tooltip-5'
+});
+
+						</code>
+					</pre>
+				</div>
+
+				<p>Then we are left with this</p>
+
+				<div class='component-default'>
+					<div class='tooltip-multiple-container'>
+						<button id='tooltip-2'>Left</button>
+						<p class='soft-tooltip soft-tooltip-2 soft-tooltip-left' for='tooltip-2''>Left Tooltip</p>
+
+						<button id='tooltip-3'>Right</button>
+						<p class='soft-tooltip soft-tooltip-3 soft-tooltip-right' for='tooltip-3'>Right</p>
+
+						<button id='tooltip-4'>Top</button>
+						<p class='soft-tooltip soft-tooltip-4 soft-tooltip-top' for='tooltip-4'>Top</p>
+
+						<button id='tooltip-5'>Large Tooltip</button>
+						<p class='soft-tooltip soft-tooltip-5 soft-tooltip-large' for='tooltip-5'>Large Tooltip</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<script src='../../scripts/docs.js'></script>
+		<script src="../prismjs/prism.js"></script>
+	</body>
+</html>

@@ -52,12 +52,16 @@
 
 	var _notifications2 = _interopRequireDefault(_notifications);
 
+	var _tooltip = __webpack_require__(5);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	if (window.location.href.indexOf('notifications') != -1) {
 		(0, _notifications2.default)();
 	} else if (window.location.href.indexOf('menu') != -1) {
 		(0, _menu.menuComponent)();
+	} else if (window.location.href.indexOf('tooltip') != -1) {
+		(0, _tooltip.tooltipComponent)();
 	}
 
 	//let modalTrigger1 = document.getElementById('modal-trigger');
@@ -1374,13 +1378,11 @@
 							bottom: 'soft-tooltip-bottom',
 							left: 'soft-tooltip-left',
 							right: 'soft-tooltip-right',
-							top: 'soft-tooltip-right'
+							top: 'soft-tooltip-top'
 						};
 
 						this._applySettings(options);
 						this._init();
-
-						this.hide = this._hide.bind(this);
 					}
 
 					_createClass(tooltip, [{
@@ -1407,7 +1409,7 @@
 						key: '_handleMouseEvent',
 						value: function _handleMouseEvent(e) {
 							var rect = e.target.getBoundingClientRect();
-							var left = rect.left + ret.width / 2;
+							var left = rect.left + rect.width / 2;
 							var top = rect.top + rect.height / 2;
 							var marginLeft = -1 * (this.element.offsetWidth / 2);
 							var marginTop = -1 * (this.element.offsetHeight / 2);
@@ -1449,10 +1451,11 @@
 						value: function _attachEvents() {
 							var mouseEnterHandler = this._handleMouseEvent.bind(this);
 							var scrollAndResizeHandler = this._throttle.bind(this);
+							var hideHandler = this._hide.bind(this);
 
 							this.parent.addEventListener('mouseenter', mouseEnterHandler, false);
 							this.parent.addEventListener('touchend', mouseEnterHandler, false);
-							this.parent.addEventListener('mouseleave', this.hide, false);
+							this.parent.addEventListener('mouseleave', hideHandler, false);
 							window.addEventListener('scroll', scrollAndResizeHandler, true);
 							window.addEventListener('touchstart', scrollAndResizeHandler);
 						}
@@ -1464,7 +1467,7 @@
 							var ticking = false;
 							if (!ticking) {
 								window.requestAnimationFrame(function () {
-									_this.hide();
+									_this._hide.call(_this);
 									ticking = false;
 								});
 							}
@@ -1708,6 +1711,43 @@
 	}
 
 	exports.default = notificationsComponent;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.tooltipComponent = tooltipComponent;
+
+	var _softServe = __webpack_require__(2);
+
+	var _softServe2 = _interopRequireDefault(_softServe);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function tooltipComponent() {
+		var tooltip = new _softServe2.default.tooltip();
+
+		var tooltip2 = new _softServe2.default.tooltip({
+			element: '.soft-tooltip-2'
+		});
+
+		var tooltip3 = new _softServe2.default.tooltip({
+			element: '.soft-tooltip-3'
+		});
+
+		var tooltip4 = new _softServe2.default.tooltip({
+			element: '.soft-tooltip-4'
+		});
+
+		var tooltip5 = new _softServe2.default.tooltip({
+			element: '.soft-tooltip-5'
+		});
+	}
 
 /***/ }
 /******/ ]);
