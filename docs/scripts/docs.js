@@ -1730,6 +1730,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function tooltipComponent() {
+
+		var scroller = new _softServe2.default.smoothScroll();
 		var tooltip = new _softServe2.default.tooltip();
 
 		var tooltip2 = new _softServe2.default.tooltip({
