@@ -183,8 +183,6 @@ var tooltip = new s.tooltip({
 &lt;button id='tooltip-4'&gt;Top&lt;/button&gt;
 &lt;p class='soft-tooltip soft-tooltip-4 soft-tooltip-top' for='tooltip-4'&gt;Top&lt;/p&gt;
 
-&lt;button id='tooltip-4'&gt;Large Tooltip&lt;/button&gt;
-&lt;p class='soft-tooltip soft-tooltip-5 soft-tooltip-large' for='tooltip-5'&gt;Large Tooltip&lt;/p&gt;
 						
 						</code>
 					</pre>
@@ -209,9 +207,6 @@ var menu3 = new s.tooltip({
 	element: '.soft-tooltip-4'
 });
 
-var menu4 = new s.tooltip({
-	element: '.soft-tooltip-5'
-});
 
 						</code>
 					</pre>
@@ -225,17 +220,44 @@ var menu4 = new s.tooltip({
 						<p class='soft-tooltip soft-tooltip-2 soft-tooltip-left' for='tooltip-2''>Left Tooltip</p>
 
 						<button id='tooltip-3'>Right</button>
-						<p class='soft-tooltip soft-tooltip-3 soft-tooltip-right' for='tooltip-3'>Right</p>
+						<p class='soft-tooltip soft-tooltip-3 soft-tooltip-right' for='tooltip-3'>Right Tooltip</p>
 
 						<button id='tooltip-4'>Top</button>
-						<p class='soft-tooltip soft-tooltip-4 soft-tooltip-top' for='tooltip-4'>Top</p>
-
-						<button id='tooltip-5'>Large Tooltip</button>
-						<p class='soft-tooltip soft-tooltip-5 soft-tooltip-large' for='tooltip-5'>Large Tooltip</p>
+						<p class='soft-tooltip soft-tooltip-4 soft-tooltip-top' for='tooltip-4'>Top Tooltip</p>
 					</div>
 				</div>
 			</div>
 
+			<div class='component-usage' id='component-classes'>
+				<h2>Classes</h2>
+				<p>The Softserve tooltip comes with not only positioning classes but also a size class for when you need a larger tooltip to display some form of media. The soft-tooltip-large class attribute will add extra padding to the tooltip and increase the default font-size</p>
+
+				<div class='component-html'>
+					<pre>
+						<code class='language-markup'>
+&lt;button id='tooltip-4'&gt;Large Tooltip&lt;/button&gt;
+&lt;p class='soft-tooltip soft-tooltip-5 soft-tooltip-large' for='tooltip-5'&gt;Large Tooltip&lt;/p&gt;
+						</code>
+					</pre>
+				</div>
+
+				<div class='component-js'>
+					<pre>
+						<code class='language-js'>
+import s from './dist/soft-serve'
+
+var menu = new s.tooltip();
+						</code>
+					</pre>
+				</div>
+
+				<div class='component-default'>
+					<div class='notification-default-container'>
+						<button id='tooltip-5'>Large Tooltip</button>
+						<p class='soft-tooltip soft-tooltip-5 soft-tooltip-large' for='tooltip-5'>Large Tooltip</p>
+					</button>
+				</div>
+			</div>
 		</div>
 
 		<script src='../../scripts/docs.js'></script>
