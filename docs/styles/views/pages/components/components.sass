@@ -16,8 +16,8 @@
 		color: #fff
 
 	> p
-		@include rale()
-		font-weight: 300
+		@include sans()
+		font-weight: 400
 		letter-spacing: 2px
 		font-size: 18px
 		margin-left: 7%
@@ -35,6 +35,7 @@
 	align-items: center
 	justify-content: center
 	padding: 10px
+	transition: all .4s ease-out
 
 	button
 		border: none
@@ -45,6 +46,9 @@
 		letter-spacing: 2px
 		font-size: 16px
 		color: #fff
+
+	&:hover
+		background: rgba(0,0,0,0.2)
 
 .component-directory
 	display: flex
