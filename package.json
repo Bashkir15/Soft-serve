@@ -4,15 +4,6 @@
   "description": "\"A small, vanilla javascript ui and utility library\"",
   "main": "server.js",
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "ejs": "^2.5.5",
-    "express": "^4.14.0",
-    "fs": "^0.0.1-security",
-    "http": "0.0.0",
-    "morgan": "^1.7.0",
-    "path": "^0.12.7",
-    "prismjs": "^1.6.0",
-    "webpack": "^1.14.0"
   },
   "devDependencies": {
     "babel": "^6.5.2",
