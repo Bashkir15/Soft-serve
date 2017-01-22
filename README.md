@@ -20,11 +20,11 @@ Then you have a couple of options on how to include the package. Soft-serve supp
 import s from '/path/to/modules/soft-serve/dist/scripts/soft-serve.min'
 ```
 
-	...Then you just need to include the base css file from the downloads
+	Then you just need to include the base css file from the downloads
 
-```
-<link rel='stylesheet' href='/path/to/modules/soft-serve/dist/styles/main.min.css'>
-```
+	```
+	<link rel='stylesheet' href='/path/to/modules/soft-serve/dist/styles/main.min.css'>
+	```
 
 	2. Using CommonJs
 
