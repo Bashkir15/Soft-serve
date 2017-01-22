@@ -1,5 +1,5 @@
 //import menu from '../../../src/components/menu/menu'
-import softServe from '../../../dist/soft-serve'
+import softServe from '../../../dist/scripts/soft-serve.min'
 
 export function menuComponent() {
 
