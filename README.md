@@ -28,13 +28,13 @@ import s from '/path/to/modules/soft-serve/dist/scripts/soft-serve.min'
 
 	2. Using CommonJs
 
-	...Using CommonJS is essentially the same as using the ES6 import pattern
+	Using CommonJS is essentially the same as using the ES6 import pattern
 
-	```javascript
+    ```javascript
 	var s = require('/path/to/modules/soft-serve/dist/scripts/soft-serve.min')
 	```
 
-	...And then include the styles
+	And then include the styles
 
 	```
 	<link rel='stylesheet' href='/path/to/modules/soft-serve/dist/styles/main.min.css'>
