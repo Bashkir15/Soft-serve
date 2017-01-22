@@ -12,7 +12,7 @@ npm install -S soft-serve
 
 Then you have a couple of options on how to include the package. Soft-serve supports ES6 imports, CommonJS Modules, and the AMD module system. If all else fails, you can include the script in your document like in the old-days
 
-	1. Using ES6 Imports
+1. Using ES6 Imports
 
 	The package can be inclued using the standard ES6 import statement
 
@@ -40,9 +40,9 @@ Then you have a couple of options on how to include the package. Soft-serve supp
 	<link rel='stylesheet' href='/path/to/modules/soft-serve/dist/styles/main.min.css'>
 	```
 
-	3. Using AMD
+3. Using AMD
 
-	...Using AMD is a bit more complicated, but is still simple
+	Using AMD is a bit more complicated, but is still simple
 
 	```javascript
 	define(['soft-serve'], function(softserve) {
@@ -50,7 +50,7 @@ Then you have a couple of options on how to include the package. Soft-serve supp
 	});
 	```
 
-	...And again, incude the styles
+	And again, incude the styles
 
 	```
 	<link rel='stylesheet' href='/path/to/modules/soft-serve/dist/styles/main.min.css'>
@@ -59,7 +59,7 @@ Then you have a couple of options on how to include the package. Soft-serve supp
 	
 Softserve gives you the ability to highly modularize your development project by not relying on any dependencies even among the seperate components, so you can import individuals modules that you not without worrying about whether they work or not.
 
-	1. Using just the notifications component
+1. Using just the notifications component
 
 	```javascript
 	import s.notifications from '/path/to/modules/soft-serve/dist/scripts/soft-serve.min'
