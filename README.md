@@ -54,6 +54,7 @@ Then you have a couple of options on how to include the package. Soft-serve supp
 
 	```
 	<link rel='stylesheet' href='/path/to/modules/soft-serve/dist/styles/main.min.css'>
+	```
 
 ## Customization
 	
@@ -65,7 +66,7 @@ Softserve gives you the ability to highly modularize your development project by
 	import s.notifications from '/path/to/modules/soft-serve/dist/scripts/soft-serve.min'
 	```
 
-	2. If you are using Sass as a preprocessor for your CSS you can even import select sass files. The Sass files do have interwoven dependencies, but these just consist of a reset file and some other base styles. You should be able to easily replace these and leaving them out shouldn't break any of the components. In your Sass file you can simple do
+2. If you are using Sass as a preprocessor for your CSS you can even import select sass files. The Sass files do have interwoven dependencies, but these just consist of a reset file and some other base styles. You should be able to easily replace these and leaving them out shouldn't break any of the components. In your Sass file you can simple do
 
 	```
 	@import "/path/to/modules/soft-serve/src/styles/components/notifications"
