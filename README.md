@@ -14,17 +14,17 @@ Then you have a couple of options on how to include the package. Soft-serve supp
 
 	1. Using ES6 Imports
 
-	...The package can be inclued using the standard ES6 import statement
+	The package can be inclued using the standard ES6 import statement
 
-	```javascript
-	import s from '/path/to/modules/soft-serve/dist/scripts/soft-serve.min'
-	```
+```javascript
+import s from '/path/to/modules/soft-serve/dist/scripts/soft-serve.min'
+```
 
 	...Then you just need to include the base css file from the downloads
 
-	```
-	<link rel='stylesheet' href='/path/to/modules/soft-serve/dist/styles/main.min.css'>
-	```
+```
+<link rel='stylesheet' href='/path/to/modules/soft-serve/dist/styles/main.min.css'>
+```
 
 	2. Using CommonJs
 
