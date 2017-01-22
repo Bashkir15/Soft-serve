@@ -2,15 +2,16 @@
 
 .component-page-header
 	width: 100%
-	padding-top: 80px
+	padding-top: 100px
 	padding-bottom: 60px
-	background: #5dc560
+	background: $dark-blue
+	margin-top: -70px
 
 	h1
-		@include quick()
-		font-weight: 400
+		@include lato()
+		font-weight: 300
 		letter-spacing: 2px
-		font-size: 24px
+		font-size: 37px
 		margin-left: 7%
 		margin-bottom: 40px
 		color: #fff
@@ -19,32 +20,36 @@
 		@include sans()
 		font-weight: 400
 		letter-spacing: 2px
-		font-size: 18px
+		font-size: 16px
+		line-height: 26px
 		margin-left: 7%
+		width: 80%
 		color: #eee
 
 .component-page-tab-bar
 	display: flex
 	align-items: center
 	width: 100%
-	padding: 12px 0
-	background: darken(#5dc560, 15%)
+	padding: 10px 0
+	height: 40px
+	background: $light-blue
 
 .component-page-tab-link
 	display: flex
 	align-items: center
 	justify-content: center
 	padding: 10px
+	height: 100%
 	transition: all .4s ease-out
 
 	button
 		border: none
 
 	span
-		@include quick()
-		font-weight: 400
+		@include lato()
+		font-weight: 300
 		letter-spacing: 2px
-		font-size: 16px
+		font-size: 18px
 		color: #fff
 
 	&:hover
@@ -58,16 +63,16 @@
 	padding-top: 40px
 
 	ul
-		width: 25%
+		width: 60%
 		background: #fff
 		text-align: center
 		padding: 20px 0
 
 		li
-			@include quick()
-			font-weight: 400
+			@include lato()
+			font-weight: 300
 			letter-spacing: 2px
-			font-size: 16px
+			font-size: 18px
 			line-height: 38px
 			cursor: pointer
 
@@ -76,17 +81,17 @@
 
 .component-description
 	width: 80%
-	padding-top: 40px
-	padding-bottom: 30px
+	padding-top: 80px
+	padding-bottom: 45px
 	margin: 0 auto
 
 	h2
-		@include quick()
-		font-weight: 400
-		letter-spacing: 3px
-		font-size: 28px
+		@include lato()
+		font-weight: 300
+		letter-spacing: 2px
+		font-size: 38px
 		color: #575757
-		padding-bottom: 25px
+		padding-bottom: 35px
 
 	> p
 		@include sans()
@@ -95,6 +100,7 @@
 		font-size: 16px
 		line-height: 35px
 		padding-bottom: 40px
+		color: rgba(0,0,0,0.7)
 
 .component-note
 	width: 80%
@@ -104,10 +110,10 @@
 	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.23)
 
 	> p
-		@include quick()
-		font-weight: 400
+		@include lato()
+		font-weight: 300
 		letter-spacing: 2px
-		font-size: 15px
+		font-size: 16px
 		line-height: 28px
 		text-align: center
 
@@ -117,19 +123,20 @@
 	margin: 0 auto
 
 	h2
-		@include quick()
-		font-weight: 400
-		letter-spacing: 3px
-		font-size: 28px
+		@include lato()
+		font-weight: 300
+		letter-spacing: 2px
+		font-size: 38px
 		color: #575757
 		padding-bottom: 25px
 
 	> p
-		@include quick()
+		@include sans()
 		font-weight: 400
 		letter-spacing: 2px
 		line-height: 30px
 		font-size: 16px
+		color: rgba(0,0,0,0.7)
 		padding-bottom: 35px
 		padding-top: 40px
 
@@ -141,13 +148,18 @@
 	&.multiple-component-display
 		margin-top: 45px
 
+.component-table-container
+	background: #fafafa
+	padding-bottom: 35px
+
 .component-table
 	margin-top: 65px
+	width: 100%
 	border-collapse: collapse
 
 .component-table-header
 	height: 40px
-	background: #5dc560
+	background: $dark-blue
 
 	tr
 		height: 55px
@@ -156,10 +168,9 @@
 		th
 			color: #fff
 			width: 20%
-			padding: 0 20px
-			@include quick()
-			font-weight: 400
-			font-size: 20px
+			@include lato()
+			font-weight: 300
+			font-size: 15px
 
 
 			&:nth-of-type(3)
@@ -173,22 +184,60 @@
 
 		td
 			padding: 15px 0
-			@include quick()
+			@include sans()
 			font-weight: 400
 			letter-spacing: 2px
-			font-size: 16px
+			font-size: 15px
 			text-align: center
 			line-height: 24px
 			border-right: 1px solid rgba(0,0,0,0.08)
 
-			&:nth-of-type(3)
-				padding-left: 10px
-				padding-right: 10px
 
 
 
 .menu-test
 	position: relative
+
+@media screen and (min-width: 640px)
+	.component-table
+		width: 90%
+		margin: 0 auto
+
+@media screen and (min-width: 1000px)
+	.component-description
+		width: 70%
+
+	.component-usage
+		width: 70%
+
+	.component-default
+		width: 70%
+
+	.component-table-header
+		tr
+			th
+				font-size: 19px
+
+@media screen and (min-width: 1600px)
+	.component-description
+		width: 60%
+
+	.component-usage
+		width: 60%
+
+	.component-default
+		width: 60%
+
+	.component-table
+		width: 70%
+
+	.component-table-body
+		tr
+			td
+				font-size: 18px
+
+				&:nth-of-type(3)
+					padding: 10px
 
 @import "modals"
 @import "menus"

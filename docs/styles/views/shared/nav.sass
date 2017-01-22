@@ -10,7 +10,7 @@
 	align-items: stretch
 	position: relative
 	height: 70px
-	width: 80%
+	width: 95%
 	margin: 0 auto
 
 .nav-left
@@ -40,13 +40,36 @@
 		span
 			@include quick()
 			font-weight: 400
-			font-size: 18px
+			font-size: 16px
 			color: #f8f8f8
 			letter-spacing: 2px
+
+	.nav-link
+		display: none
 
 .nav-logo
 	p
 		@include lato()
 		font-weight: 400
-		font-size: 20px
+		font-size: 16px
 		letter-spacing: 2px
+		color: #fff
+
+@media screen and (min-width: 1000px)
+	.nav-content-wrapper
+		width: 80%
+
+	.nav-item
+		.nav-link
+			display: block
+
+			button
+				span
+					font-size: 18px
+
+		.nav-menu
+			display: none
+
+	.nav-logo
+		p
+			font-size: 22px

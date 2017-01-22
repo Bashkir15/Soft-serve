@@ -6,12 +6,22 @@
 	background-image: linear-gradient(135deg, #4eadd0 8%, #60c5ef 80%, lighten(#4eadd0, 10%) 90%)
 	margin-top: -70px
 
+	h1
+		@include quick()
+		font-size: 54px
+		font-weight: 400
+		line-height: 58px
+		letter-spacing: 3px
+		color: #fff
+		text-align: center
+		margin-top: -65px
+
 .home-logo
 	display: flex
 	align-items: center
 	justify-content: center
 	width: 100%
-	padding-top: 150px
+	padding-top: 80px
 
 .ice-cream
 	width: 100%
@@ -210,7 +220,7 @@
 		@include sans()
 		font-weight: 400
 		letter-spacing: 2px
-		font-size: 18px
+		font-size: 16px
 		line-height: 29px
 		color: #fff
 
@@ -221,7 +231,7 @@
 	padding: 30px
 
 	button
-		height: 53px
+		height: 45px
 		width: 175px
 		background: rgba(0,0,0,0.2)
 		border: none
@@ -230,7 +240,7 @@
 
 		span
 			@include quick()
-			font-size: 17px
+			font-size: 15px
 			font-weight: 400
 			letter-spacing: 2px
 			text-transform: uppercase

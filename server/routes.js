@@ -6,6 +6,10 @@ router.get('/', (req, res) => {
 	res.render('./index');
 });
 
+router.get('/getting-started', (req, res) => {
+	res.render('./started/started')
+});
+
 router.get('/components', (req, res) => {
 	res.render('./components/components');
 });
