@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-	cache: true
+	cache: true,
 	devtool: 'cheap-module-source-map',
 
 	entry: './src/softServe.js',
@@ -23,7 +23,7 @@ module.exports = {
 				loader: 'babel',
 				include: [
 					path.join(__dirname, 'src')
-				]
+				],
 				exclude: /node_modules/,
 				query: {
 					cacheDirectory: true
