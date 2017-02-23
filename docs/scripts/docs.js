@@ -56,22 +56,35 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	if (window.location.href.indexOf('notifications') != -1) {
-		(0, _notifications2.default)();
-	} else if (window.location.href.indexOf('menu') != -1) {
-		(0, _menu.menuComponent)();
-	} else if (window.location.href.indexOf('tooltip') != -1) {
-		(0, _tooltip.tooltipComponent)();
+	function init() {
+		var mobileMenuTrigger = document.querySelector('.nav-menu button');
+		var mobileMenu = document.querySelector('.mobile-menu-list');
+
+		if (window.location.href.indexOf('notifications') != -1) {
+			(0, _notifications2.default)();
+		} else if (window.location.href.indexOf('menu') != -1) {
+			(0, _menu.menuComponent)();
+		} else if (window.location.href.indexOf('tooltip') != -1) {
+			(0, _tooltip.tooltipComponent)();
+		}
+
+		function toggleMenu() {
+			if (mobileMenu.classList.contains('mobile-open')) {
+				mobileMenu.classList.remove('mobile-open');
+				mobileMenuTrigger.classList.remove('mobile-open');
+			} else {
+				mobileMenuTrigger.classList.add('mobile-open');
+
+				setTimeout(function () {
+					mobileMenu.classList.add('mobile-open');
+				}, 700);
+			}
+		}
+
+		mobileMenuTrigger.addEventListener('click', toggleMenu);
 	}
 
-	//let modalTrigger1 = document.getElementById('modal-trigger');
-	//let modalContent1 = document.getElementById('modal-component');
-
-	//let modal1 = new modal({
-	//	content: modalContent1
-	//});
-
-	//modalTrigger1.addEventListener('click', modal1.open, false);
+	init();
 
 /***/ },
 /* 1 */
